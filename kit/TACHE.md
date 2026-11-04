@@ -1,6 +1,6 @@
 # Tâche quotidienne Amadeus
 
-Produire une vidéo verticale (1080×1920, 30 i/s, 61 à 85 s) de géopolitique et d'actualité expliquées par l'histoire, puis la pousser sur `main`. La publication sur Telegram est faite ensuite par GitHub Actions (`.github/workflows/telegram.yml`), jamais par la tâche.
+Produire une vidéo verticale (1080×1920, 30 i/s, 63 s : entre 62 et 64 s) de géopolitique et d'actualité expliquées par l'histoire, puis la pousser sur `main`. La publication sur Telegram est faite ensuite par GitHub Actions (`.github/workflows/telegram.yml`), jamais par la tâche.
 
 Projet indépendant : n'utiliser que les fichiers de ce dépôt (aucune DA, règle ou fichier d'un autre projet).
 
@@ -8,18 +8,26 @@ Projet indépendant : n'utiliser que les fichiers de ce dépôt (aucune DA, règ
 - `git pull origin main` avant de commencer (le workflow Telegram pousse des fichiers `.telegram_ok`).
 - Dépendances : `pip install edge-tts numpy scipy playwright` ; `ffmpeg` doit être disponible. Si Chromium n'est pas trouvé par Playwright, `outils/export_mp4.py` essaie `/opt/pw-browsers/chromium`, sinon lancer `python -m playwright install chromium`.
 - Date du jour au format `AAAA-MM-JJ` (ci-dessous `<date>`).
+- Connecteurs requis : **Google Drive** (lecture) et **Google Docs** (modification). Le Doc des sujets : « Amadeus — Sujets géopolitiques », id `1qvAKlDfhOXX-JwwoqF2txn5lupwbmnW7c50tfr49qAA`
+  (https://docs.google.com/document/d/1qvAKlDfhOXX-JwwoqF2txn5lupwbmnW7c50tfr49qAA/edit).
 
 ## Étapes
 
 a. **Lire les règles.** Lire `kit/REGLES.md`, `kit/DA.md` et `kit/reglages.json`. Si `DA.md` ou `REGLES.md` contient « À REMPLIR » : écrire `videos/ERREUR-<date>/alerte.txt` (fichier concerné et raison), commit « Amadeus — ERREUR <date> », push, **stop**.
 
-b. **Choisir le sujet.** Partir d'un événement récent (recherche web d'actualité) et de ses causes historiques. Le sujet doit être absent de la section « Déjà faits » de `kit/sujets.md` (ni même événement, ni même angle). Les « Idées à venir » sont des pistes, à confirmer par l'actualité.
+b. **Choisir le sujet dans le Google Doc.**
+   1. Lire le Doc avec Google Drive `read_file_content` (fileId `1qvAKlDfhOXX-JwwoqF2txn5lupwbmnW7c50tfr49qAA`, `includeComments: true`). Si l'id ne répond pas, chercher avec `search_files` la requête `title = 'Amadeus — Sujets géopolitiques'` et prendre ce fichier (jamais un autre document).
+   2. Si le Doc est introuvable ou illisible : écrire `videos/ERREUR-<date>/alerte.txt` (« Doc des sujets inaccessible » + l'erreur), commit, push, **stop**. Ne jamais choisir un sujet hors du Doc.
+   3. Lister les lignes de la forme `Sxxx · À FAIRE · Région · Titre`. Ignorer toutes les lignes `FAIT`. Écarter aussi tout sujet dont le titre ou l'événement figure déjà dans « Déjà faits » de `kit/sujets.md`. S'il ne reste aucun sujet : alerte « Plus aucun sujet À FAIRE dans le Doc », commit, push, **stop**.
+   4. Parmi les sujets restants, faire une recherche d'actualité (7 derniers jours) et prendre celui qui a le lien le plus fort avec un événement récent. À égalité ou sans lien net : le premier `À FAIRE` dans l'ordre du Doc. Si possible, éviter la même région que la vidéo précédente.
+   5. Noter l'identifiant `Sxxx` choisi : il sert à l'étape h. Le titre du Doc est une piste ; le titre final de la vidéo peut être reformulé, mais le sujet reste le même.
 
 c. **Créer le dossier.** Prendre le numéro suivant (plus grand `NNN` existant dans `videos/` + 1, sur 3 chiffres, `001` pour la première) et créer `videos/NNN-slug/` (slug en minuscules, sans accents, mots séparés par des tirets).
 
 d. **Script et voix.**
-   - Écrire le script parlé en suivant la structure, le hook et les règles de texte de `REGLES.md`. Vérifier chaque fait, chiffre et date par une recherche web récente ; noter les sources pour soi (elles ne vont pas dans la caption sauf crédit photo).
+   - Viser 63 s : environ 160 à 170 mots. Écrire le script parlé en suivant la structure, le hook et les règles de texte de `REGLES.md`. Vérifier chaque fait, chiffre et date par une recherche web récente ; noter les sources pour soi (elles ne vont pas dans la caption sauf crédit photo).
    - Enregistrer le script dans `videos/NNN-slug/script.txt`, puis : `python outils/voix.py videos/NNN-slug/script.txt videos/NNN-slug/` → `voix.mp3` + `voix.srt` (un sous-titre par mot, voix et vitesse de `reglages.json`).
+   - Vérifier la fin de `voix.srt` : entre 61,5 et 63,5 s (la vidéo dure fin de la voix + au plus 0,5 s, soit 62 à 64 s). Sinon ajuster le script et régénérer.
    - Si `voix.py` sort avec le code 1 (edge-tts en échec) : écrire `videos/ERREUR-<date>/alerte.txt` avec le message d'erreur complet, commit, push, **stop**. Ne jamais livrer une vidéo sans voix (pas de voix de remplacement, pas de vidéo muette).
 
 e. **Image et son.**
@@ -30,11 +38,18 @@ e. **Image et son.**
      `python outils/mixage.py --video <tmp>/muette.mp4 --voix videos/NNN-slug/voix.mp3 --coupures <flash-backs> --bruitages <tmp>/sfx.json --sortie videos/NNN-slug/video.mp4`
    - `video.mp4` doit faire moins de 50 Mo (limite Telegram) ; `mixage.py` recompresse automatiquement sinon. Ne pas committer les fichiers temporaires (muette.mp4, wav).
 
-f. **Checklist.** Passer la checklist finale de `REGLES.md` point par point (durée avec `ffprobe`, hook ≤ 2 s, voix audible, sous-titres synchronisés et dans la zone sûre — vérifier sur des captures `window.seek(t)` —, boucle fin → début, tous les points de vue présentés, faits vérifiés, aucun contenu sous droits, taille < 50 Mo, caption conforme). Corriger et refaire l'export tant qu'un point échoue.
+f. **Checklist.** Passer la checklist finale de `REGLES.md` point par point (durée entre 62 et 64 s avec `ffprobe`, hook ≤ 2 s, voix audible, sous-titres synchronisés et dans la zone sûre — vérifier sur des captures `window.seek(t)` —, boucle fin → début, tous les points de vue présentés, faits vérifiés, aucun contenu sous droits, taille < 50 Mo, caption conforme). Corriger et refaire l'export tant qu'un point échoue.
 
 g. **Caption et méta.** Écrire `videos/NNN-slug/caption.txt` selon la section « Caption » de `REGLES.md` (texte brut, hook en première ligne, 3 à 5 hashtags à la fin, 1024 caractères maximum). Puis `videos/NNN-slug/meta.json` :
-   `{"numero": "NNN", "titre": "...", "date": "<date>", "theme": "...", "hook": "...", "duree_s": 72.4, "voix": "fr-FR-HenriNeural"}`
+   `{"numero": "NNN", "titre": "...", "date": "<date>", "theme": "...", "hook": "...", "duree_s": 63.0, "voix": "fr-FR-HenriNeural", "sujet_id": "Sxxx"}`
 
-h. **Sujets.** Ajouter une ligne `| NNN | titre | <date> |` dans « Déjà faits » de `kit/sujets.md` et retirer l'idée correspondante des « Idées à venir » si elle y figurait.
+h. **Sujets.** Ajouter une ligne `| NNN | Sxxx | titre | <date> |` dans « Déjà faits » de `kit/sujets.md`, et ajouter `"sujet_id": "Sxxx"` dans `meta.json`.
 
 i. **Livraison.** Commit « Amadeus NNN — titre », push sur `main`. Le dossier livré contient : `apercu.html`, `script.txt`, `voix.mp3`, `voix.srt`, `video.mp4`, `caption.txt`, `meta.json`. La publication Telegram est déclenchée automatiquement par le push de `video.mp4`.
+
+j. **Marquer le sujet FAIT dans le Google Doc** (seulement après un push réussi).
+   - Google Docs `update_doc` (documentId `1qvAKlDfhOXX-JwwoqF2txn5lupwbmnW7c50tfr49qAA`) avec une seule requête :
+     `{"replaceAllText": {"containsText": {"text": "Sxxx · À FAIRE ·", "matchCase": true}, "replaceText": "Sxxx · FAIT le <date> (vidéo NNN) ·"}}`
+   - La réponse doit indiquer `occurrencesChanged: 1`. Si c'est 0 : relire le Doc ; si la ligne est déjà FAIT, ne rien faire ; sinon écrire `videos/ERREUR-<date>/alerte.txt` (« Sujet Sxxx non marqué dans le Doc »), commit, push.
+   - Relire le Doc avec `read_file_content` et vérifier que la ligne `Sxxx` commence bien par `Sxxx · FAIT le <date>`.
+   - Ne jamais supprimer, renuméroter ou réécrire d'autres lignes du Doc.
