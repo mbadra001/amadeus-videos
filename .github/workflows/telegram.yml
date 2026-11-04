@@ -1,0 +1,104 @@
+name: Publication Telegram
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "videos/**/video.mp4"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publication-telegram
+  cancel-in-progress: false
+
+jobs:
+  publier:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Vérifier les réglages
+        id: reglages
+        run: |
+          pub=$(jq -r '.publication' kit/reglages.json)
+          tg=$(jq -r '(.plateformes // []) | index("telegram") != null' kit/reglages.json)
+          if [ "$pub" != "true" ] || [ "$tg" != "true" ]; then
+            echo "Publication désactivée dans kit/reglages.json : rien à faire."
+            echo "actif=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "actif=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Envoyer les nouvelles vidéos
+        if: steps.reglages.outputs.actif == 'true'
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          set -euo pipefail
+          if [ -z "${TELEGRAM_BOT_TOKEN}" ] || [ -z "${TELEGRAM_CHAT_ID}" ]; then
+            echo "::error::Secrets TELEGRAM_BOT_TOKEN ou TELEGRAM_CHAT_ID absents."
+            exit 1
+          fi
+          envoyes=0
+          echecs=0
+          for dossier in videos/[0-9][0-9][0-9]-*/; do
+            [ -d "$dossier" ] || continue
+            dossier="${dossier%/}"
+            case "$(basename "$dossier")" in ERREUR-*) continue ;; esac
+            [ -f "$dossier/video.mp4" ] && [ -f "$dossier/caption.txt" ] || continue
+            [ -f "$dossier/.telegram_ok" ] && continue
+
+            echo "Envoi de $dossier ..."
+            reponse=$(mktemp)
+            code=$(curl -sS -o "$reponse" -w '%{http_code}' \
+              -F "chat_id=${TELEGRAM_CHAT_ID}" \
+              -F "video=@${dossier}/video.mp4;type=video/mp4" \
+              -F "caption=<${dossier}/caption.txt" \
+              -F "supports_streaming=true" \
+              "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendVideo" || echo "000")
+            if [ "$code" = "200" ] && [ "$(jq -r '.ok' "$reponse")" = "true" ]; then
+              date -u +"%Y-%m-%dT%H:%M:%SZ" > "$dossier/.telegram_ok"
+              echo "OK : $dossier publié."
+              envoyes=$((envoyes + 1))
+            else
+              desc=$(jq -r '.description // "réponse illisible"' "$reponse" 2>/dev/null || echo "réponse illisible")
+              echo "::error::Échec de l'envoi de $dossier (HTTP $code) : $desc"
+              echecs=$((echecs + 1))
+            fi
+            rm -f "$reponse"
+          done
+          echo "Vidéos envoyées : $envoyes, échecs : $echecs"
+          echo "envoyes=$envoyes" >> "$GITHUB_ENV"
+          echo "echecs=$echecs" >> "$GITHUB_ENV"
+
+      - name: Enregistrer les marqueurs .telegram_ok
+        if: always() && steps.reglages.outputs.actif == 'true'
+        run: |
+          set -euo pipefail
+          git config user.name "Amadeus (via GitHub Actions)"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add videos/*/.telegram_ok 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "Aucun nouveau marqueur."
+          else
+            git commit -m "Telegram : vidéos publiées"
+            for i in 1 2 3; do
+              git pull --rebase origin main && git push origin HEAD:main && break
+              sleep $((i * 5))
+            done
+          fi
+
+      - name: Signaler les échecs
+        if: steps.reglages.outputs.actif == 'true'
+        run: |
+          if [ "${echecs:-0}" != "0" ]; then
+            echo "::error::${echecs} vidéo(s) non publiée(s)."
+            exit 1
+          fi
