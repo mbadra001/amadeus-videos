@@ -1,0 +1,2 @@
+Metricool createScheduledPost (blogId 7870985, video 001-ormuz) : Error processing post information: TikTok title is required
+TikTok non programme pour 001. Correctif probable : ajouter tiktokData.title dans kit/TACHE.md etape k. Le rattrapage ne marchera pas tant que ce champ manque.
