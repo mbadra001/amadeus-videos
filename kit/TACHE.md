@@ -1,6 +1,6 @@
 # Tâche quotidienne Amadeus
 
-Produire une vidéo verticale (1080×1920, 30 i/s, 63 s : entre 62 et 64 s) de géopolitique et d'actualité expliquées par l'histoire, puis la pousser sur `main`. La publication sur Telegram est faite ensuite par GitHub Actions (`.github/workflows/telegram.yml`), jamais par la tâche.
+Produire une vidéo verticale (1080×1920, 30 i/s, 63 s : entre 62 et 64 s) de géopolitique et d'actualité expliquées par l'histoire, puis la pousser sur `main`. La publication sur Telegram est faite ensuite par GitHub Actions (`.github/workflows/telegram.yml`). Une fois la vidéo envoyée sur Telegram, la tâche la programme sur TikTok via Metricool (étape k).
 
 Projet indépendant : n'utiliser que les fichiers de ce dépôt (aucune DA, règle ou fichier d'un autre projet).
 
@@ -8,8 +8,10 @@ Projet indépendant : n'utiliser que les fichiers de ce dépôt (aucune DA, règ
 - `git pull origin main` avant de commencer (le workflow Telegram pousse des fichiers `.telegram_ok`).
 - Dépendances : `pip install edge-tts numpy scipy playwright` ; `ffmpeg` doit être disponible. Si Chromium n'est pas trouvé par Playwright, `outils/export_mp4.py` essaie `/opt/pw-browsers/chromium`, sinon lancer `python -m playwright install chromium`.
 - Date du jour au format `AAAA-MM-JJ` (ci-dessous `<date>`).
-- Connecteurs requis : **Google Drive** (lecture) et **Google Docs** (modification). Le Doc des sujets : « Amadeus — Sujets géopolitiques », id `1qvAKlDfhOXX-JwwoqF2txn5lupwbmnW7c50tfr49qAA`
+- Connecteurs requis : **Google Drive** (lecture), **Google Docs** (modification) et **Metricool** (publication TikTok, marque « Amadeus », blogId `7870985`). Le Doc des sujets : « Amadeus — Sujets géopolitiques », id `1qvAKlDfhOXX-JwwoqF2txn5lupwbmnW7c50tfr49qAA`
   (https://docs.google.com/document/d/1qvAKlDfhOXX-JwwoqF2txn5lupwbmnW7c50tfr49qAA/edit).
+
+- **Rattrapage TikTok** : pour chaque dossier `videos/NNN-*/` qui a `.telegram_ok` mais pas `.tiktok_ok` (vidéo d'un jour précédent restée sans TikTok), faire l'étape k pour ce dossier avant de commencer la nouvelle vidéo.
 
 ## Étapes
 
@@ -53,3 +55,15 @@ j. **Marquer le sujet FAIT dans le Google Doc** (seulement après un push réuss
    - La réponse doit indiquer `occurrencesChanged: 1`. Si c'est 0 : relire le Doc ; si la ligne est déjà FAIT, ne rien faire ; sinon écrire `videos/ERREUR-<date>/alerte.txt` (« Sujet Sxxx non marqué dans le Doc »), commit, push.
    - Relire le Doc avec `read_file_content` et vérifier que la ligne `Sxxx` commence bien par `Sxxx · FAIT le <date>`.
    - Ne jamais supprimer, renuméroter ou réécrire d'autres lignes du Doc.
+
+k. **Publier sur TikTok via Metricool** (seulement si `"publication": true` et `"tiktok"` dans `plateformes` de `reglages.json`).
+   1. **Attendre l'envoi Telegram** : `git pull origin main` toutes les minutes environ, jusqu'à `attente_telegram_minutes` (15 min), tant que `videos/NNN-slug/.telegram_ok` n'existe pas. S'il n'apparaît pas : ne pas publier sur TikTok, écrire `videos/ERREUR-<date>/alerte.txt` (« Telegram non confirmé, TikTok non publié pour NNN »), commit, push, stop (le rattrapage du lendemain s'en chargera).
+   2. **Vérifier l'absence de doublon** : si `videos/NNN-slug/.tiktok_ok` existe, ne rien faire. Sinon appeler Metricool `getScheduledPosts` (brandId `7870985`, timezone `Europe/Paris`, de maintenant à +2 jours) : si un post TikTok contient déjà le hook de cette vidéo, ne pas en créer un second ; écrire seulement `.tiktok_ok`.
+   3. **Lien public de la vidéo** (le dépôt est public) : `https://raw.githubusercontent.com/mbadra001/amadeus-videos/<sha>/videos/NNN-slug/video.mp4`, où `<sha>` = `git rev-parse HEAD` après le pull. Vérifier avec `curl -sI` qu'il répond 200.
+   4. **Programmer le post** avec Metricool `createScheduledPost` :
+      - `blogId` : `7870985` ; `date` : maintenant + `delai_minutes` (10 min), au format ISO 8601 avec le décalage de Europe/Paris.
+      - `info` (JSON) :
+        `{"autoPublish": true, "draft": false, "providers": [{"network": "tiktok"}], "text": <contenu exact de caption.txt>, "media": [<lien public>], "publicationDate": {"dateTime": "AAAA-MM-JJTHH:mm:ss", "timezone": "Europe/Paris"}, "firstCommentText": "", "descendants": [], "mediaAltText": [], "shortener": false, "smartLinkData": {"ids": []}, "hasNotReadNotes": false, "tiktokData": {"privacyOption": "PUBLIC_TO_EVERYONE", "disableComment": false, "disableDuet": false, "disableStitch": false, "commercialContentThirdParty": false, "commercialContentOwnBrand": false, "autoAddMusic": false, "isAigc": true}}`
+      - La caption est celle de `caption.txt`, sans modification. `isAigc: true` déclare un contenu généré par IA (voix de synthèse, animation générée), comme TikTok le demande.
+   5. **En cas d'erreur Metricool** : ne pas réessayer en boucle (une seule nouvelle tentative si l'erreur est réseau). Écrire `videos/ERREUR-<date>/alerte.txt` avec le message exact, commit, push, stop.
+   6. **En cas de succès** : écrire `videos/NNN-slug/.tiktok_ok` avec la date de publication prévue, l'id du post et le `plannerUrl` renvoyés par Metricool, puis commit « Amadeus NNN — TikTok programmé », push sur `main`.

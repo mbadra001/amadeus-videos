@@ -1,7 +1,8 @@
 {
   "publication": true,
   "plateformes": [
-    "telegram"
+    "telegram",
+    "tiktok"
   ],
   "format": "1080x1920",
   "fps": 30,
@@ -12,5 +13,13 @@
     "titre": "Amadeus — Sujets géopolitiques",
     "id": "1qvAKlDfhOXX-JwwoqF2txn5lupwbmnW7c50tfr49qAA",
     "url": "https://docs.google.com/document/d/1qvAKlDfhOXX-JwwoqF2txn5lupwbmnW7c50tfr49qAA/edit"
+  },
+  "metricool": {
+    "blogId": "7870985",
+    "marque": "Amadeus",
+    "reseau": "tiktok",
+    "timezone": "Europe/Paris",
+    "delai_minutes": 10,
+    "attente_telegram_minutes": 15
   }
 }

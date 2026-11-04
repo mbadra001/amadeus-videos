@@ -30,7 +30,8 @@ Vidéos verticales courtes (1080×1920, 63 s) qui expliquent la géopolitique et
         ├── video.mp4            vidéo finale (< 50 Mo)
         ├── caption.txt          légende de publication (≤ 1024 caractères)
         ├── meta.json            {numero, titre, date, theme, hook, duree_s, voix, sujet_id}
-        └── .telegram_ok         ajouté par GitHub Actions une fois publiée
+        ├── .telegram_ok         ajouté par GitHub Actions une fois publiée sur Telegram
+        └── .tiktok_ok           ajouté par la tâche une fois programmée sur TikTok (Metricool)
 ```
 
 Les dossiers `videos/ERREUR-<date>/` contiennent un `alerte.txt` quand la tâche quotidienne a dû s'arrêter (règles incomplètes, voix indisponible) ; ils ne sont jamais publiés.
@@ -46,9 +47,11 @@ Les sujets sont dans le Google Doc [Amadeus — Sujets géopolitiques](https://d
 3. **Envoi** : si `kit/reglages.json` a `"publication": true` et `"telegram"` dans `plateformes`, chaque dossier `videos/NNN-*/` qui a `video.mp4` et `caption.txt` mais pas encore `.telegram_ok` est envoyé avec l'API Bot Telegram (`sendVideo`, lecture en streaming, caption = `caption.txt`).
 4. **Marquage** : après un envoi réussi, le workflow crée `.telegram_ok` dans le dossier et le pousse sur `main` ; la vidéo n'est donc jamais envoyée deux fois. Un échec d'envoi fait échouer le job (visible dans l'onglet Actions).
 
+5. **TikTok** : dès que `.telegram_ok` est présent, la tâche quotidienne programme la vidéo sur TikTok via Metricool (marque « Amadeus »), avec la même caption et le lien public GitHub de `video.mp4`, puis ajoute `.tiktok_ok` (étape k de `kit/TACHE.md`). Une vidéo restée sans TikTok est rattrapée le lendemain.
+
 Le jeton du bot et l'identifiant du canal sont lus uniquement depuis les secrets GitHub `TELEGRAM_BOT_TOKEN` et `TELEGRAM_CHAT_ID`.
 
-Pour suspendre la publication : passer `"publication"` à `false` dans `kit/reglages.json`.
+Pour suspendre toute publication : passer `"publication"` à `false` dans `kit/reglages.json`. Pour couper seulement TikTok ou Telegram : retirer la plateforme de `"plateformes"`.
 
 ## Outils en local
 

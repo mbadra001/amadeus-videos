@@ -18,6 +18,7 @@ Checklist finale : durée entre 62 et 64 s ; sujet pris dans le Google Doc des s
 - Si le Doc est inaccessible ou ne contient plus aucun sujet À FAIRE : ne pas inventer de sujet, écrire une alerte et s'arrêter (voir kit/TACHE.md).
 
 ## Caption
+La même caption sert pour Telegram et TikTok (via Metricool).
 - Texte brut, sans Markdown (ni `*`, ni `_`, ni `#` de titre, ni liens formatés).
 - Aucun commentaire sur la vidéo ni sur sa fabrication, aucune mention de Claude.
 - Première ligne : le hook.
