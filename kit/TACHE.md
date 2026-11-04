@@ -37,6 +37,7 @@ d. **Script et voix.**
 
 e. **Image et son.**
    - Écrire `videos/NNN-slug/apercu.html` selon `DA.md` : page de 1080×1920 qui expose `window.DUREE` (durée en secondes = fin de `voix.srt` + au plus 0,5 s) et `window.seek(t)`, qui affiche l'état exact au temps t sans dépendre de l'horloge réelle (aucune animation CSS ou `requestAnimationFrame` libre ; tout est calculé à partir de t). Polices via Google Fonts ; images et textures libres de droits uniquement.
+   - Ressources externes : le réseau de la tâche peut bloquer certains sites (constaté le 2026-11-04 : Wikimedia, NASA, unpkg et cdnjs bloqués ; Google Fonts accessible). Tester chaque téléchargement avec `curl -sS -o /dev/null -w '%{http_code}'`. Si une image ou une bibliothèque est inaccessible, la dessiner directement dans la page : drapeaux en SVG (formes et couleurs officielles), globe et cartes en canvas/SVG procéduraux, silhouettes stylisées au lieu de portraits. Ne jamais bloquer la vidéo pour une ressource externe.
    - Les coupes, apparitions de texte, chiffres et sous-titres se calent sur les temps de `voix.srt`. Le zoom de l'image se cale sur les kicks : `python outils/sons.py kicks --duree <D> --coupures <flash-backs>`.
    - `python outils/export_mp4.py videos/NNN-slug/apercu.html <tmp>/muette.mp4`
    - Écrire la liste des bruitages (`<tmp>/sfx.json` : whoosh sur chaque coupe, impact sur chaque chiffre ou date, riser avant chaque révélation) puis :
