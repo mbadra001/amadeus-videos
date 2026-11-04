@@ -1,6 +1,6 @@
 # Amadeus
 
-Vidéos verticales courtes (1080×1920, 63 s) qui expliquent la géopolitique et l'actualité par l'histoire : un événement récent, puis ses causes passées, avec un ton objectif et sourcé. Chaque vidéo est produite entièrement à partir de ce dépôt : script, voix de synthèse (edge-tts), animation HTML rendue image par image, musique et bruitages synthétisés, puis publication automatique sur Telegram.
+Vidéos verticales courtes (1080×1920, 63 s) qui expliquent la géopolitique et l'actualité par l'histoire : un événement récent, puis ses causes passées, avec un ton objectif et sourcé. Chaque vidéo est produite entièrement à partir de ce dépôt : script, voix de synthèse (edge-tts, avec Piper hors ligne en secours, ou mode sans voix), animation HTML rendue image par image, musique et bruitages synthétisés, puis publication automatique sur Telegram.
 
 ## Arborescence
 
@@ -18,7 +18,7 @@ Vidéos verticales courtes (1080×1920, 63 s) qui expliquent la géopolitique et
 │   ├── sujets.md                journal des sujets déjà faits (la liste est sur Google Drive)
 │   └── stats/stats.csv          statistiques par vidéo et par plateforme
 ├── outils/
-│   ├── voix.py                  texte → voix.mp3 + voix.srt (un sous-titre par mot)
+│   ├── voix.py                  texte → voix.mp3 + voix.srt (edge-tts → Piper → sans voix)
 │   ├── export_mp4.py            apercu.html → vidéo muette, image par image (Playwright)
 │   ├── sons.py                  musique trap/phonk 140 BPM et bruitages synthétisés
 │   └── mixage.py                vidéo muette + voix + musique + bruitages → video.mp4
@@ -34,7 +34,7 @@ Vidéos verticales courtes (1080×1920, 63 s) qui expliquent la géopolitique et
         └── .tiktok_ok           ajouté par la tâche une fois programmée sur TikTok (Metricool)
 ```
 
-Les dossiers `videos/ERREUR-<date>/` contiennent un `alerte.txt` quand la tâche quotidienne a dû s'arrêter (règles incomplètes, voix indisponible) ; ils ne sont jamais publiés.
+Les dossiers `videos/ERREUR-<date>/` contiennent un `alerte.txt` quand la tâche quotidienne a dû s'arrêter (règles incomplètes, Doc des sujets inaccessible, voix dégradée) ; ils ne sont jamais publiés.
 
 ## Liste des sujets
 

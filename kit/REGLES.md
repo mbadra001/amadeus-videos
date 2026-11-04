@@ -8,7 +8,13 @@ Sous-titres : mot par mot, synchronisés sur voix.srt, dans la zone sûre TikTok
 Boucle : la dernière image doit se fondre dans la première.
 Faits : chaque fait, chiffre et date est vérifié par une recherche web récente ; les sujets en cours sont datés dans la caption (« Situation au JJ mois AAAA »).
 Interdits : opinion personnelle sur un sujet politique, parti pris pour un camp, contenu sous droits (musique, photos de presse, logos, personnages), images violentes réalistes, chiffres non sourcés.
-Checklist finale : durée entre 62 et 64 s ; sujet pris dans le Google Doc des sujets et marqué FAIT ; hook ≤ 2 s ; voix présente et audible ; sous-titres synchronisés et dans la zone sûre ; boucle fin → début ; tous les points de vue présentés ; faits vérifiés ; aucun contenu sous droits ; video.mp4 < 50 Mo ; caption conforme.
+Checklist finale : durée entre 62 et 64 s ; sujet pris dans le Google Doc des sujets et marqué FAIT ; hook ≤ 2 s ; voix présente et audible (ou mode sans voix assumé, voir « Voix ») ; sous-titres synchronisés et dans la zone sûre ; boucle fin → début ; tous les points de vue présentés ; faits vérifiés ; aucun contenu sous droits ; video.mp4 < 50 Mo ; caption conforme.
+
+## Voix
+- Voix principale : edge-tts, voix de `reglages.json`.
+- Si edge-tts échoue : voix de secours Piper (hors ligne, voix française SIWIS, licence CC BY 4.0). La caption doit alors contenir la ligne « Voix : Piper, SIWIS (CC BY 4.0) » juste avant les hashtags.
+- Si Piper échoue aussi : vidéo sans voix (musique, bruitages et sous-titres mot à mot), publiée normalement.
+- Dans tous les cas la vidéo est publiée ; un mode dégradé est signalé par une alerte dans `videos/ERREUR-<date>/`.
 
 ## Sujets (Google Drive)
 - La seule liste de sujets est le Google Doc « Amadeus — Sujets géopolitiques » (id `1qvAKlDfhOXX-JwwoqF2txn5lupwbmnW7c50tfr49qAA`, aussi dans `kit/reglages.json` → `sujets_drive`).

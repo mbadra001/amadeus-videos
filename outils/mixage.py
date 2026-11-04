@@ -36,11 +36,11 @@ def ffmpeg(*args):
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", *args], check=True)
 
 
-def mixer(video, voix, musique, bruitages, sortie, debit_video=None):
+def mixer(video, voix, musique, bruitages, sortie, debit_video=None, vol_musique=0.55):
     d = duree(video)
     filtre = (
         "[1:a]aformat=sample_rates=44100:channel_layouts=stereo,apad,asplit=2[voix][cle];"
-        "[2:a]aformat=sample_rates=44100:channel_layouts=stereo,volume=0.55[mus];"
+        f"[2:a]aformat=sample_rates=44100:channel_layouts=stereo,volume={vol_musique}[mus];"
         "[mus][cle]sidechaincompress=threshold=0.02:ratio=10:attack=15:release=350:makeup=1[musb];"
         "[3:a]aformat=sample_rates=44100:channel_layouts=stereo,volume=0.7[sfx];"
         "[voix][musb][sfx]amix=inputs=3:duration=first:normalize=0,"
@@ -69,7 +69,11 @@ def main():
     try:
         d = duree(a.video)
         if duree(a.voix) < 1:
-            raise RuntimeError("voix absente ou vide : on ne livre jamais une vidéo sans voix")
+            raise RuntimeError("voix.mp3 absent ou vide (relancer outils/voix.py)")
+        mode_fichier = Path(a.voix).parent / "voix_mode.txt"
+        mode = mode_fichier.read_text(encoding="utf-8").strip() if mode_fichier.exists() else "edge-tts"
+        vol = 0.9 if mode == "sans-voix" else 0.55   # sans voix : la musique porte la vidéo
+        print(f"  mode voix : {mode}")
         with tempfile.TemporaryDirectory() as tmp:
             tmp = Path(tmp)
             musique = a.musique
@@ -80,14 +84,14 @@ def main():
             sfx = tmp / "bruitages.wav"
             sons.ecrire_wav(sfx, sons.piste_bruitages(evts, d))
 
-            mixer(a.video, a.voix, musique, sfx, a.sortie)
+            mixer(a.video, a.voix, musique, sfx, a.sortie, vol_musique=vol)
             taille = Path(a.sortie).stat().st_size
             essais = 0
             while taille >= LIMITE and essais < 3:
                 essais += 1
                 debit = int((CIBLE * 8 / d) / 1000 * (0.9 ** (essais - 1))) - 160
                 print(f"  {taille / 1e6:.1f} Mo ≥ 50 Mo : recompression à {debit} kb/s (essai {essais})")
-                mixer(a.video, a.voix, musique, sfx, a.sortie, debit_video=max(debit, 300))
+                mixer(a.video, a.voix, musique, sfx, a.sortie, debit_video=max(debit, 300), vol_musique=vol)
                 taille = Path(a.sortie).stat().st_size
             if taille >= LIMITE:
                 raise RuntimeError(f"video.mp4 fait encore {taille / 1e6:.1f} Mo après recompression")
