@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<title>Amadeus 001 — Ormuz</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Abril+Fatface&family=DM+Serif+Display&family=Space+Mono:wght@700&display=swap">
+<style>
+:root{--or:#E5B547;--orf:#A07828;--cr:#F0E8D6;--rg:#D62C30;--gr:#78746C}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;background:#0E0D0C;overflow:hidden}
+#stage{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:hidden;transform-origin:50% 40%}
+.bg{position:absolute;inset:0}
+.bg0{background:radial-gradient(ellipse at 50% 35%,#1b1917 0%,#0E0D0C 70%)}
+.bg1{background:radial-gradient(ellipse at 50% 40%,#7A141A 0%,#3E080C 85%)}
+.bg2{background:radial-gradient(ellipse at 50% 38%,#4a2a10 0%,#0E0D0C 80%)}
+.rays{position:absolute;left:-600px;top:-300px;width:2280px;height:2280px;background:repeating-conic-gradient(from 0deg at 50% 40%,rgba(229,181,71,.20) 0deg 6deg,rgba(229,181,71,0) 6deg 15deg);-webkit-mask:radial-gradient(circle at 50% 40%,#000 0,transparent 60%);mask:radial-gradient(circle at 50% 40%,#000 0,transparent 60%)}
+.grain{position:absolute;inset:0;opacity:.22;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/></filter><rect width='300' height='300' filter='url(%23f)'/></svg>")}
+.veins{position:absolute;inset:0;opacity:.5}
+.scene{position:absolute;inset:0;display:none;transform-origin:50% 40%}
+.in{position:absolute;left:0;top:0;width:1080px;height:1920px}
+.a{position:absolute;transform-origin:50% 50%}
+.big{font-family:'Abril Fatface',serif;color:var(--cr);text-align:center;line-height:1;text-shadow:0 8px 40px rgba(0,0,0,.7)}
+.or{color:var(--or)}.rg{color:var(--rg)}
+.tit{font-family:'DM Serif Display',serif;color:var(--or);text-align:center;line-height:1.05;text-shadow:0 4px 24px rgba(0,0,0,.8)}
+.mono{font-family:'Space Mono',monospace;font-weight:700;color:var(--or);letter-spacing:4px;text-align:center}
+.stamp{font-family:'Archivo Black',sans-serif;color:var(--rg);border:10px solid var(--rg);padding:10px 36px;text-align:center;text-transform:uppercase;letter-spacing:3px;background:rgba(14,13,12,.45)}
+.cc{left:0;width:1080px}
+#sub{position:absolute;left:110px;width:860px;top:1250px;height:150px;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Archivo Black',sans-serif;font-size:100px;line-height:1;color:#fff;text-transform:uppercase;-webkit-text-stroke:12px #000;paint-order:stroke fill;text-shadow:0 6px 0 #000;white-space:nowrap}
+#sub u{text-decoration:none;border-bottom:10px solid currentColor}
+#flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+#vhs{position:absolute;inset:0;pointer-events:none;opacity:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 3px,rgba(0,0,0,0) 3px 6px);mix-blend-mode:multiply}
+#vhsl{position:absolute;left:0;width:1080px;top:150px;text-align:center;opacity:0}
+#hud{position:absolute;inset:0;pointer-events:none}
+.corner{position:absolute;width:70px;height:70px;border:5px solid var(--or)}
+#rec{position:absolute;left:100px;top:92px;font-family:'Space Mono',monospace;font-weight:700;color:var(--or);font-size:30px;letter-spacing:3px}
+#tc{position:absolute;right:100px;top:92px;font-family:'Space Mono',monospace;font-weight:700;color:var(--or);font-size:30px}
+#fr{position:absolute;left:62px;top:300px;width:12px;height:1000px;background:repeating-linear-gradient(180deg,var(--or) 0 3px,transparent 3px 20px);opacity:.55}
+#fr2{position:absolute;right:62px;top:300px;width:12px;height:1000px;background:repeating-linear-gradient(180deg,var(--or) 0 3px,transparent 3px 20px);opacity:.55}
+.ptc{position:absolute;border-radius:50%;background:var(--or)}
+.sym{position:absolute;font-family:'Space Mono',monospace;font-weight:700;color:var(--or);opacity:.35;font-size:34px}
+svg{overflow:visible}
+</style></head><body>
+<div id="stage">
+ <div id="bgs"></div>
+ <div id="scenes"></div>
+ <div id="hud">
+  <div class="corner" style="left:60px;top:60px;border-right:0;border-bottom:0"></div>
+  <div class="corner" style="right:60px;top:60px;border-left:0;border-bottom:0"></div>
+  <div class="corner" style="left:60px;bottom:420px;border-right:0;border-top:0"></div>
+  <div class="corner" style="right:60px;bottom:420px;border-left:0;border-top:0"></div>
+  <div id="rec">● REC</div><div id="tc">00:00</div><div id="fr"></div><div id="fr2"></div>
+  <div id="ptc"></div><div id="syms"></div>
+ </div>
+ <div id="vhsl" class="mono" style="font-size:44px">◄◄ REWIND</div>
+ <div id="sub"></div>
+ <div id="vhs"></div>
+ <div id="flash"></div>
+</div>
+<script>
+const WORDS=[[0.1, 0.412, "Quarante"], [0.425, 0.912, "kilomètres"], [0.925, 1.0, "de"], [1.012, 1.337, "large"], [1.675, 1.75, "un"], [1.762, 2.162, "cinquième"], [2.175, 2.287, "du"], [2.3, 2.662, "pétrole"], [2.675, 3.237, "mondial"], [4.1, 4.25, "Et"], [4.262, 4.387, "ce"], [4.4, 4.962, "mercredi"], [5.312, 5.6, "l'Iran"], [5.612, 5.95, "affirme"], [5.962, 6.1, "que"], [6.112, 6.425, "quatre"], [6.437, 6.912, "pétroliers"], [6.925, 7.0, "ont"], [7.012, 7.275, "heurté"], [7.287, 7.4, "des"], [7.412, 7.6, "mines"], [7.612, 7.725, "dans"], [7.737, 7.825, "le"], [7.837, 8.125, "détroit"], [8.137, 8.737, "d'Ormuz"], [9.6, 9.825, "Ce"], [9.837, 10.225, "passage"], [10.237, 10.287, "est"], [10.3, 10.45, "au"], [10.462, 10.687, "cœur"], [10.7, 10.787, "de"], [10.8, 10.9, "la"], [10.912, 11.125, "guerre"], [11.137, 11.575, "commencée"], [11.587, 11.687, "le"], [11.7, 13.487, "28 février 2026"], [14.362, 14.562, "Pour"], [14.575, 14.825, "toi"], [15.012, 15.062, "un"], [15.075, 15.275, "plein"], [15.287, 15.675, "d'essence"], [15.687, 15.85, "plus"], [15.862, 16.325, "cher"], [17.2, 17.737, "Remontons"], [17.75, 17.862, "le"], [17.875, 18.137, "temps"], [19.012, 19.175, "En"], [19.187, 20.5, "1979"], [20.85, 20.987, "la"], [21.0, 21.55, "révolution"], [21.562, 21.862, "change"], [21.875, 22.25, "l'Iran"], [23.125, 23.325, "De"], [23.337, 24.462, "1984 à"], [24.475, 25.512, "1988"], [25.862, 26.025, "la"], [26.037, 26.237, "guerre"], [26.25, 26.35, "des"], [26.362, 26.85, "pétroliers"], [26.862, 27.125, "frappe"], [27.137, 27.262, "des"], [27.275, 27.637, "centaines"], [27.65, 27.737, "de"], [27.75, 28.287, "navires"], [29.15, 29.312, "En"], [29.325, 30.387, "1988"], [30.737, 30.8, "un"], [30.812, 31.237, "croiseur"], [31.25, 31.7, "américain"], [31.712, 31.912, "abat"], [31.925, 32.112, "par"], [32.125, 32.35, "erreur"], [32.362, 32.387, "un"], [32.4, 32.687, "avion"], [32.7, 33.05, "civil"], [33.062, 33.55, "iranien"], [33.725, 35.012, "290 morts"], [35.875, 36.05, "En"], [36.062, 36.825, "2018"], [37.175, 37.3, "les"], [37.312, 37.837, "États-Unis"], [37.85, 38.075, "quittent"], [38.087, 38.437, "l'accord"], [38.45, 38.9, "nucléaire"], [38.912, 39.037, "de"], [39.05, 39.787, "2015"], [40.662, 40.987, "Chaque"], [41.0, 41.137, "camp"], [41.15, 41.475, "défend"], [41.487, 41.625, "sa"], [41.637, 42.087, "version"], [42.962, 43.325, "L'Iran"], [43.337, 43.462, "dit"], [43.475, 43.937, "protéger"], [43.95, 44.075, "ses"], [44.087, 44.25, "eaux"], [44.262, 44.325, "et"], [44.337, 44.725, "répondre"], [44.737, 44.8, "aux"], [44.812, 45.225, "frappes"], [46.1, 46.737, "Washington"], [46.75, 46.8, "et"], [46.812, 46.937, "ses"], [46.95, 47.225, "alliés"], [47.237, 47.612, "répondent"], [47.625, 47.762, "que"], [47.775, 47.9, "ce"], [47.912, 48.287, "passage"], [48.3, 48.462, "doit"], [48.475, 48.787, "rester"], [48.8, 49.1, "libre"], [49.112, 49.312, "pour"], [49.325, 49.462, "tous"], [49.475, 49.55, "les"], [49.562, 50.112, "navires"], [50.975, 51.187, "Les"], [51.2, 51.45, "pays"], [51.462, 51.575, "du"], [51.587, 51.862, "Golfe"], [51.875, 52.062, "veulent"], [52.075, 52.425, "surtout"], [52.437, 52.712, "vendre"], [52.725, 52.85, "leur"], [52.862, 53.462, "pétrole"], [54.325, 54.9, "Aujourd'hui"], [55.25, 55.587, "Téhéran"], [55.6, 55.75, "se"], [55.762, 55.9, "dit"], [55.912, 56.112, "prêt"], [56.125, 56.175, "à"], [56.187, 56.575, "rouvrir"], [56.587, 56.737, "si"], [56.75, 56.875, "ses"], [56.887, 57.425, "exigences"], [57.437, 57.55, "sont"], [57.562, 58.212, "acceptées"], [58.525, 58.65, "mais"], [58.662, 58.9, "aucun"], [58.912, 59.225, "accord"], [59.237, 59.825, "n'existe"], [60.7, 60.862, "Et"], [60.875, 61.062, "tout"], [61.075, 61.212, "se"], [61.225, 61.362, "joue"], [61.375, 61.7, "encore"], [61.712, 61.862, "sur"], [61.875, 62.187, "quarante"], [62.2, 62.7, "kilomètres"], [62.712, 62.787, "de"], [62.8, 63.2, "large"]], KICKS=[0.0, 0.75, 1.0714, 1.7143, 2.4643, 2.7857, 3.4286, 4.1786, 4.5, 5.1429, 5.8929, 6.2143, 6.8571, 7.6071, 7.9286, 8.5714, 9.3214, 9.6429, 10.2857, 11.0357, 11.3571, 12.0, 12.75, 13.0714, 13.7143, 14.4643, 14.7857, 15.4286, 16.1786, 16.5, 17.1429, 40.5, 41.1429, 41.8929, 42.2143, 42.8571, 43.6071, 43.9286, 44.5714, 45.3214, 45.6429, 46.2857, 47.0357, 47.3571, 48.0, 48.75, 49.0714, 49.7143, 50.4643, 50.7857, 51.4286, 52.1786, 52.5, 53.1429, 53.8929, 54.2143, 54.8571, 55.6071, 55.9286, 56.5714, 57.3214, 57.6429, 58.2857, 59.0357, 59.3571, 60.0, 60.75, 61.0714, 61.7143, 62.4643, 62.7857, 63.4286]
+;
+window.DUREE=63.7;
+const FL0=17.2, FL1=40.5;           // flash-back (retour dans le passé)
+const $=s=>document.querySelector(s);
+const ease=x=>1-Math.pow(1-Math.min(1,Math.max(0,x)),3);
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+
+/* ---------- briques SVG (dessinées, aucune ressource externe) ---------- */
+const MAP=`<svg width="1080" height="800" viewBox="0 0 1080 800">
+<defs><pattern id="ht" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="14" stroke="#A07828" stroke-width="3"/></pattern></defs>
+<g stroke="#E5B547" stroke-width="3" fill="none" opacity=".35">${Array.from({length:14},(_,i)=>`<path d="M0 ${300+i*34} Q270 ${280+i*34} 540 ${300+i*34} T1080 ${300+i*34}"/>`).join('')}</g>
+<path d="M-20 -20 H1100 V190 L930 215 L800 270 L690 315 L610 355 L520 385 L420 380 L300 340 L170 290 L60 300 L-20 330Z" fill="url(#ht)" stroke="#E5B547" stroke-width="6"/>
+<path d="M-20 820 V560 L200 520 L350 540 L470 520 L560 470 L600 400 L640 395 L650 470 L700 540 L860 600 L1100 640 V820Z" fill="url(#ht)" stroke="#E5B547" stroke-width="6"/>
+<text x="420" y="130" font-family="Space Mono" font-weight="700" font-size="38" fill="#F0E8D6" letter-spacing="6">IRAN</text>
+<text x="170" y="700" font-family="Space Mono" font-weight="700" font-size="34" fill="#F0E8D6" letter-spacing="6">ÉMIRATS · OMAN</text>
+<text x="40" y="420" font-family="Space Mono" font-weight="700" font-size="30" fill="#E5B547" letter-spacing="5">GOLFE</text>
+<text x="740" y="440" font-family="Space Mono" font-weight="700" font-size="26" fill="#E5B547" letter-spacing="5">GOLFE D'OMAN</text>
+</svg>`;
+const GATE=`<svg width="1080" height="800" viewBox="0 0 1080 800"><line x1="585" y1="372" x2="620" y2="398" stroke="#D62C30" stroke-width="8"/><circle cx="602" cy="385" r="46" fill="none" stroke="#D62C30" stroke-width="6"/><text x="700" y="330" font-family="Abril Fatface" font-size="90" fill="#F0E8D6" stroke="#000" stroke-width="2">≈ 40 km</text></svg>`;
+const TANK=(c='#F0E8D6')=>`<svg width="520" height="200" viewBox="0 0 520 200"><path d="M10 110 H510 L470 170 H60Z" fill="${c}" stroke="#000" stroke-width="5"/><rect x="60" y="80" width="330" height="30" fill="#A07828" stroke="#000" stroke-width="4"/><rect x="410" y="40" width="60" height="70" fill="${c}" stroke="#000" stroke-width="4"/><rect x="425" y="55" width="30" height="14" fill="#0E0D0C"/><path d="M0 180 Q60 160 120 180 T240 180 T360 180 T480 180 T600 180" stroke="#E5B547" stroke-width="5" fill="none"/></svg>`;
+const BOOM=(r=200)=>{let p='';for(let i=0;i<24;i++){const a=i/24*Math.PI*2,rr=i%2?r*.55:r;p+=(i?'L':'M')+(Math.cos(a)*rr).toFixed(1)+' '+(Math.sin(a)*rr).toFixed(1)}
+return `<svg width="${r*2}" height="${r*2}" viewBox="${-r} ${-r} ${r*2} ${r*2}"><path d="${p}Z" fill="#D62C30" stroke="#E5B547" stroke-width="8"/><circle r="${r*.45}" fill="#E5B547"/><circle r="${r*.22}" fill="#fff"/></svg>`};
+const MINE=`<svg width="200" height="200" viewBox="-100 -100 200 200"><g stroke="#E5B547" stroke-width="10">${Array.from({length:8},(_,i)=>`<line x1="0" y1="0" x2="${Math.cos(i*.785)*90}" y2="${Math.sin(i*.785)*90}"/>`).join('')}</g><circle r="55" fill="#1b1917" stroke="#E5B547" stroke-width="8"/></svg>`;
+const IRAN=`<svg width="760" height="460" viewBox="0 0 760 460"><g class="wave"><rect width="760" height="153" fill="#239F40"/><rect y="153" width="760" height="154" fill="#F0E8D6"/><rect y="307" width="760" height="153" fill="#DA0000"/><circle cx="380" cy="230" r="46" fill="none" stroke="#DA0000" stroke-width="14"/><rect x="371" y="170" width="18" height="120" fill="#DA0000"/></g></svg>`;
+const USA=`<svg width="760" height="400" viewBox="0 0 760 400"><g class="wave">${Array.from({length:13},(_,i)=>`<rect y="${i*30.7}" width="760" height="31" fill="${i%2?'#F0E8D6':'#B22234'}"/>`).join('')}<rect width="320" height="215" fill="#3C3B6E"/>${Array.from({length:30},(_,i)=>`<circle cx="${28+(i%6)*52+((Math.floor(i/6))%2?26:0)*0}" cy="${24+Math.floor(i/6)*40}" r="7" fill="#F0E8D6"/>`).join('')}</g></svg>`;
+const CRUISER=`<svg width="620" height="220" viewBox="0 0 620 220"><path d="M10 140 H610 L560 195 H70Z" fill="#78746C" stroke="#000" stroke-width="5"/><rect x="150" y="100" width="300" height="40" fill="#78746C" stroke="#000" stroke-width="4"/><rect x="260" y="50" width="110" height="50" fill="#78746C" stroke="#000" stroke-width="4"/><line x1="315" y1="50" x2="315" y2="5" stroke="#000" stroke-width="5"/><rect x="480" y="115" width="60" height="25" fill="#555" stroke="#000" stroke-width="3"/></svg>`;
+const PLANE=`<svg width="520" height="260" viewBox="0 0 520 260"><path d="M20 130 Q20 110 70 108 H370 L260 10 H310 L470 108 H500 Q510 130 500 132 H470 L310 250 H260 L370 132 H70 Q20 150 20 130Z" fill="#F0E8D6" stroke="#000" stroke-width="5"/></svg>`;
+const BARREL=`<svg width="230" height="300" viewBox="0 0 230 300"><path d="M30 20 Q115 0 200 20 Q225 150 200 280 Q115 300 30 280 Q5 150 30 20Z" fill="#1b1917" stroke="#E5B547" stroke-width="8"/><path d="M18 90 Q115 112 212 90 M14 200 Q115 222 216 200" stroke="#E5B547" stroke-width="7" fill="none"/><text x="115" y="170" text-anchor="middle" font-family="Abril Fatface" font-size="64" fill="#E5B547">$</text></svg>`;
+const PUMP=`<svg width="300" height="380" viewBox="0 0 300 380"><rect x="20" y="20" width="190" height="340" rx="14" fill="#1b1917" stroke="#E5B547" stroke-width="8"/><rect x="48" y="50" width="134" height="80" fill="#0E0D0C" stroke="#E5B547" stroke-width="5"/><text x="115" y="108" text-anchor="middle" font-family="Space Mono" font-weight="700" font-size="40" fill="#D62C30">▲ €</text><path d="M210 90 H250 Q280 90 280 130 V260 Q280 290 255 290" fill="none" stroke="#E5B547" stroke-width="10"/></svg>`;
+const ARROW=`<svg width="200" height="260" viewBox="0 0 200 260"><path d="M100 10 L190 120 H130 V250 H70 V120 H10Z" fill="#D62C30" stroke="#000" stroke-width="6"/></svg>`;
+const MISS=`<svg width="260" height="60" viewBox="0 0 260 60"><defs><linearGradient id="tr" x1="0" x2="1"><stop offset="0" stop-color="#E5B547" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><rect x="0" y="22" width="200" height="16" fill="url(#tr)"/><path d="M200 18 L250 30 L200 42Z" fill="#fff"/></svg>`;
+const SHIPS=n=>Array.from({length:n},(_,i)=>`<div class="a mv" data-fx="-500" data-fy="0" data-tx="${1200}" data-ty="0" data-dur="2.4" data-d="${i*.25}" style="left:${(i%2)*60}px;top:${i*210}px;transform:scale(.55)">${TANK(i%2?'#78746C':'#F0E8D6')}</div>`).join('');
+
+/* ---------- scènes (t0, fond, contenu) ---------- */
+const S=[];
+const add=(t0,bg,html,o={})=>S.push(Object.assign({t0,bg,html},o));
+const T=(txt,cls,top,fs,d=0,extra='')=>`<div class="a cc ${cls}" data-d="${d}" style="top:${top}px;font-size:${fs}px;${extra}">${txt}</div>`;
+
+add(0,0,T('40 <span class="or">KM</span>','big',380,300,0)+T('DE LARGE','mono',720,54,.1)+T('<span class="or">⅕</span>','big',830,190,.5,'display:none'),{flash:1,noin:1});
+add(1.0,2,T('<span class="cnt" data-to="20" data-dur="1.4" data-d="0">0</span><span class="or">%</span>','big',420,330,0)+T('DU PÉTROLE MONDIAL','tit',820,70,.15)+T('PASSE ICI','mono',930,44,.35),{flash:1,shake:1});
+add(2.8,0,`<div class="a" style="left:0;top:300px;transform:scale(1)">${MAP}</div><div class="a" data-d=".3" style="left:0;top:300px">${GATE}</div>`+T('DÉTROIT D\'ORMUZ','tit',1130,84,.2));
+add(4.1,1,T('MERCREDI','mono',420,54,0)+T('4 <span class="or">NOV.</span>','big',500,260,.1)+`<div class="a stamp" data-d=".5" style="left:300px;top:850px;font-size:70px;transform:rotate(-8deg)">EN DIRECT</div>`,{flash:1});
+add(5.3,0,`<div class="a mv" data-fx="-600" data-fy="0" data-tx="270" data-ty="0" data-dur="1.5" style="left:0;top:500px">${TANK()}</div>`+T('<span class="cnt" data-to="4" data-dur=".8" data-d=".2">0</span> <span class="or">PÉTROLIERS</span>','big',250,140,.1),{shake:1});
+add(6.9,1,`<div class="a" data-d="0" style="left:90px;top:300px">${MINE}</div><div class="a" data-d=".35" style="left:380px;top:420px">${BOOM(260)}</div>`+T('MINES','stamp',1000,90,.3,'left:380px;width:320px;transform:rotate(6deg);position:absolute'),{flash:1,shake:1});
+add(8.1,0,`<div class="a" style="left:0;top:300px">${MAP}</div><div class="a" data-d=".2" style="left:0;top:300px">${GATE}</div>`+T('<span class="or">AFFIRME</span> L\'IRAN','tit',1130,84,.2));
+add(9.6,2,T('LA GUERRE','tit',380,130,0)+T('COMMENCÉE LE','mono',560,48,.2),{});
+add(11.7,1,T('28.02','big',480,310,0)+T('<span class="or">2026</span>','big',800,260,.1),{flash:1,shake:1});
+add(13.0,0,`<div class="a" style="left:0;top:300px">${MAP}</div>`+[0,1,2].map(i=>`<div class="a mv" data-fx="-300" data-fy="${-80+i*60}" data-tx="900" data-ty="${300+i*40}" data-dur="1.1" data-d="${i*.12}" style="left:0;top:${420+i*80}px">${MISS}</div>`).join('')+T('FRAPPES','stamp',1130,70,.6,'left:340px;width:400px;position:absolute;transform:rotate(-4deg)'),{shake:1});
+add(14.3,1,T('PLEIN D\'ESSENCE','tit',330,100,0)+`<div class="a" data-d=".15" style="left:390px;top:480px">${PUMP}</div>`+T('<span class="or">+</span> CHER','big',930,200,.3),{flash:1});
+add(15.9,2,`<div class="a" style="left:440px;top:380px">${ARROW}</div>`+T('LES PRIX','tit',700,120,.2)+T('MONTENT','big',860,170,.35,'color:#D62C30'));
+/* ---- flash-back ---- */
+add(17.2,0,T('REMONTONS','tit',420,150,0)+T('<span class="or">LE TEMPS</span>','big',620,230,.15),{fb:1,flash:1});
+add(19.0,0,T('1979','big',420,380,0)+T('RÉVOLUTION','mono',860,56,.3),{fb:1,flash:1,shake:1});
+add(20.8,2,`<div class="a" data-d="0" style="left:160px;top:380px;transform:scale(.99)">${IRAN}</div>`+T('LA RÉVOLUTION','tit',930,92,.2)+T('CHANGE L\'IRAN','mono',1060,46,.4),{fb:1});
+add(23.1,1,T('1984','big',420,360,0)+T('<span class="or">→</span>','big',800,150,.2),{fb:1,flash:1,shake:1});
+add(24.5,1,T('1988','big',420,380,0)+T('GUERRE DES PÉTROLIERS','mono',860,44,.3),{fb:1,flash:1,shake:1});
+add(25.9,0,`<div class="a" style="left:80px;top:420px">${TANK('#78746C')}</div><div class="a" data-d=".3" style="left:360px;top:300px">${BOOM(150)}</div><div class="a" style="left:520px;top:700px;transform:scale(.8)">${TANK('#F0E8D6')}</div>`,{fb:1,shake:1});
+add(27.7,2,T('<span class="cnt" data-to="400" data-dur="1.2" data-d="0">0</span><span class="or">+</span>','big',420,330,0)+T('NAVIRES FRAPPÉS','tit',830,84,.2),{fb:1,flash:1});
+add(29.1,1,T('1988','big',420,380,0)+T('3 JUILLET','mono',860,48,.3),{fb:1,flash:1,shake:1});
+add(30.7,0,`<div class="a mv" data-fx="-300" data-fy="0" data-tx="230" data-ty="0" data-dur="1.4" style="left:0;top:500px">${CRUISER}</div>`+T('CROISEUR AMÉRICAIN','tit',900,80,.2),{fb:1});
+add(32.3,0,`<div class="a mv" data-fx="-100" data-fy="-60" data-tx="260" data-ty="40" data-dur="1.4" style="left:0;top:520px">${PLANE}</div><div class="a" data-d="1" style="left:300px;top:380px">${BOOM(120)}</div>`+T('AVION CIVIL','tit',950,90,.2),{fb:1});
+add(33.7,1,T('<span class="cnt" data-to="290" data-dur="1" data-d="0">0</span>','big',420,420,0)+T('MORTS','mono',900,70,.3),{fb:1,flash:1,shake:1});
+add(35.8,0,T('2018','big',420,400,0)+T('<span class="or">SORTIE</span>','mono',880,60,.3),{fb:1,flash:1,shake:1});
+add(37.2,2,`<div class="a" data-d="0" style="left:160px;top:420px">${USA}</div>`+T('LES ÉTATS-UNIS QUITTENT','tit',950,70,.2),{fb:1});
+add(38.9,0,T('2015','big',420,380,0)+T('L\'ACCORD NUCLÉAIRE','mono',860,44,.3),{fb:1,flash:1});
+/* ---- retour au présent : points de vue ---- */
+add(40.6,1,T('CHAQUE CAMP','tit',380,120,0)+T('<span class="or">SA VERSION</span>','big',560,170,.15)+`<div class="a" style="left:140px;top:850px;width:800px;height:6px;background:#E5B547"></div>`,{flash:1});
+add(42.9,0,`<div class="a" style="left:160px;top:380px">${IRAN}</div>`+T('IRAN','big',900,150,.2)+T('PROTÉGER SES EAUX','mono',1070,44,.4));
+add(44.9,2,`<div class="a" style="left:0;top:300px">${MAP}</div>`+[0,1].map(i=>`<div class="a mv" data-fx="-300" data-fy="0" data-tx="800" data-ty="${i*80}" data-dur="1.2" data-d="${i*.2}" style="left:0;top:${440+i*90}px">${MISS}</div>`).join('')+T('RÉPONDRE AUX FRAPPES','mono',1130,42,.2));
+add(46.1,0,`<div class="a" style="left:160px;top:420px">${USA}</div>`+T('WASHINGTON','big',900,120,.2)+T('ET SES ALLIÉS','mono',1050,44,.4));
+add(48.5,2,`<div class="a" style="left:0;top:300px">${MAP}</div><div class="a" style="left:0;top:300px;overflow:visible">${SHIPS(3).replace(/top:(\d+)px/g,(m,v)=>`top:${(+v)*0.4+60}px`)}</div>`+T('PASSAGE <span class="or">LIBRE</span>','tit',1130,86,.2));
+add(50.9,0,`<div class="a" style="left:100px;top:400px">${BARREL}</div><div class="a" data-d=".15" style="left:420px;top:380px">${BARREL}</div><div class="a" data-d=".3" style="left:740px;top:400px">${BARREL}</div>`+T('LES PAYS DU GOLFE','tit',830,80,.2)+T('VENDRE LEUR PÉTROLE','mono',950,40,.4));
+add(52.9,2,T('LES PAYS DU GOLFE','tit',420,100,0)+T('<span class="or">⚖</span>','big',600,260,.2)+T('VEUILLENT <span class="or">VENDRE</span>','mono',950,48,.35),{});
+add(54.3,1,T('AUJOURD\'HUI','big',420,150,0)+T('<span class="or">2 NOV.</span>','big',620,250,.2),{flash:1});
+add(56.0,0,`<div class="a" style="left:0;top:300px">${MAP}</div><div class="a" data-d=".2" style="left:0;top:300px">${GATE}</div>`+T('TÉHÉRAN : <span class="or">PRÊT À ROUVRIR</span>','tit',1130,66,.2));
+add(57.6,2,T('SI SES','tit',420,110,0)+T('<span class="or">EXIGENCES</span>','big',560,150,.15)+T('SONT ACCEPTÉES','mono',780,50,.35));
+add(58.5,1,`<div class="a stamp" data-d="0" style="left:150px;top:520px;font-size:100px;transform:rotate(-9deg);width:780px">AUCUN ACCORD</div>`+T('FERMÉ ?','big',900,180,.45),{flash:1,shake:1});
+add(60.6,0,`<div class="a" style="left:0;top:300px">${MAP}</div><div class="a" style="left:0;top:300px">${GATE}</div>`+T('TOUT SE JOUE ICI','tit',1130,80,.1));
+add(62.0,0,T('40 <span class="or">KM</span>','big',380,300,0)+T('DE LARGE','mono',720,54,.1),{noin:1,loop:1});
+S.forEach((s,i)=>{s.t1=i+1<S.length?S[i+1].t0:window.DUREE;});
+
+/* ---------- construction du DOM ---------- */
+const bgs=$('#bgs'),sc=$('#scenes');
+const veins=`<svg class="veins" width="1080" height="1920" viewBox="0 0 1080 1920"><g fill="none" stroke="#F0E8D6" stroke-opacity=".10" stroke-width="2">${Array.from({length:9},(_,i)=>`<path d="M${-50+i*140} 0 C${100+i*90} 500 ${-100+i*130} 1000 ${200+i*100} 1920"/>`).join('')}</g></svg>`;
+[0,1,2].forEach(k=>{const d=document.createElement('div');d.className='bg bg'+k;d.id='bg'+k;d.innerHTML=(k==2?'<div class="rays" id="rays"></div>':'')+(k==0?veins:'')+'<div class="grain"></div>';bgs.appendChild(d)});
+S.forEach(s=>{const d=document.createElement('div');d.className='scene';d.innerHTML='<div class="in">'+s.html+'</div>';sc.appendChild(d);s.el=d;s.anim=[...d.querySelectorAll('.a')];s.cnt=[...d.querySelectorAll('.cnt')];});
+for(let i=0;i<40;i++){const p=document.createElement('div');p.className='ptc';$('#ptc').appendChild(p)}
+const SYMS=['$','%','Δ','36.9°N','56.3°E','$','Δ','%'];
+SYMS.forEach(t=>{const e=document.createElement('div');e.className='sym';e.textContent=t;$('#syms').appendChild(e)});
+const ptcs=[...document.querySelectorAll('.ptc')],syms=[...document.querySelectorAll('.sym')];
+
+/* ---------- état exact à l'instant t ---------- */
+const fmt=n=>n;
+function layer(s,t,top){
+  const el=s.el, lt=t-s.t0, dur=s.t1-s.t0;
+  el.style.display='block'; el.style.zIndex=top?2:1;
+  const push=1+0.07*clamp(lt/dur);
+  let tr=`scale(${push})`, op=1, fil='';
+  const W=0.2;
+  if(top && lt<W && !s.noin){
+    const e=ease(lt/W), k=S.indexOf(s)%3;
+    if(k==0){tr=`translateX(${(1-e)*1080}px) ${tr}`;fil=`blur(${(1-e)*18}px)`}
+    else if(k==1){tr=`scale(${1+(1-e)*1.2}) ${tr}`;op=e;fil=`blur(${(1-e)*10}px)`}
+    else{const j=(1-e)*30;tr=`translateX(${Math.sin(lt*900)*j}px) ${tr}`;fil=`drop-shadow(${j}px 0 0 #f00) drop-shadow(${-j}px 0 0 #0ff)`}
+  }
+  if(s.loop){op=1}
+  if(s.shake && lt<0.35){const a=(1-lt/.35)*14;tr=`translate(${Math.sin(lt*170)*a}px,${Math.cos(lt*190)*a}px) ${tr}`}
+  el.style.transform=tr; el.style.opacity=op; el.style.filter=fil;
+  s.anim.forEach(a=>{
+    const d=+(a.dataset.d||0);
+    let x=(lt-d)/0.28;
+    if(s.noin) x=1;
+    const e=ease(x);
+    let sx=a.dataset.mv?'':'';
+    if(a.classList.contains('mv')){
+      const p=clamp((lt-d)/(+a.dataset.dur||1)), q=p*p*(3-2*p);
+      const dx=(+a.dataset.fx)+((+a.dataset.tx)-(+a.dataset.fx))*q, dy=(+a.dataset.fy)+((+a.dataset.ty)-(+a.dataset.fy))*q;
+      const base=a.style.transform.match(/scale\([^)]*\)/);
+      a.style.transform=`translate(${dx}px,${dy}px) ${base?base[0]:''}`;
+      a.style.opacity=1;
+    }else{
+      const rot=(a.style.transform.match(/rotate\([^)]*\)/)||[''])[0];
+      a.style.opacity=clamp(x*1.4);
+      a.style.transform=`${rot} scale(${1.35-0.35*e})`;
+      a.style.filter=`blur(${(1-e)*14}px)`;
+    }
+  });
+  s.cnt.forEach(c=>{const d=+(c.dataset.d||0),du=+c.dataset.dur;c.textContent=Math.round((+c.dataset.to)*ease((lt-d)/du))});
+  // drapeaux qui flottent
+  el.querySelectorAll('.wave').forEach(w=>{w.setAttribute('transform',`skewY(${Math.sin(t*5)*2.5})`)});
+}
+window.seek=function(t){
+  t=clamp(t,0,window.DUREE);
+  let i=S.findIndex(s=>t>=s.t0&&t<s.t1); if(i<0)i=S.length-1;
+  const s=S[i];
+  S.forEach(x=>x.el.style.display='none');
+  const lt=t-s.t0;
+  if(i>0&&lt<0.2&&!s.noin)layer(S[i-1],t,false);
+  layer(s,t,true);
+  [0,1,2].forEach(k=>$('#bg'+k).style.display=(k==s.bg?'block':'none'));
+  $('#rays').style.transform=`rotate(${t*4}deg)`;
+  // zoom sur les kicks
+  let kk=0;for(const k of KICKS){if(k<=t)kk=k;else break}
+  const kd=t-kk, z=1+0.035*Math.exp(-kd*9);
+  $('#stage').style.transform=`scale(${z})`;
+  // flash blanc (chiffres / coupes clés)
+  $('#flash').style.opacity=s.flash?Math.max(0,0.85*(1-lt/0.16)):0;
+  // flash-back : VHS
+  const fb=!!s.fb||(t>=FL0&&t<FL1);
+  const vi=fb?1:0;
+  $('#vhs').style.opacity=vi;
+  $('#vhsl').style.opacity=fb?(Math.floor(t*3)%2?0.95:0.35):0;
+  $('#vhsl').textContent='◄◄ REWIND';
+  $('#stage').style.filter=fb?'sepia(.55) saturate(1.3) contrast(1.08)':'none';
+  if(fb){$('#scenes').style.textShadow='';$('#scenes').style.transform=`translateX(${Math.sin(t*40)*3}px)`}else $('#scenes').style.transform='';
+  // HUD
+  $('#rec').style.opacity=Math.floor(t*2)%2?0.4:1;
+  $('#tc').textContent='00:'+String(Math.floor(t)).padStart(2,'0');
+  ptcs.forEach((p,n)=>{const sp=18+(n*7)%30,x=(n*263)%1080,y=(1920-((t*sp*4+n*97)%1920));const sz=3+(n%4);p.style.cssText=`left:${x+Math.sin(t+n)*20}px;top:${y}px;width:${sz}px;height:${sz}px;opacity:${0.25+0.35*Math.abs(Math.sin(t*2+n))}`});
+  syms.forEach((e,n)=>{e.style.left=(100+(n*131)%800)+'px';e.style.top=(1500-((t*40+n*170)%1000)+0)+'px';e.style.opacity=0.2+0.2*Math.abs(Math.sin(t+n))});
+  // sous-titres mot à mot
+  let w=null;for(let j=0;j<WORDS.length;j++){const nx=WORDS[j+1]?WORDS[j+1][0]:WORDS[j][1];if(t>=WORDS[j][0]&&t<Math.max(nx,WORDS[j][0]+0.05)){w=WORDS[j];break}}
+  const sub=$('#sub');
+  if(w){
+    const txt=w[2].replace(/[.,;:!?]$/,'');
+    const key=/\d|ormuz|iran|mines|guerre|pétroliers|accord|morts/i.test(txt);
+    const red=/mines|guerre|morts|frappes|aucun/i.test(txt);
+    const fs=Math.min(100,Math.floor(860/(txt.length*0.62)));
+    sub.style.fontSize=fs+'px';
+    sub.style.color=red?'#D62C30':key?'#E5B547':'#fff';
+    const pop=1+0.18*Math.exp(-(t-w[0])*14);
+    sub.innerHTML=(key||red?'<u>'+txt+'</u>':txt);
+    sub.style.transform=`scale(${pop})`;
+  }else sub.innerHTML='';
+  sub.style.top='1250px';
+};
+window.seek(0);
+</script></body></html>
