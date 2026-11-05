@@ -10,3 +10,4 @@ C'est la seule source pour choisir un sujet (voir kit/TACHE.md, étape b). Ce fi
 | Numéro | Sujet | Titre | Date |
 |--------|-------|-------|------|
 | 001 | S090 | Ormuz : 40 km, un cinquième du pétrole mondial | 2026-11-04 |
+| 002 | S062 | Groenland : 57 000 habitants, l'île que Washington convoite | 2026-11-05 |
