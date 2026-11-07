@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<title>Amadeus 004 — Blé ukrainien</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Abril+Fatface&family=DM+Serif+Display&family=Space+Mono:wght@700&display=swap">
+<style>
+:root{--or:#E5B547;--orf:#A07828;--cr:#F0E8D6;--rg:#D62C30;--gr:#78746C}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;background:#0E0D0C;overflow:hidden}
+#stage{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:hidden;transform-origin:50% 40%}
+.bg{position:absolute;inset:0}
+.bg0{background:radial-gradient(ellipse at 50% 35%,#1b1917 0%,#0E0D0C 70%)}
+.bg1{background:radial-gradient(ellipse at 50% 40%,#7A141A 0%,#3E080C 85%)}
+.bg2{background:radial-gradient(ellipse at 50% 38%,#4a2a10 0%,#0E0D0C 80%)}
+.rays{position:absolute;left:-600px;top:-300px;width:2280px;height:2280px;background:repeating-conic-gradient(from 0deg at 50% 40%,rgba(229,181,71,.20) 0deg 6deg,rgba(229,181,71,0) 6deg 15deg);-webkit-mask:radial-gradient(circle at 50% 40%,#000 0,transparent 60%);mask:radial-gradient(circle at 50% 40%,#000 0,transparent 60%)}
+.grain{position:absolute;inset:0;opacity:.22;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/></filter><rect width='300' height='300' filter='url(%23f)'/></svg>")}
+.veins{position:absolute;inset:0;opacity:.5}
+.scene{position:absolute;inset:0;display:none;transform-origin:50% 40%}
+.in{position:absolute;left:0;top:0;width:1080px;height:1920px}
+.a{position:absolute;transform-origin:50% 50%}
+.big{font-family:'Abril Fatface',serif;color:var(--cr);text-align:center;line-height:1;text-shadow:0 8px 40px rgba(0,0,0,.7)}
+.or{color:var(--or)}.rg{color:var(--rg)}
+.tit{font-family:'DM Serif Display',serif;color:var(--or);text-align:center;line-height:1.05;text-shadow:0 4px 24px rgba(0,0,0,.8)}
+.mono{font-family:'Space Mono',monospace;font-weight:700;color:var(--or);letter-spacing:4px;text-align:center}
+.stamp{font-family:'Archivo Black',sans-serif;color:var(--rg);border:10px solid var(--rg);padding:10px 36px;text-align:center;text-transform:uppercase;letter-spacing:3px;background:rgba(14,13,12,.45)}
+.cc{left:0;width:1080px}
+#sub{position:absolute;left:110px;width:860px;top:1250px;height:150px;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Archivo Black',sans-serif;font-size:100px;line-height:1;color:#fff;text-transform:uppercase;-webkit-text-stroke:12px #000;paint-order:stroke fill;text-shadow:0 6px 0 #000;white-space:nowrap}
+#sub u{text-decoration:none;border-bottom:10px solid currentColor}
+#flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+#vhs{position:absolute;inset:0;pointer-events:none;opacity:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 3px,rgba(0,0,0,0) 3px 6px);mix-blend-mode:multiply}
+#vhsl{position:absolute;left:0;width:1080px;top:150px;text-align:center;opacity:0}
+#hud{position:absolute;inset:0;pointer-events:none}
+.corner{position:absolute;width:70px;height:70px;border:5px solid var(--or)}
+#rec{position:absolute;left:100px;top:92px;font-family:'Space Mono',monospace;font-weight:700;color:var(--or);font-size:30px;letter-spacing:3px}
+#tc{position:absolute;right:100px;top:92px;font-family:'Space Mono',monospace;font-weight:700;color:var(--or);font-size:30px}
+#fr{position:absolute;left:62px;top:300px;width:12px;height:1000px;background:repeating-linear-gradient(180deg,var(--or) 0 3px,transparent 3px 20px);opacity:.55}
+#fr2{position:absolute;right:62px;top:300px;width:12px;height:1000px;background:repeating-linear-gradient(180deg,var(--or) 0 3px,transparent 3px 20px);opacity:.55}
+.ptc{position:absolute;border-radius:50%;background:var(--or)}
+.sym{position:absolute;font-family:'Space Mono',monospace;font-weight:700;color:var(--or);opacity:.35;font-size:34px}
+svg{overflow:visible}
+</style></head><body>
+<div id="stage">
+ <div id="bgs"></div>
+ <div id="scenes"></div>
+ <div id="hud">
+  <div class="corner" style="left:60px;top:60px;border-right:0;border-bottom:0"></div>
+  <div class="corner" style="right:60px;top:60px;border-left:0;border-bottom:0"></div>
+  <div class="corner" style="left:60px;bottom:420px;border-right:0;border-top:0"></div>
+  <div class="corner" style="right:60px;bottom:420px;border-left:0;border-top:0"></div>
+  <div id="rec">● REC</div><div id="tc">00:00</div><div id="fr"></div><div id="fr2"></div>
+  <div id="ptc"></div><div id="syms"></div>
+ </div>
+ <div id="vhsl" class="mono" style="font-size:44px">◄◄ REWIND</div>
+ <div id="sub"></div>
+ <div id="vhs"></div>
+ <div id="flash"></div>
+</div>
+<script>
+const WORDS=[[0.1, 0.362, "Moins"], [0.375, 0.975, "soixante-seize"], [0.987, 1.175, "pour"], [1.187, 1.425, "cent"], [1.65, 1.75, "c'est"], [1.762, 1.875, "la"], [1.887, 2.112, "chute"], [2.125, 2.225, "des"], [2.237, 2.9, "exportations"], [2.912, 3.05, "de"], [3.062, 3.462, "céréales"], [3.475, 4.012, "ukrainiennes"], [4.025, 4.287, "début"], [4.3, 4.65, "août"], [5.525, 5.937, "Depuis"], [5.95, 6.3, "juillet"], [6.637, 6.787, "la"], [6.8, 6.975, "mer"], [6.987, 7.212, "Noire"], [7.225, 7.275, "est"], [7.287, 7.425, "sous"], [7.437, 7.55, "les"], [7.562, 7.975, "frappes"], [8.85, 9.175, "Ports"], [9.425, 9.887, "navires"], [10.175, 10.7, "terminaux"], [10.862, 11.0, "tout"], [11.012, 11.15, "est"], [11.162, 11.587, "visé"], [11.825, 11.962, "des"], [11.975, 12.1, "deux"], [12.112, 12.587, "côtés"], [13.45, 13.612, "À"], [13.625, 13.962, "Paris"], [14.325, 14.487, "la"], [14.5, 14.712, "tonne"], [14.725, 14.837, "de"], [14.85, 15.025, "blé"], [15.037, 15.1, "est"], [15.112, 15.412, "passée"], [15.425, 15.812, "d'environ"], [15.825, 15.962, "cent"], [15.975, 16.487, "quatre-vingt-dix"], [16.5, 16.762, "euros"], [16.775, 16.837, "au"], [16.85, 17.262, "printemps"], [17.275, 17.337, "à"], [17.35, 17.525, "deux"], [17.537, 17.675, "cent"], [17.687, 17.95, "vingt-deux"], [17.962, 18.05, "en"], [18.062, 18.475, "août"], [19.35, 19.575, "Ça"], [19.587, 19.7, "te"], [19.712, 20.212, "concerne"], [20.425, 20.475, "à"], [20.487, 20.575, "eux"], [20.587, 20.837, "deux"], [21.187, 21.312, "la"], [21.325, 21.637, "Russie"], [21.65, 21.687, "et"], [21.7, 22.075, "l'Ukraine"], [22.087, 22.487, "fournissent"], [22.5, 22.662, "près"], [22.675, 22.812, "d'un"], [22.825, 23.05, "tiers"], [23.062, 23.175, "du"], [23.187, 23.337, "blé"], [23.35, 23.762, "échangé"], [23.775, 23.887, "dans"], [23.9, 23.975, "le"], [23.987, 24.387, "monde"], [25.262, 25.437, "Ton"], [25.45, 25.587, "pain"], [25.6, 25.9, "dépend"], [25.912, 26.15, "aussi"], [26.162, 26.3, "de"], [26.312, 26.525, "cette"], [26.537, 26.737, "mer."], [26.75, 27.15, "Remontons"], [27.162, 27.275, "le"], [27.287, 27.55, "temps"], [28.425, 28.587, "En"], [28.6, 29.662, "juillet 2022"], [29.987, 30.037, "un"], [30.05, 30.4, "accord"], [30.412, 30.687, "signé"], [30.7, 30.762, "à"], [30.775, 31.262, "Istanbul"], [31.275, 31.537, "rouvre"], [31.55, 31.625, "les"], [31.637, 31.825, "ports"], [31.837, 32.425, "ukrainiens"], [33.287, 33.45, "En"], [33.462, 33.6, "un"], [33.612, 33.85, "an"], [34.175, 34.337, "près"], [34.35, 34.462, "de"], [34.475, 34.862, "trente-trois"], [34.875, 35.112, "millions"], [35.125, 35.237, "de"], [35.25, 35.475, "tonnes"], [35.487, 35.737, "partent"], [35.75, 35.937, "vers"], [35.95, 36.425, "quarante-cinq"], [36.437, 36.837, "pays"], [37.7, 37.862, "En"], [37.875, 38.975, "juillet 2023"], [39.287, 39.425, "la"], [39.437, 39.725, "Russie"], [39.737, 39.962, "quitte"], [39.975, 40.6, "l'accord"], [41.462, 41.775, "Chaque"], [41.787, 41.975, "camp"], [41.987, 42.037, "a"], [42.05, 42.187, "sa"], [42.2, 42.662, "version"], [43.537, 43.812, "Kiev"], [43.825, 44.225, "propose"], [44.237, 44.287, "un"], [44.3, 44.512, "arrêt"], [44.525, 44.9, "mutuel"], [44.912, 45.012, "des"], [45.025, 45.35, "attaques"], [45.362, 45.662, "contre"], [45.675, 45.787, "les"], [45.8, 46.125, "cibles"], [46.137, 46.475, "civiles"], [46.487, 46.537, "en"], [46.55, 46.725, "mer"], [46.737, 47.187, "Noire"], [48.062, 48.262, "Le"], [48.275, 48.6, "Kremlin"], [48.612, 48.725, "n'a"], [48.737, 48.862, "pas"], [48.875, 49.35, "répondu"], [49.662, 49.725, "et"], [49.737, 49.862, "ses"], [49.875, 50.212, "propres"], [50.225, 50.4, "ports"], [50.412, 50.462, "ont"], [50.475, 50.812, "aussi"], [50.825, 51.0, "été"], [51.012, 51.487, "frappés"], [52.362, 52.937, "Aujourd'hui"], [53.275, 53.525, "Kiev"], [53.537, 53.8, "table"], [53.812, 53.987, "sur"], [54.0, 54.412, "vingt-neuf"], [54.425, 54.675, "millions"], [54.687, 54.8, "de"], [54.812, 55.025, "tonnes"], [55.037, 55.725, "d'exportations"], [55.737, 56.375, "agricoles"], [56.662, 57.0, "contre"], [57.012, 57.6, "soixante-quatre"], [57.612, 57.762, "avant"], [57.775, 58.45, "l'escalade"], [59.325, 59.462, "Tout"], [59.475, 59.75, "dépend"], [59.762, 59.887, "de"], [59.9, 60.112, "cette"], [60.125, 60.45, "mer"], [60.637, 60.812, "moins"], [60.825, 61.412, "soixante-seize"], [61.425, 61.612, "pour"], [61.625, 61.875, "cent"]];
+const KICKS=[0.0, 0.75, 1.0714, 1.7143, 2.4643, 2.7857, 3.4286, 4.1786, 4.5, 5.1429, 5.8929, 6.2143, 6.8571, 7.6071, 7.9286, 8.5714, 9.3214, 9.6429, 10.2857, 11.0357, 11.3571, 12.0, 12.75, 13.0714, 13.7143, 14.4643, 14.7857, 15.4286, 16.1786, 16.5, 17.1429, 17.8929, 18.2143, 18.8571, 19.6071, 19.9286, 20.5714, 21.3214, 21.6429, 22.2857, 23.0357, 23.3571, 24.0, 24.75, 25.0714, 25.7143, 26.4643, 41.8929, 42.2143, 42.8571, 43.6071, 43.9286, 44.5714, 45.3214, 45.6429, 46.2857, 47.0357, 47.3571, 48.0, 48.75, 49.0714, 49.7143, 50.4643, 50.7857, 51.4286, 52.1786, 52.5, 53.1429, 53.8929, 54.2143, 54.8571, 55.6071, 55.9286, 56.5714, 57.3214, 57.6429, 58.2857, 59.0357, 59.3571, 60.0, 60.75, 61.0714, 61.7143];
+window.DUREE=62.4;
+const $=s=>document.querySelector(s);
+const ease=x=>1-Math.pow(1-Math.min(1,Math.max(0,x)),3);
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const FL0=26.7, FL1=41.4;
+const SEA=`<g stroke="#E5B547" stroke-width="3" fill="none" opacity=".3">${Array.from({length:14},(_,i)=>`<path d="M0 ${60+i*52} Q270 ${40+i*52} 540 ${60+i*52} T1080 ${60+i*52}"/>`).join('')}</g>`;
+const HATCH=`<defs><pattern id="ht" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="14" stroke="#A07828" stroke-width="3"/></pattern></defs>`;
+const BS="M200 330 L330 250 L470 270 L560 200 L700 230 L830 300 L880 400 L800 470 L680 440 L600 520 L470 540 L380 480 L300 500 L220 440Z";
+const MAP=(mode)=>`<svg width="1080" height="800" viewBox="0 0 1080 800">${HATCH}${SEA}<rect x="60" y="120" width="960" height="150" fill="url(#ht)" opacity=".6"/><rect x="60" y="590" width="960" height="150" fill="url(#ht)" opacity=".6"/><path d="${BS}" fill="#1b1917" stroke="#E5B547" stroke-width="8"/>${mode==='hit'?[[330,300],[470,330],[560,260],[700,290],[620,420]].map(([x,y],i)=>`<circle cx="${x}" cy="${y}" r="${18+(i%2)*8}" fill="#D62C30" stroke="#F0E8D6" stroke-width="4"/><circle cx="${x}" cy="${y}" r="${40+i*6}" fill="none" stroke="#D62C30" stroke-width="3" opacity=".6"/>`).join(''):''}${mode==='open'?[[330,300],[470,330],[560,260],[700,290]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="16" fill="#E5B547" stroke="#000" stroke-width="4"/>`).join('')+`<path d="M330 300 L470 330 L560 260 L700 290" fill="none" stroke="#E5B547" stroke-width="5" stroke-dasharray="14 10"/>`:''}${mode==='label'?`<text x="540" y="400" text-anchor="middle" font-family="Space Mono" font-weight="700" font-size="56" fill="#E5B547" letter-spacing="6">MER NOIRE</text>`:''}</svg>`;
+const SHIP=`<svg width="700" height="420" viewBox="0 0 700 420"><path d="M40 260 L660 260 L580 360 L120 360Z" fill="#1b1917" stroke="#E5B547" stroke-width="8"/>${[0,1,2,3].map(i=>`<rect x="${110+i*120}" y="190" width="100" height="70" fill="#7A141A" stroke="#000" stroke-width="5"/>`).join('')}<rect x="500" y="120" width="110" height="70" fill="#F0E8D6" stroke="#000" stroke-width="5"/><rect x="530" y="70" width="20" height="50" fill="#E5B547"/><path d="M0 390 Q90 360 180 390 T360 390 T540 390 T720 390" fill="none" stroke="#E5B547" stroke-width="5"/></svg>`;
+const WHEAT=`<svg width="420" height="640" viewBox="0 0 420 640"><path d="M210 640 L210 120" stroke="#E5B547" stroke-width="10"/>${Array.from({length:7},(_,i)=>`<ellipse cx="150" cy="${150+i*55}" rx="26" ry="50" transform="rotate(-30 150 ${150+i*55})" fill="#E5B547" stroke="#000" stroke-width="5"/><ellipse cx="270" cy="${178+i*55}" rx="26" ry="50" transform="rotate(30 270 ${178+i*55})" fill="#A07828" stroke="#000" stroke-width="5"/>`).join('')}<ellipse cx="210" cy="90" rx="26" ry="60" fill="#E5B547" stroke="#000" stroke-width="5"/></svg>`;
+const BREAD=`<svg width="560" height="360" viewBox="0 0 560 360"><path d="M40 260 Q20 120 160 90 Q280 50 400 90 Q540 120 520 260 Q500 320 280 320 Q60 320 40 260Z" fill="#A07828" stroke="#000" stroke-width="8"/>${[0,1,2].map(i=>`<path d="M${170+i*100} 120 Q${200+i*100} 190 ${150+i*100} 250" fill="none" stroke="#F0E8D6" stroke-width="10"/>`).join('')}</svg>`;
+const FL_RU=`<svg width="620" height="400" viewBox="0 0 620 400"><g class="wave"><rect width="620" height="134" fill="#F0E8D6"/><rect y="133" width="620" height="134" fill="#0039A6"/><rect y="266" width="620" height="134" fill="#D52B1E"/></g></svg>`;
+const FL_UA=`<svg width="620" height="400" viewBox="0 0 620 400"><g class="wave"><rect width="620" height="200" fill="#0057B7"/><rect y="200" width="620" height="200" fill="#FFD700"/></g></svg>`;
+const DOC=`<svg width="420" height="540" viewBox="0 0 420 540"><rect x="10" y="10" width="400" height="520" rx="12" fill="#F0E8D6" stroke="#000" stroke-width="6"/>${[0,1,2,3,4,5].map(i=>`<line x1="50" y1="${80+i*50}" x2="${i%3==2?250:370}" y2="${80+i*50}" stroke="#78746C" stroke-width="10"/>`).join('')}<circle cx="320" cy="450" r="42" fill="#D62C30" stroke="#000" stroke-width="5"/></svg>`;
+const S=[];
+const add=(t0,bg,html,o={})=>S.push(Object.assign({t0,bg,html},o));
+const T=(txt,cls,top,fs,d=0,extra='')=>`<div class="a cc ${cls}" data-d="${d}" style="top:${top}px;font-size:${fs}px;${extra}">${txt}</div>`;
+const P=(svg,l,t,d=0,extra='')=>{const m=extra.match(/scale\(([\d.]+)\)/);return `<div class="a" data-d="${d}" ${m?'data-s="'+m[1]+'"':''} style="left:${l}px;top:${t}px;${extra}">${svg}</div>`};
+const STAMP=(txt,l,t,fs,rot,d=.3,w=700)=>`<div class="a stamp" data-d="${d}" style="left:${l}px;top:${t}px;font-size:${fs}px;transform:rotate(${rot}deg);width:${w}px">${txt}</div>`;
+const CNT=(to,dur,suf='')=>`<span class="cnt" data-to="${to}" data-dur="${dur}" data-d="0">0</span>${suf}`;
+const HOOK0=T('<span class="rg">−</span>76<span class="or">%</span>','big',380,380,0)+T('CÉRÉALES UKRAINIENNES','mono',900,46,.1);
+add(0,0,HOOK0,{flash:1,noin:1});
+add(1.6,1,P(SHIP,190,400,0)+T('EXPORTATIONS','tit',960,100,.2),{flash:1});
+add(3.0,0,P(WHEAT,330,300,0)+T('<span class="or">CÉRÉALES</span>','tit',1000,100,.2));
+add(4.0,2,T('AOÛT','big',440,260,0)+T('<span class="or">2026</span>','big',720,200,.15),{flash:1,shake:1});
+add(5.5,1,T('JUILLET','big',420,230,0)+T('LA <span class="or">MER NOIRE</span>','tit',720,100,.2),{flash:1});
+add(7.3,0,P(MAP('hit'),0,300,0)+STAMP('FRAPPES',200,1010,110,-6,.15,680),{flash:1,shake:1});
+add(8.8,2,P(MAP('open'),0,300,0)+T('PORTS','big',1130,150,.2),{});
+add(9.35,1,P(SHIP,190,400,0)+T('NAVIRES','big',960,150,.2),{flash:1});
+add(10.1,0,P(MAP('hit'),0,300,0)+T('TERMINAUX','tit',1130,110,.2),{});
+add(11.75,2,T(CNT(2,.4),'big',360,520,0)+T('CÔTÉS','mono',930,70,.2),{flash:1,shake:1});
+add(13.4,1,T('PARIS','big',420,230,0)+T('LA TONNE DE <span class="or">BLÉ</span>','tit',720,84,.2),{flash:1});
+add(15.4,0,T(CNT(190,.8,'<span class="or">€</span>'),'big',400,330,0)+T('AU PRINTEMPS','mono',860,56,.3),{flash:1,shake:1});
+add(17.25,2,T(CNT(222,.8,'<span class="or">€</span>'),'big',400,330,0)+T('EN <span class="or">AOÛT</span>','tit',860,100,.3),{flash:1,shake:1});
+add(19.3,1,T('ÇA TE','tit',420,150,0)+T('<span class="or">CONCERNE</span>','big',620,170,.15),{flash:1});
+add(20.4,0,T('UN <span class="or">TIERS</span>','big',420,180,0)+T('DU BLÉ ÉCHANGÉ','mono',800,56,.3),{flash:1,shake:1});
+add(21.2,2,P(FL_RU,230,330,0)+P(FL_UA,230,760,.2)+T('RUSSIE · UKRAINE','mono',1200,50,.3),{});
+add(23.2,1,T('DANS LE <span class="or">MONDE</span>','tit',520,110,0)+`<div class="a" style="left:140px;top:760px;width:800px;height:6px;background:#E5B547"></div>`,{});
+add(25.2,0,P(BREAD,260,420,0)+T('TON <span class="or">PAIN</span>','big',960,170,.2),{flash:1});
+add(26.7,0,T('REMONTONS','tit',420,150,0)+T('<span class="or">LE TEMPS</span>','big',620,230,.15),{fb:1,flash:1});
+add(28.4,1,T('2022','big',420,400,0)+T('JUILLET','mono',860,60,.3),{fb:1,flash:1,shake:1});
+add(29.95,2,P(DOC,330,330,0)+T('UN <span class="or">ACCORD</span>','tit',960,100,.2),{fb:1,flash:1});
+add(30.7,0,T('ISTANBUL','big',420,150,0)+T('SIGNÉ','mono',720,70,.2),{fb:1});
+add(31.5,1,P(MAP('open'),0,300,0)+T('PORTS <span class="or">ROUVERTS</span>','tit',1130,70,.2),{fb:1});
+add(33.25,0,T(CNT(1,.3)+' <span class="or">AN</span>','big',420,420,0),{fb:1,flash:1});
+add(34.15,2,T(CNT(33,.8),'big',380,420,0)+T('MILLIONS DE <span class="or">TONNES</span>','tit',860,80,.3),{fb:1,flash:1,shake:1});
+add(35.9,1,T(CNT(45,.7),'big',380,420,0)+T('PAYS','mono',860,70,.3),{fb:1,flash:1,shake:1});
+add(37.6,0,T('2023','big',420,400,0)+T('JUILLET','mono',860,60,.3),{fb:1,flash:1,shake:1});
+add(39.25,1,P(DOC,330,300,0)+STAMP('QUITTÉ',130,1000,130,-7,.2,820),{fb:1,flash:1,shake:1});
+add(40.4,2,T('LA <span class="or">RUSSIE</span>','big',420,160,0)+T('SE RETIRE','mono',720,70,.2),{fb:1});
+add(41.45,1,T('CHAQUE CAMP','tit',380,120,0)+T('<span class="or">SA VERSION</span>','big',560,140,.15)+`<div class="a" style="left:140px;top:850px;width:800px;height:6px;background:#E5B547"></div>`,{flash:1});
+add(43.5,0,P(FL_UA,230,380,0)+T('KIEV','big',900,170,.2),{flash:1});
+add(44.4,2,P(MAP('label'),0,300,0)+T('ARRÊT <span class="or">MUTUEL</span>','tit',1130,70,.2),{});
+add(45.75,1,T('CIBLES','big',420,200,0)+T('<span class="or">CIVILES</span>','big',660,200,.15),{flash:1,shake:1});
+add(48.0,0,T('LE <span class="or">KREMLIN</span>','big',420,120,0)+P(FL_RU,230,700,.1),{flash:1});
+add(48.85,2,STAMP('SANS RÉPONSE',100,540,100,-6,.1,880),{flash:1,shake:1});
+add(49.65,1,P(MAP('hit'),0,300,0)+T('SES PORTS <span class="or">FRAPPÉS</span>','tit',1130,64,.2),{flash:1});
+add(52.3,0,T('AUJOURD\'HUI','big',420,130,0)+T('<span class="or">2026</span>','big',620,200,.2),{flash:1});
+add(53.2,2,T(CNT(29,.8),'big',380,420,0)+T('MILLIONS DE <span class="or">TONNES</span>','tit',860,80,.3),{flash:1,shake:1});
+add(56.6,1,T(CNT(64,.8),'big',380,420,0)+T('AVANT <span class="or">L\'ESCALADE</span>','tit',860,80,.3),{flash:1,shake:1});
+add(59.3,0,P(MAP('label'),0,300,0)+T('TOUT <span class="or">DÉPEND</span>','tit',1130,92,.2),{flash:1});
+add(60.55,2,T('<span class="rg">−</span>76<span class="or">%</span>','big',380,380,0)+T('CÉRÉALES UKRAINIENNES','mono',900,46,.1),{flash:1,noin:1});
+
+S.forEach((s,i)=>{s.t1=i+1<S.length?S[i+1].t0:window.DUREE;});
+/* ---------- construction du DOM ---------- */
+const bgs=$('#bgs'),sc=$('#scenes');
+const veins=`<svg class="veins" width="1080" height="1920" viewBox="0 0 1080 1920"><g fill="none" stroke="#F0E8D6" stroke-opacity=".10" stroke-width="2">${Array.from({length:9},(_,i)=>`<path d="M${-50+i*140} 0 C${100+i*90} 500 ${-100+i*130} 1000 ${200+i*100} 1920"/>`).join('')}</g></svg>`;
+[0,1,2].forEach(k=>{const d=document.createElement('div');d.className='bg bg'+k;d.id='bg'+k;d.innerHTML=(k==2?'<div class="rays" id="rays"></div>':'')+(k==0?veins:'')+'<div class="grain"></div>';bgs.appendChild(d)});
+S.forEach(s=>{const d=document.createElement('div');d.className='scene';d.innerHTML='<div class="in">'+s.html+'</div>';sc.appendChild(d);s.el=d;s.anim=[...d.querySelectorAll('.a')];s.cnt=[...d.querySelectorAll('.cnt')];});
+for(let i=0;i<40;i++){const p=document.createElement('div');p.className='ptc';$('#ptc').appendChild(p)}
+const SYMS=['$','%','Δ','46°N','31°E','€','t','Δ'];
+SYMS.forEach(t=>{const e=document.createElement('div');e.className='sym';e.textContent=t;$('#syms').appendChild(e)});
+const ptcs=[...document.querySelectorAll('.ptc')],syms=[...document.querySelectorAll('.sym')];
+
+/* ---------- état exact à l'instant t ---------- */
+const fmt=n=>n;
+function layer(s,t,top){
+  const el=s.el, lt=t-s.t0, dur=s.t1-s.t0;
+  el.style.display='block'; el.style.zIndex=top?2:1;
+  const push=1+0.07*clamp(lt/dur);
+  let tr=`scale(${push})`, op=1, fil='';
+  const W=0.2;
+  if(top && lt<W && !s.noin){
+    const e=ease(lt/W), k=S.indexOf(s)%3;
+    if(k==0){tr=`translateX(${(1-e)*1080}px) ${tr}`;fil=`blur(${(1-e)*18}px)`}
+    else if(k==1){tr=`scale(${1+(1-e)*1.2}) ${tr}`;op=e;fil=`blur(${(1-e)*10}px)`}
+    else{const j=(1-e)*30;tr=`translateX(${Math.sin(lt*900)*j}px) ${tr}`;fil=`drop-shadow(${j}px 0 0 #f00) drop-shadow(${-j}px 0 0 #0ff)`}
+  }
+  if(s.loop){op=1}
+  if(s.shake && lt<0.35){const a=(1-lt/.35)*14;tr=`translate(${Math.sin(lt*170)*a}px,${Math.cos(lt*190)*a}px) ${tr}`}
+  el.style.transform=tr; el.style.opacity=op; el.style.filter=fil;
+  s.anim.forEach(a=>{
+    const d=+(a.dataset.d||0);
+    let x=(lt-d)/0.28;
+    if(s.noin) x=1;
+    const e=ease(x);
+    let sx=a.dataset.mv?'':'';
+    if(a.classList.contains('mv')){
+      const p=clamp((lt-d)/(+a.dataset.dur||1)), q=p*p*(3-2*p);
+      const dx=(+a.dataset.fx)+((+a.dataset.tx)-(+a.dataset.fx))*q, dy=(+a.dataset.fy)+((+a.dataset.ty)-(+a.dataset.fy))*q;
+      const base=a.style.transform.match(/scale\([^)]*\)/);
+      a.style.transform=`translate(${dx}px,${dy}px) ${base?base[0]:''}`;
+      a.style.opacity=1;
+    }else{
+      const rot=(a.style.transform.match(/rotate\([^)]*\)/)||[''])[0];
+      a.style.opacity=clamp(x*1.4);
+      a.style.transform=`${rot} scale(${(1.35-0.35*e)*(+a.dataset.s||1)})`;
+      a.style.filter=`blur(${(1-e)*14}px)`;
+    }
+  });
+  s.cnt.forEach(c=>{const d=+(c.dataset.d||0),du=+c.dataset.dur;c.textContent=Math.round((+c.dataset.to)*ease((lt-d)/du))});
+  // drapeaux qui flottent
+  el.querySelectorAll('.wave').forEach(w=>{w.setAttribute('transform',`skewY(${Math.sin(t*5)*2.5})`)});
+}
+window.seek=function(t){
+  t=clamp(t,0,window.DUREE);
+  let i=S.findIndex(s=>t>=s.t0&&t<s.t1); if(i<0)i=S.length-1;
+  const s=S[i];
+  S.forEach(x=>x.el.style.display='none');
+  const lt=t-s.t0;
+  if(i>0&&lt<0.2&&!s.noin)layer(S[i-1],t,false);
+  layer(s,t,true);
+  [0,1,2].forEach(k=>$('#bg'+k).style.display=(k==s.bg?'block':'none'));
+  $('#rays').style.transform=`rotate(${t*4}deg)`;
+  // zoom sur les kicks
+  let kk=0;for(const k of KICKS){if(k<=t)kk=k;else break}
+  const kd=t-kk, z=1+0.035*Math.exp(-kd*9);
+  $('#stage').style.transform=`scale(${z})`;
+  // flash blanc (chiffres / coupes clés)
+  $('#flash').style.opacity=s.flash?Math.max(0,0.85*(1-lt/0.16)):0;
+  // flash-back : VHS
+  const fb=!!s.fb||(t>=FL0&&t<FL1);
+  const vi=fb?1:0;
+  $('#vhs').style.opacity=vi;
+  $('#vhsl').style.opacity=fb?(Math.floor(t*3)%2?0.95:0.35):0;
+  $('#vhsl').textContent='◄◄ REWIND';
+  $('#stage').style.filter=fb?'sepia(.55) saturate(1.3) contrast(1.08)':'none';
+  if(fb){$('#scenes').style.textShadow='';$('#scenes').style.transform=`translateX(${Math.sin(t*40)*3}px)`}else $('#scenes').style.transform='';
+  // HUD
+  $('#rec').style.opacity=Math.floor(t*2)%2?0.4:1;
+  $('#tc').textContent='00:'+String(Math.floor(t)).padStart(2,'0');
+  ptcs.forEach((p,n)=>{const sp=18+(n*7)%30,x=(n*263)%1080,y=(1920-((t*sp*4+n*97)%1920));const sz=3+(n%4);p.style.cssText=`left:${x+Math.sin(t+n)*20}px;top:${y}px;width:${sz}px;height:${sz}px;opacity:${0.25+0.35*Math.abs(Math.sin(t*2+n))}`});
+  syms.forEach((e,n)=>{e.style.left=(100+(n*131)%800)+'px';e.style.top=(1500-((t*40+n*170)%1000)+0)+'px';e.style.opacity=0.2+0.2*Math.abs(Math.sin(t+n))});
+  // sous-titres mot à mot
+  let w=null;for(let j=0;j<WORDS.length;j++){const nx=WORDS[j+1]?WORDS[j+1][0]:WORDS[j][1];if(t>=WORDS[j][0]&&t<Math.max(nx,WORDS[j][0]+0.05)){w=WORDS[j];break}}
+  const sub=$('#sub');
+  if(w){
+    const txt=w[2].replace(/[.,;:!?]$/,'');
+    const key=/\d|soixante|vingt|trente|quarante|cent|blé|pain|mer|noire|ports|navires|kiev|kremlin|russie|ukrain|tiers|accord|céréales|exportations|frappes|escalade/i.test(txt);
+    const red=/moins|frappes|frappés/i.test(txt);
+    const fs=Math.min(100,Math.floor(860/(txt.length*0.62)));
+    sub.style.fontSize=fs+'px';
+    sub.style.color=red?'#D62C30':key?'#E5B547':'#fff';
+    const pop=1+0.18*Math.exp(-(t-w[0])*14);
+    sub.innerHTML=(key||red?'<u>'+txt+'</u>':txt);
+    sub.style.transform=`scale(${pop})`;
+  }else sub.innerHTML='';
+  sub.style.top='1250px';
+  if(t>window.DUREE-0.45){layer(S[0],0,true);S[0].el.style.zIndex=3;S[0].el.style.opacity=clamp((t-(window.DUREE-0.45))/0.45)}
+};
+window.seek(0);
+</script></body></html>
