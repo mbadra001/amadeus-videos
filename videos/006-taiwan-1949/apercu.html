@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<title>Amadeus 006 — Taïwan 1949</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Abril+Fatface&family=DM+Serif+Display&family=Space+Mono:wght@700&display=swap">
+<style>
+:root{--or:#E5B547;--orf:#A07828;--cr:#F0E8D6;--rg:#D62C30;--gr:#78746C}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;background:#0E0D0C;overflow:hidden}
+#stage{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:hidden;transform-origin:50% 40%}
+.bg{position:absolute;inset:0}
+.bg0{background:radial-gradient(ellipse at 50% 35%,#1b1917 0%,#0E0D0C 70%)}
+.bg1{background:radial-gradient(ellipse at 50% 40%,#7A141A 0%,#3E080C 85%)}
+.bg2{background:radial-gradient(ellipse at 50% 38%,#4a2a10 0%,#0E0D0C 80%)}
+.rays{position:absolute;left:-600px;top:-300px;width:2280px;height:2280px;background:repeating-conic-gradient(from 0deg at 50% 40%,rgba(229,181,71,.20) 0deg 6deg,rgba(229,181,71,0) 6deg 15deg);-webkit-mask:radial-gradient(circle at 50% 40%,#000 0,transparent 60%);mask:radial-gradient(circle at 50% 40%,#000 0,transparent 60%)}
+.grain{position:absolute;inset:0;opacity:.22;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/></filter><rect width='300' height='300' filter='url(%23f)'/></svg>")}
+.veins{position:absolute;inset:0;opacity:.5}
+.scene{position:absolute;inset:0;display:none;transform-origin:50% 40%}
+.in{position:absolute;left:0;top:0;width:1080px;height:1920px}
+.a{position:absolute;transform-origin:50% 50%}
+.big{font-family:'Abril Fatface',serif;color:var(--cr);text-align:center;line-height:1;text-shadow:0 8px 40px rgba(0,0,0,.7)}
+.or{color:var(--or)}.rg{color:var(--rg)}
+.tit{font-family:'DM Serif Display',serif;color:var(--or);text-align:center;line-height:1.05;text-shadow:0 4px 24px rgba(0,0,0,.8)}
+.mono{font-family:'Space Mono',monospace;font-weight:700;color:var(--or);letter-spacing:4px;text-align:center}
+.stamp{font-family:'Archivo Black',sans-serif;color:var(--rg);border:10px solid var(--rg);padding:10px 36px;text-align:center;text-transform:uppercase;letter-spacing:3px;background:rgba(14,13,12,.45)}
+.cc{left:0;width:1080px}
+#sub{position:absolute;left:110px;width:860px;top:1250px;height:150px;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Archivo Black',sans-serif;font-size:100px;line-height:1;color:#fff;text-transform:uppercase;-webkit-text-stroke:12px #000;paint-order:stroke fill;text-shadow:0 6px 0 #000;white-space:nowrap}
+#sub u{text-decoration:none;border-bottom:10px solid currentColor}
+#flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+#vhs{position:absolute;inset:0;pointer-events:none;opacity:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 3px,rgba(0,0,0,0) 3px 6px);mix-blend-mode:multiply}
+#vhsl{position:absolute;left:0;width:1080px;top:150px;text-align:center;opacity:0}
+#hud{position:absolute;inset:0;pointer-events:none}
+.corner{position:absolute;width:70px;height:70px;border:5px solid var(--or)}
+#rec{position:absolute;left:100px;top:92px;font-family:'Space Mono',monospace;font-weight:700;color:var(--or);font-size:30px;letter-spacing:3px}
+#tc{position:absolute;right:100px;top:92px;font-family:'Space Mono',monospace;font-weight:700;color:var(--or);font-size:30px}
+#fr{position:absolute;left:62px;top:300px;width:12px;height:1000px;background:repeating-linear-gradient(180deg,var(--or) 0 3px,transparent 3px 20px);opacity:.55}
+#fr2{position:absolute;right:62px;top:300px;width:12px;height:1000px;background:repeating-linear-gradient(180deg,var(--or) 0 3px,transparent 3px 20px);opacity:.55}
+.ptc{position:absolute;border-radius:50%;background:var(--or)}
+.sym{position:absolute;font-family:'Space Mono',monospace;font-weight:700;color:var(--or);opacity:.35;font-size:34px}
+svg{overflow:visible}
+</style></head><body>
+<div id="stage">
+ <div id="bgs"></div>
+ <div id="scenes"></div>
+ <div id="hud">
+  <div class="corner" style="left:60px;top:60px;border-right:0;border-bottom:0"></div>
+  <div class="corner" style="right:60px;top:60px;border-left:0;border-bottom:0"></div>
+  <div class="corner" style="left:60px;bottom:420px;border-right:0;border-top:0"></div>
+  <div class="corner" style="right:60px;bottom:420px;border-left:0;border-top:0"></div>
+  <div id="rec">● REC</div><div id="tc">00:00</div><div id="fr"></div><div id="fr2"></div>
+  <div id="ptc"></div><div id="syms"></div>
+ </div>
+ <div id="vhsl" class="mono" style="font-size:44px">◄◄ REWIND</div>
+ <div id="sub"></div>
+ <div id="vhs"></div>
+ <div id="flash"></div>
+</div>
+<script>
+const WORDS=[[0.1, 0.262, "Plus"], [0.275, 0.412, "de"], [0.425, 0.562, "cent"], [0.575, 0.887, "navires"], [0.9, 1.2, "chinois"], [1.212, 1.662, "déployés"], [1.675, 1.85, "près"], [1.862, 1.975, "de"], [1.987, 2.487, "Taïwan"], [2.75, 2.887, "c'est"], [2.9, 3.025, "ce"], [3.037, 3.162, "que"], [3.175, 3.562, "Taipei"], [3.575, 3.637, "a"], [3.65, 4.012, "signalé"], [4.025, 4.225, "cette"], [4.237, 4.55, "année"], [5.412, 5.762, "Pékin"], [5.775, 6.012, "parle"], [6.025, 6.5, "d'entraînements"], [6.512, 6.6, "de"], [6.612, 7.187, "routine"], [8.05, 8.45, "Taïwan"], [8.462, 8.525, "y"], [8.537, 8.7, "voit"], [8.712, 8.825, "une"], [8.837, 9.3, "pression"], [9.637, 9.887, "avant"], [9.9, 10.0, "les"], [10.012, 10.437, "élections"], [10.45, 10.812, "locales"], [10.825, 10.937, "du"], [10.95, 11.825, "28 novembre"], [12.687, 12.912, "Ça"], [12.925, 13.037, "te"], [13.05, 13.6, "concerne"], [13.875, 14.037, "l'île"], [14.05, 14.425, "fabrique"], [14.437, 15.0, "l'essentiel"], [15.012, 15.125, "des"], [15.137, 15.387, "puces"], [15.4, 15.512, "les"], [15.525, 15.675, "plus"], [15.687, 16.112, "avancées"], [16.125, 16.225, "du"], [16.237, 16.612, "monde"], [17.475, 17.637, "Ton"], [17.65, 18.112, "téléphone"], [18.125, 18.175, "en"], [18.187, 18.575, "dépend"], [19.437, 19.975, "Remontons"], [19.987, 20.1, "le"], [20.112, 20.375, "temps"], [21.25, 21.412, "En"], [21.425, 22.55, "1949"], [22.9, 23.112, "Mao"], [23.125, 23.525, "proclame"], [23.537, 23.637, "la"], [23.65, 24.15, "République"], [24.162, 24.625, "populaire"], [24.637, 24.687, "à"], [24.7, 25.125, "Pékin"], [25.987, 26.287, "Chiang"], [26.3, 26.875, "Kai-shek"], [27.125, 27.512, "vaincu"], [27.775, 27.9, "se"], [27.912, 28.225, "replie"], [28.237, 28.287, "à"], [28.3, 28.9, "Taipei"], [29.762, 29.925, "En"], [29.937, 31.15, "1971"], [31.487, 31.737, "l'ONU"], [31.75, 31.95, "donne"], [31.962, 32.087, "le"], [32.1, 32.325, "siège"], [32.337, 32.437, "de"], [32.45, 32.562, "la"], [32.575, 32.787, "Chine"], [32.8, 32.85, "à"], [32.862, 33.3, "Pékin"], [34.175, 34.337, "En"], [34.35, 35.625, "1979"], [35.937, 36.5, "Washington"], [36.512, 36.787, "change"], [36.8, 36.887, "de"], [36.9, 37.762, "reconnaissance"], [38.1, 38.262, "mais"], [38.275, 38.675, "s'engage"], [38.687, 38.737, "à"], [38.75, 39.125, "fournir"], [39.137, 39.25, "des"], [39.262, 39.487, "armes"], [39.5, 40.062, "défensives"], [40.075, 40.112, "à"], [40.125, 40.487, "l'île"], [41.35, 41.662, "Chaque"], [41.675, 41.862, "camp"], [41.875, 41.925, "a"], [41.937, 42.075, "sa"], [42.087, 42.55, "version"], [43.425, 43.762, "Pékin"], [43.775, 43.887, "dit"], [43.9, 44.037, "que"], [44.05, 44.425, "Taïwan"], [44.437, 44.587, "fait"], [44.6, 44.912, "partie"], [44.925, 45.012, "de"], [45.025, 45.137, "la"], [45.15, 45.387, "Chine"], [45.4, 45.45, "et"], [45.462, 45.575, "veut"], [45.587, 45.675, "la"], [45.687, 46.562, "réunification"], [47.437, 47.862, "Taipei"], [47.875, 48.175, "répond"], [48.187, 48.337, "que"], [48.35, 48.562, "seuls"], [48.575, 48.687, "ses"], [48.7, 49.037, "vingt-trois"], [49.05, 49.312, "millions"], [49.325, 49.737, "d'habitants"], [49.75, 50.112, "décident"], [50.125, 50.225, "de"], [50.237, 50.35, "leur"], [50.362, 50.837, "avenir"], [51.7, 52.325, "Washington"], [52.337, 52.712, "reconnaît"], [52.725, 53.162, "Pékin"], [53.475, 53.562, "et"], [53.575, 53.962, "s'oppose"], [53.975, 54.037, "à"], [54.05, 54.225, "tout"], [54.237, 54.6, "changement"], [54.612, 54.762, "par"], [54.775, 54.862, "la"], [54.875, 55.437, "force"], [56.3, 56.887, "Aujourd'hui"], [57.25, 57.487, "aucun"], [57.5, 57.825, "traité"], [57.837, 57.962, "de"], [57.975, 58.1, "paix"], [58.112, 58.25, "n'a"], [58.262, 58.537, "jamais"], [58.55, 58.762, "été"], [58.775, 59.2, "signé"], [60.062, 60.25, "Tout"], [60.262, 60.4, "se"], [60.412, 60.575, "joue"], [60.587, 60.762, "sur"], [60.775, 60.9, "cent"], [60.912, 61.137, "trente"], [61.15, 61.662, "kilomètres"], [61.675, 61.925, "d'eau"], [62.225, 62.275, "et"], [62.287, 62.462, "sur"], [62.475, 62.625, "plus"], [62.637, 62.775, "de"], [62.787, 62.912, "cent"], [62.925, 63.425, "navires"]];
+const KICKS=[0.0, 0.75, 1.0714, 1.7143, 2.4643, 2.7857, 3.4286, 4.1786, 4.5, 5.1429, 5.8929, 6.2143, 6.8571, 7.6071, 7.9286, 8.5714, 9.3214, 9.6429, 10.2857, 11.0357, 11.3571, 12.0, 12.75, 13.0714, 13.7143, 14.4643, 14.7857, 15.4286, 16.1786, 16.5, 17.1429, 17.8929, 18.2143, 18.8571, 41.8929, 42.2143, 42.8571, 43.6071, 43.9286, 44.5714, 45.3214, 45.6429, 46.2857, 47.0357, 47.3571, 48.0, 48.75, 49.0714, 49.7143, 50.4643, 50.7857, 51.4286, 52.1786, 52.5, 53.1429, 53.8929, 54.2143, 54.8571, 55.6071, 55.9286, 56.5714, 57.3214, 57.6429, 58.2857, 59.0357, 59.3571, 60.0, 60.75, 61.0714, 61.7143, 62.4643, 62.7857, 63.4286];
+window.DUREE=63.82;
+const $=s=>document.querySelector(s);
+const ease=x=>1-Math.pow(1-Math.min(1,Math.max(0,x)),3);
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const FL0=19.4, FL1=41.3;
+const SEA=`<g stroke="#E5B547" stroke-width="3" fill="none" opacity=".3">${Array.from({length:14},(_,i)=>`<path d="M0 ${60+i*52} Q270 ${40+i*52} 540 ${60+i*52} T1080 ${60+i*52}"/>`).join('')}</g>`;
+const HATCH=`<defs><pattern id="ht" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="14" stroke="#A07828" stroke-width="3"/></pattern></defs>`;
+
+const CN="M0 0 L430 0 L400 140 L370 300 L330 450 L290 560 L240 660 L0 700Z";
+const TWI="M690 250 C740 230 790 270 790 340 C790 440 760 540 720 600 C690 560 660 440 660 340 C660 300 665 265 690 250Z";
+const MAP=(mode)=>`<svg width="1080" height="800" viewBox="0 0 1080 800">${HATCH}${SEA}<path d="${CN}" fill="url(#ht)" stroke="#E5B547" stroke-width="7" opacity=".9"/><path d="${CN}" fill="#1b1917" opacity=".55"/><path d="${TWI}" fill="url(#ht)" stroke="#E5B547" stroke-width="7"/><path d="${TWI}" fill="#1b1917" opacity=".5"/>${mode==='ships'?[[480,160],[520,260],[560,340],[500,420],[560,500],[600,180],[460,560],[610,420]].map(([x,y])=>`<path d="M${x-22} ${y} L${x+22} ${y} L${x+12} ${y+14} L${x-12} ${y+14}Z" fill="#D62C30" stroke="#F0E8D6" stroke-width="3"/>`).join(''):''}${mode==='retreat'?`<path d="M300 420 C450 330 560 360 690 400" fill="none" stroke="#D62C30" stroke-width="9" stroke-dasharray="20 12"/><path d="M690 400 l-34 -22 M690 400 l-30 26" stroke="#D62C30" stroke-width="9"/>`:''}${mode==='width'?`<line x1="360" y1="470" x2="670" y2="470" stroke="#E5B547" stroke-width="6"/><line x1="360" y1="445" x2="360" y2="495" stroke="#E5B547" stroke-width="6"/><line x1="670" y1="445" x2="670" y2="495" stroke="#E5B547" stroke-width="6"/>`:''}${mode==='label'?`<text x="540" y="740" text-anchor="middle" font-family="Space Mono" font-weight="700" font-size="52" fill="#E5B547" letter-spacing="5">DÉTROIT DE TAÏWAN</text>`:''}<circle cx="720" cy="340" r="14" fill="#E5B547" stroke="#000" stroke-width="4"/></svg>`;
+const FL_CN=`<svg width="620" height="400" viewBox="0 0 620 400"><g class="wave"><rect width="620" height="400" fill="#DE2910"/><polygon points="100,40 118,95 176,95 129,128 147,183 100,150 53,183 71,128 24,95 82,95" fill="#FFDE00"/><circle cx="200" cy="50" r="10" fill="#FFDE00"/><circle cx="235" cy="95" r="10" fill="#FFDE00"/><circle cx="235" cy="145" r="10" fill="#FFDE00"/><circle cx="200" cy="190" r="10" fill="#FFDE00"/></g></svg>`;
+const FL_TW=`<svg width="620" height="400" viewBox="0 0 620 400"><g class="wave"><rect width="620" height="400" fill="#FE0000"/><rect width="310" height="200" fill="#000095"/><circle cx="155" cy="100" r="46" fill="#F0E8D6"/><circle cx="155" cy="100" r="34" fill="#000095"/><circle cx="155" cy="100" r="28" fill="#F0E8D6"/></g></svg>`;
+const FL_US=`<svg width="620" height="400" viewBox="0 0 620 400"><g class="wave"><rect width="620" height="400" fill="#F0E8D6"/>${[0,1,2,3,4,5,6].map(i=>`<rect y="${i*61.5}" width="620" height="30.7" fill="#B22234"/>`).join('')}<rect width="260" height="215" fill="#3C3B6E"/>${Array.from({length:15},(_,i)=>`<circle cx="${40+(i%5)*45}" cy="${40+Math.floor(i/5)*65}" r="7" fill="#F0E8D6"/>`).join('')}</g></svg>`;
+const CHIP=`<svg width="520" height="520" viewBox="0 0 520 520"><rect x="130" y="130" width="260" height="260" fill="#1b1917" stroke="#E5B547" stroke-width="9"/><rect x="190" y="190" width="140" height="140" fill="#7A141A" stroke="#E5B547" stroke-width="6"/>${Array.from({length:6},(_,i)=>`<line x1="${160+i*40}" y1="130" x2="${160+i*40}" y2="70" stroke="#E5B547" stroke-width="9"/><line x1="${160+i*40}" y1="390" x2="${160+i*40}" y2="450" stroke="#E5B547" stroke-width="9"/><line x1="130" y1="${160+i*40}" x2="70" y2="${160+i*40}" stroke="#E5B547" stroke-width="9"/><line x1="390" y1="${160+i*40}" x2="450" y2="${160+i*40}" stroke="#E5B547" stroke-width="9"/>`).join('')}</svg>`;
+const PHONE=`<svg width="300" height="520" viewBox="0 0 300 520"><rect x="30" y="10" width="240" height="500" rx="36" fill="#1b1917" stroke="#E5B547" stroke-width="9"/><rect x="60" y="60" width="180" height="380" fill="#7A141A" stroke="#E5B547" stroke-width="4"/><circle cx="150" cy="475" r="14" fill="none" stroke="#E5B547" stroke-width="5"/><rect x="115" y="26" width="70" height="10" rx="5" fill="#E5B547"/></svg>`;
+const MISSILE=`<svg width="220" height="520" viewBox="0 0 220 520"><path d="M110 40 L140 150 L140 360 L80 360 L80 150Z" fill="#F0E8D6" stroke="#000" stroke-width="6"/><path d="M80 300 L40 380 L80 360Z M140 300 L180 380 L140 360Z" fill="#D62C30" stroke="#000" stroke-width="5"/><path d="M90 370 L110 510 L130 370Z" fill="#E5B547" stroke="#000" stroke-width="4"/></svg>`;
+const SHIELD=`<svg width="420" height="500" viewBox="0 0 420 500"><path d="M210 20 L390 90 L390 250 C390 370 300 450 210 490 C120 450 30 370 30 250 L30 90Z" fill="#1b1917" stroke="#E5B547" stroke-width="10"/><path d="M210 80 L330 125 L330 250 C330 330 270 390 210 420 C150 390 90 330 90 250 L90 125Z" fill="#7A141A" stroke="#E5B547" stroke-width="5"/></svg>`;
+
+const S=[];
+const add=(t0,bg,html,o={})=>S.push(Object.assign({t0,bg,html},o));
+const T=(txt,cls,top,fs,d=0,extra='')=>`<div class="a cc ${cls}" data-d="${d}" style="top:${top}px;font-size:${fs}px;${extra}">${txt}</div>`;
+const P=(svg,l,t,d=0,extra='')=>{const m=extra.match(/scale\(([\d.]+)\)/);return `<div class="a" data-d="${d}" ${m?'data-s="'+m[1]+'"':''} style="left:${l}px;top:${t}px;${extra}">${svg}</div>`};
+const STAMP=(txt,l,t,fs,rot,d=.3,w=700)=>`<div class="a stamp" data-d="${d}" style="left:${l}px;top:${t}px;font-size:${fs}px;transform:rotate(${rot}deg);width:${w}px">${txt}</div>`;
+const CNT=(to,dur,suf='')=>`<span class="cnt" data-to="${to}" data-dur="${dur}" data-d="0">0</span>${suf}`;
+const LINE=(top)=>`<div class="a" style="left:140px;top:${top}px;width:800px;height:6px;background:#E5B547"></div>`;
+const HOOK0=T('100<span class="or">+</span>','big',360,420,0)+T('NAVIRES CHINOIS','mono',900,54,.1);
+add(0,0,HOOK0,{flash:1,noin:1});
+add(0.85,1,P(MAP('ships'),0,300,0)+T('<span class="or">CHINOIS</span>','tit',1130,100,.2),{flash:1});
+add(1.95,2,P(MAP('label'),0,300,0)+T('<span class="or">TAÏWAN</span>','big',1130,120,.2),{flash:1,shake:1});
+add(3.1,0,T('<span class="or">TAIPEI</span>','big',420,200,0)+T('A SIGNALÉ','mono',760,64,.2),{flash:1});
+add(4.0,1,T('CETTE','mono',440,70,0)+T('<span class="or">ANNÉE</span>','big',560,260,.1),{flash:1});
+add(5.35,2,P(FL_CN,230,380,0)+T('<span class="or">PÉKIN</span>','big',900,170,.2),{flash:1});
+add(6.0,0,T('ENTRAÎNEMENTS','tit',430,100,0)+STAMP('ROUTINE',170,700,120,-5,.2,740),{flash:1,shake:1});
+add(8.0,1,T('<span class="or">TAÏWAN</span>','big',420,190,0)+STAMP('PRESSION',150,720,120,-6,.35,780),{flash:1,shake:1});
+add(9.6,0,T('AVANT LES','mono',430,64,0)+T('<span class="or">ÉLECTIONS</span>','big',560,150,.1),{flash:1});
+add(10.45,2,T('<span class="or">28</span>','big',380,440,0)+T('NOVEMBRE','mono',900,70,.2),{flash:1,shake:1});
+add(12.6,1,T('ÇA TE','tit',420,150,0)+T('<span class="or">CONCERNE</span>','big',620,170,.15),{flash:1});
+add(13.85,0,P(CHIP,280,330,0)+T('L\'<span class="or">ÎLE</span>','tit',960,100,.2),{flash:1});
+add(14.95,2,T('<span class="or">PUCES</span>','big',420,260,0)+T('LES PLUS AVANCÉES','mono',800,52,.25),{flash:1,shake:1});
+add(16.1,1,T('DU <span class="or">MONDE</span>','big',470,200,0),{flash:1});
+add(17.45,0,P(PHONE,390,330,0)+T('TON <span class="or">TÉLÉPHONE</span>','tit',960,86,.2),{flash:1});
+add(19.4,0,T('REMONTONS','tit',420,150,0)+T('<span class="or">LE TEMPS</span>','big',620,230,.15),{fb:1,flash:1});
+add(21.2,1,T('1949','big',420,400,0)+T('<span class="or">PÉKIN</span>','mono',860,80,.3),{fb:1,flash:1,shake:1});
+add(22.85,2,T('<span class="or">MAO</span>','big',360,300,0)+P(FL_CN,230,760,.15),{fb:1,flash:1});
+add(23.5,0,T('RÉPUBLIQUE','tit',430,110,0)+T('<span class="or">POPULAIRE</span>','big',620,140,.15),{fb:1,flash:1});
+add(25.95,1,T('CHIANG','tit',420,150,0)+T('<span class="or">KAI-SHEK</span>','big',610,170,.15),{fb:1,flash:1});
+add(27.05,2,STAMP('VAINCU',190,600,150,-7,.05,700),{fb:1,flash:1,shake:1});
+add(27.75,0,P(MAP('retreat'),0,300,0)+T('REPLI À <span class="or">TAIPEI</span>','tit',1130,90,.2),{fb:1,flash:1});
+add(29.7,1,T('1971','big',420,400,0)+T('<span class="or">ONU</span>','mono',860,90,.3),{fb:1,flash:1,shake:1});
+add(31.45,2,T('<span class="or">ONU</span>','big',400,280,0)+T('SIÈGE DE LA CHINE','mono',780,54,.25),{fb:1,flash:1});
+add(32.75,0,P(FL_CN,230,380,0)+T('<span class="or">PÉKIN</span>','big',900,170,.2),{fb:1,flash:1});
+add(34.1,1,T('1979','big',420,400,0)+T('<span class="or">WASHINGTON</span>','mono',860,66,.3),{fb:1,flash:1,shake:1});
+add(35.9,2,P(FL_US,230,380,0)+T('<span class="or">WASHINGTON</span>','tit',900,84,.2),{fb:1,flash:1});
+add(36.5,0,T('CHANGE DE','tit',420,110,0)+T('<span class="or">RECONNAISSANCE</span>','big',600,100,.15),{fb:1,flash:1});
+add(38.05,1,P(SHIELD,330,320,0)+T('ARMES <span class="or">DÉFENSIVES</span>','tit',900,84,.2),{fb:1,flash:1});
+add(39.5,2,P(MAP('ships'),0,300,0)+T('POUR L\'<span class="or">ÎLE</span>','tit',1130,100,.2),{fb:1,flash:1});
+add(41.35,1,T('CHAQUE CAMP','tit',380,120,0)+T('<span class="or">SA VERSION</span>','big',560,140,.15)+LINE(850),{flash:1});
+add(43.4,0,P(FL_CN,230,380,0)+T('<span class="or">PÉKIN</span>','big',900,170,.2),{flash:1});
+add(44.4,2,T('FAIT PARTIE','tit',430,110,0)+T('DE LA <span class="or">CHINE</span>','big',620,170,.15),{flash:1});
+add(45.4,1,T('<span class="or">RÉUNIFICATION</span>','big',520,110,0),{flash:1,shake:1});
+add(47.4,0,P(FL_TW,230,380,0)+T('<span class="or">TAIPEI</span>','big',900,170,.2),{flash:1});
+add(48.6,2,T(CNT(23,.6),'big',380,480,0)+T('<span class="or">MILLIONS</span>','tit',900,110,.3),{flash:1,shake:1});
+add(49.7,1,T('DÉCIDENT','big',430,160,0)+T('<span class="or">LEUR AVENIR</span>','tit',660,110,.15),{flash:1});
+add(51.65,0,P(FL_US,230,380,0)+T('<span class="or">WASHINGTON</span>','tit',900,84,.2),{flash:1});
+add(52.7,2,T('RECONNAÎT','tit',430,110,0)+T('<span class="or">PÉKIN</span>','big',620,200,.15),{flash:1});
+add(53.45,1,T('S\'OPPOSE À TOUT','mono',430,60,0)+T('<span class="or">CHANGEMENT</span>','big',540,120,.1),{flash:1});
+add(54.75,2,T('PAR LA','mono',430,64,0)+T('<span class="or">FORCE</span>','big',540,260,.1),{flash:1,shake:1});
+add(56.25,0,T('AUJOURD\'HUI','big',420,130,0)+T('<span class="or">2026</span>','big',620,200,.2),{flash:1});
+add(57.2,2,T('AUCUN <span class="or">TRAITÉ</span>','tit',440,100,0)+T('DE PAIX','big',600,180,.15),{flash:1});
+add(58.5,1,STAMP('JAMAIS SIGNÉ',110,640,100,-6,.05,860),{flash:1,shake:1});
+add(60.0,0,P(MAP('width'),0,300,0)+T(CNT(130,.6,' <span class="or">KM</span>'),'big',1130,150,.1),{flash:1,shake:1});
+add(62.15,1,T('100<span class="or">+</span>','big',360,420,0)+T('NAVIRES CHINOIS','mono',900,54,.1),{flash:1,noin:1});
+
+S.forEach((s,i)=>{s.t1=i+1<S.length?S[i+1].t0:window.DUREE;});
+/* ---------- construction du DOM ---------- */
+const bgs=$('#bgs'),sc=$('#scenes');
+const veins=`<svg class="veins" width="1080" height="1920" viewBox="0 0 1080 1920"><g fill="none" stroke="#F0E8D6" stroke-opacity=".10" stroke-width="2">${Array.from({length:9},(_,i)=>`<path d="M${-50+i*140} 0 C${100+i*90} 500 ${-100+i*130} 1000 ${200+i*100} 1920"/>`).join('')}</g></svg>`;
+[0,1,2].forEach(k=>{const d=document.createElement('div');d.className='bg bg'+k;d.id='bg'+k;d.innerHTML=(k==2?'<div class="rays" id="rays"></div>':'')+(k==0?veins:'')+'<div class="grain"></div>';bgs.appendChild(d)});
+S.forEach(s=>{const d=document.createElement('div');d.className='scene';d.innerHTML='<div class="in">'+s.html+'</div>';sc.appendChild(d);s.el=d;s.anim=[...d.querySelectorAll('.a')];s.cnt=[...d.querySelectorAll('.cnt')];});
+for(let i=0;i<40;i++){const p=document.createElement('div');p.className='ptc';$('#ptc').appendChild(p)}
+const SYMS=['$','%','Δ','24°N','121°E','t','Δ','⚓'];
+SYMS.forEach(t=>{const e=document.createElement('div');e.className='sym';e.textContent=t;$('#syms').appendChild(e)});
+const ptcs=[...document.querySelectorAll('.ptc')],syms=[...document.querySelectorAll('.sym')];
+
+/* ---------- état exact à l'instant t ---------- */
+const fmt=n=>n;
+function layer(s,t,top){
+  const el=s.el, lt=t-s.t0, dur=s.t1-s.t0;
+  el.style.display='block'; el.style.zIndex=top?2:1;
+  const push=1+0.07*clamp(lt/dur);
+  let tr=`scale(${push})`, op=1, fil='';
+  const W=0.2;
+  if(top && lt<W && !s.noin){
+    const e=ease(lt/W), k=S.indexOf(s)%3;
+    if(k==0){tr=`translateX(${(1-e)*1080}px) ${tr}`;fil=`blur(${(1-e)*18}px)`}
+    else if(k==1){tr=`scale(${1+(1-e)*1.2}) ${tr}`;op=e;fil=`blur(${(1-e)*10}px)`}
+    else{const j=(1-e)*30;tr=`translateX(${Math.sin(lt*900)*j}px) ${tr}`;fil=`drop-shadow(${j}px 0 0 #f00) drop-shadow(${-j}px 0 0 #0ff)`}
+  }
+  if(s.loop){op=1}
+  if(s.shake && lt<0.35){const a=(1-lt/.35)*14;tr=`translate(${Math.sin(lt*170)*a}px,${Math.cos(lt*190)*a}px) ${tr}`}
+  el.style.transform=tr; el.style.opacity=op; el.style.filter=fil;
+  s.anim.forEach(a=>{
+    const d=+(a.dataset.d||0);
+    let x=(lt-d)/0.28;
+    if(s.noin) x=1;
+    const e=ease(x);
+    let sx=a.dataset.mv?'':'';
+    if(a.classList.contains('mv')){
+      const p=clamp((lt-d)/(+a.dataset.dur||1)), q=p*p*(3-2*p);
+      const dx=(+a.dataset.fx)+((+a.dataset.tx)-(+a.dataset.fx))*q, dy=(+a.dataset.fy)+((+a.dataset.ty)-(+a.dataset.fy))*q;
+      const base=a.style.transform.match(/scale\([^)]*\)/);
+      a.style.transform=`translate(${dx}px,${dy}px) ${base?base[0]:''}`;
+      a.style.opacity=1;
+    }else{
+      const rot=(a.style.transform.match(/rotate\([^)]*\)/)||[''])[0];
+      a.style.opacity=clamp(x*1.4);
+      a.style.transform=`${rot} scale(${(1.35-0.35*e)*(+a.dataset.s||1)})`;
+      a.style.filter=`blur(${(1-e)*14}px)`;
+    }
+  });
+  s.cnt.forEach(c=>{const d=+(c.dataset.d||0),du=+c.dataset.dur;c.textContent=Math.round((+c.dataset.to)*ease((lt-d)/du))});
+  // drapeaux qui flottent
+  el.querySelectorAll('.wave').forEach(w=>{w.setAttribute('transform',`skewY(${Math.sin(t*5)*2.5})`)});
+}
+window.seek=function(t){
+  t=clamp(t,0,window.DUREE);
+  let i=S.findIndex(s=>t>=s.t0&&t<s.t1); if(i<0)i=S.length-1;
+  const s=S[i];
+  S.forEach(x=>x.el.style.display='none');
+  const lt=t-s.t0;
+  if(i>0&&lt<0.2&&!s.noin)layer(S[i-1],t,false);
+  layer(s,t,true);
+  [0,1,2].forEach(k=>$('#bg'+k).style.display=(k==s.bg?'block':'none'));
+  $('#rays').style.transform=`rotate(${t*4}deg)`;
+  // zoom sur les kicks
+  let kk=0;for(const k of KICKS){if(k<=t)kk=k;else break}
+  const kd=t-kk, z=1+0.035*Math.exp(-kd*9);
+  $('#stage').style.transform=`scale(${z})`;
+  // flash blanc (chiffres / coupes clés)
+  $('#flash').style.opacity=s.flash?Math.max(0,0.85*(1-lt/0.16)):0;
+  // flash-back : VHS
+  const fb=!!s.fb||(t>=FL0&&t<FL1);
+  const vi=fb?1:0;
+  $('#vhs').style.opacity=vi;
+  $('#vhsl').style.opacity=fb?(Math.floor(t*3)%2?0.95:0.35):0;
+  $('#vhsl').textContent='◄◄ REWIND';
+  $('#stage').style.filter=fb?'sepia(.55) saturate(1.3) contrast(1.08)':'none';
+  if(fb){$('#scenes').style.textShadow='';$('#scenes').style.transform=`translateX(${Math.sin(t*40)*3}px)`}else $('#scenes').style.transform='';
+  // HUD
+  $('#rec').style.opacity=Math.floor(t*2)%2?0.4:1;
+  $('#tc').textContent='00:'+String(Math.floor(t)).padStart(2,'0');
+  ptcs.forEach((p,n)=>{const sp=18+(n*7)%30,x=(n*263)%1080,y=(1920-((t*sp*4+n*97)%1920));const sz=3+(n%4);p.style.cssText=`left:${x+Math.sin(t+n)*20}px;top:${y}px;width:${sz}px;height:${sz}px;opacity:${0.25+0.35*Math.abs(Math.sin(t*2+n))}`});
+  syms.forEach((e,n)=>{e.style.left=(100+(n*131)%800)+'px';e.style.top=(1500-((t*40+n*170)%1000)+0)+'px';e.style.opacity=0.2+0.2*Math.abs(Math.sin(t+n))});
+  // sous-titres mot à mot
+  let w=null;for(let j=0;j<WORDS.length;j++){const nx=WORDS[j+1]?WORDS[j+1][0]:WORDS[j][1];if(t>=WORDS[j][0]&&t<Math.max(nx,WORDS[j][0]+0.05)){w=WORDS[j];break}}
+  const sub=$('#sub');
+  if(w){
+    const txt=w[2].replace(/[.,;:!?]$/,'');
+    const key=/\d|cent|chinois|taïwan|taipei|pékin|puces|1949|1971|1979|mao|chiang|onu|washington|vingt-trois|millions|traité|paix|force|kilomètres|navires/i.test(txt);
+    const red=/force|jamais|vaincu/i.test(txt);
+    const fs=Math.min(100,Math.floor(860/(txt.length*0.62)));
+    sub.style.fontSize=fs+'px';
+    sub.style.color=red?'#D62C30':key?'#E5B547':'#fff';
+    const pop=1+0.18*Math.exp(-(t-w[0])*14);
+    sub.innerHTML=(key||red?'<u>'+txt+'</u>':txt);
+    sub.style.transform=`scale(${pop})`;
+  }else sub.innerHTML='';
+  sub.style.top='1250px';
+  if(t>window.DUREE-0.45){layer(S[0],0,true);S[0].el.style.zIndex=3;S[0].el.style.opacity=clamp((t-(window.DUREE-0.45))/0.45)}
+};
+window.seek(0);
+</script></body></html>
