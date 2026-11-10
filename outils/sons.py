@@ -7,7 +7,9 @@ Usage :
     # Musique de 75 s, avec coupure filtrée (flash-back) de 20 s à 28 s puis drop
     python outils/sons.py musique --duree 75 --sortie musique.wav --coupures 20-28
 
-    # Piste de bruitages placés dans le temps (JSON : [{"t": 1.2, "type": "whoosh"}, ...])
+    # Piste de bruitages placés dans le temps (JSON : [{"t": 1.2, "type": "transition"}, ...])
+    # types : transition (whoosh/page/déclic/souffle au hasard), whoosh, page, declic, souffle,
+    #         boom (chiffres), impact, tic (avant une date), riser (avant une révélation)
     python outils/sons.py bruitages --evenements sfx.json --duree 75 --sortie bruitages.wav
 
     # Un bruitage seul (whoosh | impact | riser)
@@ -209,21 +211,87 @@ def riser(duree=1.5):
     return normaliser((0.5 * ton + 0.5 * souffle) * env, -6.0)
 
 
-BRUITAGES = {"whoosh": whoosh, "impact": impact, "riser": riser}
+def env_d(n, tau):
+    return np.exp(-np.arange(n) / SR / tau)
+
+
+def whoosh_varie():
+    """Whoosh de durée et de hauteur aléatoires (évite la répétition)."""
+    x = whoosh(RNG.uniform(0.22, 0.5))
+    k = RNG.uniform(0.8, 1.3)
+    return normaliser(signal.resample(x, int(len(x) / k)), -6.0)
+
+
+def page():
+    """Feuille ou toile qui tourne."""
+    n = int(0.28 * SR)
+    b = RNG.standard_normal(n)
+    bb, aa = signal.butter(2, [1200 / (SR / 2), 6000 / (SR / 2)], "band")
+    b = signal.lfilter(bb, aa, b)
+    e = np.zeros(n)
+    for _ in range(6):
+        p = int(RNG.uniform(0, 0.2) * SR)
+        e[p:] += env_d(n - p, 0.018) * RNG.uniform(0.4, 1)
+    return normaliser(b * e, -8.0)
+
+
+def declic():
+    n = int(0.08 * SR)
+    t = np.arange(n) / SR
+    x = np.sin(2 * np.pi * RNG.uniform(1800, 2600) * t) * env_d(n, 0.006) + RNG.standard_normal(n) * env_d(n, 0.002) * 0.5
+    return normaliser(x, -6.0)
+
+
+def souffle():
+    n = int(RNG.uniform(0.5, 0.8) * SR)
+    b = RNG.standard_normal(n)
+    bb, aa = signal.butter(2, 500 / (SR / 2), "low")
+    return normaliser(signal.lfilter(bb, aa, b) * np.sin(np.pi * np.linspace(0, 1, n)) ** 2, -8.0)
+
+
+def boom():
+    """Coup sourd pour les chiffres (plus doux que impact)."""
+    n = int(1.0 * SR)
+    t = np.arange(n) / SR
+    f = 40 + 60 * np.exp(-t / 0.05)
+    x = np.sin(2 * np.pi * np.cumsum(f) / SR) * env_d(n, 0.3)
+    return normaliser(np.tanh(1.6 * x), -4.0)
+
+
+def tic():
+    """Tic-tac d'horloge (3 coups), avant une date."""
+    out = np.zeros(int(0.6 * SR))
+    for k in range(3):
+        c = declic() * 0.6
+        p = int(k * 0.18 * SR)
+        out[p:p + len(c)] += c[:len(out) - p]
+    return normaliser(out, -8.0)
+
+
+def transition():
+    """Son de coupe tiré au hasard dans la banque (whoosh, page, déclic, souffle)."""
+    return [whoosh_varie, page, declic, souffle, whoosh_varie, page][RNG.integers(6)]()
+
+
+BRUITAGES = {"whoosh": whoosh_varie, "impact": impact, "riser": riser, "page": page, "declic": declic,
+             "souffle": souffle, "boom": boom, "tic": tic, "transition": transition}
+GAINS = {"whoosh": 0.22, "transition": 0.22, "page": 0.22, "declic": 0.22, "souffle": 0.22,
+         "impact": 0.45, "boom": 0.4, "tic": 0.22, "riser": 0.25}
 
 
 def piste_bruitages(evenements, duree):
+    """Gains absolus (pas de normalisation finale : un bruitage reste discret)."""
     piste = np.zeros(int(duree * SR) + 2 * SR)
     for ev in evenements:
         nom = ev["type"]
         if nom not in BRUITAGES:
             raise ValueError(f"bruitage inconnu : {nom}")
-        son = BRUITAGES[nom]() * float(ev.get("gain", 1.0))
+        son = BRUITAGES[nom]() * float(ev.get("gain", GAINS.get(nom, 0.3)))
         t = float(ev["t"])
-        if nom == "riser":            # le riser se termine sur t (la révélation)
+        if nom in ("riser", "tic"):   # se termine sur t (la révélation, la date)
             t -= len(son) / SR
         placer(piste, son, max(0.0, t))
-    return normaliser(piste[: int(duree * SR)], -1.0)
+    return np.clip(piste[: int(duree * SR)], -1, 1)
 
 
 # ---------------------------------------------------------------- utilitaires
@@ -249,7 +317,7 @@ def main():
     b.add_argument("--duree", type=float, required=True)
     b.add_argument("--sortie", required=True)
     u = sp.add_parser("un")
-    u.add_argument("--type", choices=sorted(BRUITAGES), required=True)
+    u.add_argument("--type", choices=sorted(BRUITAGES), required=True)  # noqa
     u.add_argument("--sortie", required=True)
     k = sp.add_parser("kicks")
     k.add_argument("--duree", type=float, required=True)

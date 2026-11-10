@@ -12,19 +12,27 @@ Vidéos verticales courtes (1080×1920, 63 s) qui expliquent la géopolitique et
 │   └── telegram.yml             publication Telegram automatique (GitHub Actions)
 ├── kit/
 │   ├── TACHE.md                 énoncé complet de la tâche quotidienne
-│   ├── DA.md                    direction artistique
+│   ├── DA.md                    direction artistique (style « tableau d'histoire »)
+│   ├── modele_apercu.html       modèle de page d'animation utilisé par outils/assembler.py
+│   ├── exemples/                plans d'exemple (Ormuz)
 │   ├── REGLES.md                règles vidéo, checklist et règles de caption
 │   ├── reglages.json            publication, plateformes, format, fps, voix, vitesse
 │   ├── sujets.md                journal des sujets déjà faits (la liste est sur Google Drive)
 │   └── stats/stats.csv          statistiques par vidéo et par plateforme
 ├── outils/
 │   ├── voix.py                  texte → voix.mp3 + voix.srt (edge-tts → Piper → sans voix)
+│   ├── medias.py                images et musique libres (Library of Congress, NASA, Art Institute of Chicago,
+│   │                            Openverse, Pexels, drapeaux flag-icons), crédits, rendu peinture, planche de tri
+│   ├── cartes.py                cartes exactes (Natural Earth) au style carte ancienne
+│   ├── assembler.py             plans.js + medias/ + voix.srt → apercu.html (modèle kit/modele_apercu.html)
 │   ├── export_mp4.py            apercu.html → vidéo muette, image par image (Playwright)
-│   ├── sons.py                  musique trap/phonk 140 BPM et bruitages synthétisés
-│   └── mixage.py                vidéo muette + voix + musique + bruitages → video.mp4
+│   ├── sons.py                  bruitages variés (transition, boom, tic, riser…) et musique de secours synthétisés
+│   └── mixage.py                vidéo muette + voix + musique + bruitages → video.mp4 (sidechain, < 50 Mo)
 └── videos/
     └── NNN-slug/                une vidéo par dossier
-        ├── apercu.html          animation, expose window.seek(t) et window.DUREE
+        ├── apercu.html          animation (générée par assembler.py), expose window.seek(t)
+        ├── plans.js, cles.json  liste des plans et mots clés
+        ├── medias/              images utilisées, musique, credits.json
         ├── script.txt           texte parlé
         ├── voix.mp3, voix.srt   voix et temps de chaque mot
         ├── video.mp4            vidéo finale (< 50 Mo)

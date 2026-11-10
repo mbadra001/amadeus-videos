@@ -2,11 +2,12 @@
 Durée : 63 secondes exactement visées (tolérance 62 à 64 s, jamais hors de cet intervalle). Format 1080×1920, 30 i/s. Script parlé d'environ 160 à 170 mots ; si voix.srt ne finit pas entre 61,5 et 63,5 s, raccourcir ou allonger le script et régénérer la voix (ne pas étirer l'audio).
 Hook : dans les 2 premières secondes, une phrase choc avec un chiffre ou un fait concret, sans introduction.
 Structure : hook → l'événement actuel → l'impact concret sur le spectateur → retour dans le passé (dates clés) → les points de vue des différentes parties, présentés à égalité → la situation aujourd'hui → dernière phrase qui enchaîne sur la première (boucle).
-Rythme : une coupe toutes les 1 à 2 secondes, aucun plan fixe de plus de 2,5 secondes.
+Rythme : une coupe toutes les 0,9 à 1,5 seconde (moyenne 1,1 s), aucun plan de plus de 2 secondes.
 Texte : phrases courtes, tutoiement ou vouvoiement constant, un chiffre ou une date toutes les 5 à 10 secondes.
 Sous-titres : mot par mot, synchronisés sur voix.srt, dans la zone sûre TikTok (centre vers y = 1320, largeur ≤ 860 px, rien au-delà de x = 940 ni sous y = 1500).
 Boucle : la dernière image doit se fondre dans la première.
 Faits : chaque fait, chiffre et date est vérifié par une recherche web récente ; les sujets en cours sont datés dans la caption (« Situation au JJ mois AAAA »).
+Images : au moins 25 visuels différents par vidéo, chacun au plus 2 fois, tous en lien direct avec ce que dit la voix, tous libres de droits (domaine public, CC0, CC BY, CC BY-SA, « no known restrictions », licence Pexels) et listés dans medias/credits.json.
 Interdits : opinion personnelle sur un sujet politique, parti pris pour un camp, contenu sous droits (musique, photos de presse, logos, personnages), images violentes réalistes, chiffres non sourcés.
 Checklist finale : durée entre 62 et 64 s ; sujet pris dans le Google Doc des sujets et marqué FAIT ; hook ≤ 2 s ; voix présente et audible (ou mode sans voix assumé, voir « Voix ») ; sous-titres synchronisés et dans la zone sûre ; boucle fin → début ; tous les points de vue présentés ; faits vérifiés ; aucun contenu sous droits ; video.mp4 < 50 Mo ; caption conforme.
 
@@ -29,6 +30,6 @@ La même caption sert pour Telegram et TikTok (via Metricool).
 - Aucun commentaire sur la vidéo ni sur sa fabrication, aucune mention de Claude.
 - Première ligne : le hook.
 - Si le sujet est en cours : une ligne « Situation au JJ mois AAAA ».
-- Crédits des photos libres de droits utilisées, le cas échéant (auteur, licence).
+- Crédits : une ligne « Images : … » listant les sources (ex. « Images : Library of Congress, NASA, Natural Earth, Art Institute of Chicago, Hugh Llewelyn CC BY-SA 2.0 ») avec le nom de l'auteur et la licence pour chaque image CC BY ou CC BY-SA, et une ligne « Musique : <titre> — <artiste> (<licence>) ». Les sources du domaine public peuvent être regroupées par institution.
 - Fin : 3 à 5 hashtags pertinents.
 - 1024 caractères maximum, espaces et hashtags compris (limite Telegram).

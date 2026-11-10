@@ -21,5 +21,11 @@
     "timezone": "Europe/Paris",
     "delai_minutes": 10,
     "attente_telegram_minutes": 15
-  }
+  },
+  "musique": {
+    "source": "openverse/jamendo",
+    "volume": 0.85,
+    "secours": "sons.py"
+  },
+  "images_min": 25
 }

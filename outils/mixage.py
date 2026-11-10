@@ -42,7 +42,7 @@ def mixer(video, voix, musique, bruitages, sortie, debit_video=None, vol_musique
         "[1:a]aformat=sample_rates=44100:channel_layouts=stereo,apad,asplit=2[voix][cle];"
         f"[2:a]aformat=sample_rates=44100:channel_layouts=stereo,volume={vol_musique}[mus];"
         "[mus][cle]sidechaincompress=threshold=0.02:ratio=10:attack=15:release=350:makeup=1[musb];"
-        "[3:a]aformat=sample_rates=44100:channel_layouts=stereo,volume=0.7[sfx];"
+        "[3:a]aformat=sample_rates=44100:channel_layouts=stereo,volume=1.0[sfx];"
         "[voix][musb][sfx]amix=inputs=3:duration=first:normalize=0,"
         "alimiter=limit=0.95:level=disabled[a]"
     )
@@ -61,7 +61,8 @@ def main():
     p.add_argument("--video", required=True, help="vidéo muette (export_mp4.py)")
     p.add_argument("--voix", required=True, help="voix.mp3")
     p.add_argument("--sortie", required=True, help="video.mp4")
-    p.add_argument("--musique", help="musique déjà générée (wav) ; sinon générée")
+    p.add_argument("--musique", help="fichier musique (mp3/wav, ex. trouvé via Openverse) ; sinon générée par sons.py")
+    p.add_argument("--volume-musique", type=float, default=0.85, help="volume de la musique avant sidechain (défaut 0.85)")
     p.add_argument("--coupures", default="", help="flash-backs pour la musique générée, ex. 20-28")
     p.add_argument("--bruitages", help="JSON des bruitages [{t, type, gain?}]")
     a = p.parse_args()
@@ -72,11 +73,16 @@ def main():
             raise RuntimeError("voix.mp3 absent ou vide (relancer outils/voix.py)")
         mode_fichier = Path(a.voix).parent / "voix_mode.txt"
         mode = mode_fichier.read_text(encoding="utf-8").strip() if mode_fichier.exists() else "edge-tts"
-        vol = 0.9 if mode == "sans-voix" else 0.55   # sans voix : la musique porte la vidéo
+        vol = 1.0 if mode == "sans-voix" else a.volume_musique   # sans voix : la musique porte la vidéo
         print(f"  mode voix : {mode}")
         with tempfile.TemporaryDirectory() as tmp:
             tmp = Path(tmp)
             musique = a.musique
+            if musique:   # musique externe : coupée à la durée, fondu d'entrée et de sortie
+                prete = tmp / "musique_coupee.wav"
+                ffmpeg("-i", str(musique), "-t", f"{d:.3f}", "-af",
+                       f"afade=t=in:d=0.3,afade=t=out:st={max(0, d - 1.2):.2f}:d=1.2", "-ar", "44100", str(prete))
+                musique = prete
             if not musique:
                 musique = tmp / "musique.wav"
                 sons.ecrire_wav(musique, sons.musique(d, sons.parse_coupures(a.coupures)))
