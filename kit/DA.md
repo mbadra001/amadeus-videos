@@ -12,9 +12,9 @@ Esthétique de peinture et de photographie ancienne : vraies images liées au su
   1. **Cartes exactes** générées avec `outils/cartes.py` (Natural Earth : vraies côtes et frontières) : le lieu en gros plan, la région, le pays surligné, les routes. 5 à 8 cartes par vidéo, à des échelles différentes.
   2. **Bibliothèque du Congrès** (`loc`) : photos historiques (révolutions, guerres, dirigeants, foules).
   3. **NASA** (`nasa`) : le lieu vu de l'espace, villes de nuit, reliefs.
-  4. **Art Institute of Chicago** (`aic`) : tableaux et gravures anciennes du domaine public pour l'histoire longue.
+  4. **Musées** : Art Institute of Chicago (`aic`), Cleveland Museum of Art (`cma`), SMK Danemark (`smk`) : tableaux, gravures, miniatures, objets anciens du domaine public pour l'histoire longue.
   5. **Openverse** (`openverse`) : photos modernes génériques (pétroliers, ports, villes, armées).
-  6. **Pexels** (`pexels`) si une clé est configurée.
+  6. **Pexels** (`pexels`) : inactif (pas de clé, émission en pause).
   7. **Drapeaux officiels** (`drapeau`, flag-icons) : jamais dessinés à la main.
 - Tri obligatoire : `medias.py planche` puis regarder la planche et **éliminer** toute image hors sujet, floue, trop sombre, anachronique (ex. un croiseur de 1940 pour un événement de 1988) ou montrant une scène violente réaliste.
 - Rendu : `medias.py peinture` sur chaque photo ; `--doux` pour les gravures, tableaux et cartes anciennes (étalonnage seul).

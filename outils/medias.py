@@ -9,9 +9,11 @@ Sources d'images (de la plus précise à la plus générique) :
             « No known restrictions on publication » ou domaine public)
   nasa      NASA Image Library (domaine public : vues satellite, Terre depuis l'espace)
   aic       Art Institute of Chicago (tableaux du domaine public, CC0)
+  cma       Cleveland Museum of Art (œuvres CC0 : tableaux, gravures, photographies anciennes)
+  smk       SMK, galerie nationale du Danemark (tableaux du domaine public)
   openverse Openverse (Flickr, Wikimedia… ; CC0, PDM, CC BY, CC BY-SA)
-  pexels    Pexels (photos modernes, licence Pexels) — seulement si une clé est configurée
-            sur l'environnement (en-tête Authorization injecté par le proxy)
+  pexels    Pexels (photos modernes) — inactif tant qu'aucune clé n'est configurée
+            (l'émission de clés Pexels est en pause en novembre 2026)
 Musique :
   musique   Openverse audio (Jamendo, Wikimedia ; CC0, CC BY, CC BY-SA ; Freesound exclu,
             son serveur refuse les téléchargements automatiques)
@@ -189,6 +191,56 @@ def src_aic(q, dossier, n):
     return pris
 
 
+def src_cma(q, dossier, n):
+    """Cleveland Museum of Art : œuvres CC0 (tableaux, gravures, photographies anciennes)."""
+    d = get(f"https://openaccess-api.clevelandart.org/api/artworks/?q={urllib.parse.quote(q)}&has_image=1&cc0=1&limit={n * 3}", cle="cma")
+    pris = []
+    for r in d.get("data", []):
+        if len(pris) >= n:
+            break
+        im = (r.get("images") or {})
+        url = ((im.get("print") or {}).get("url")) or ((im.get("web") or {}).get("url"))
+        if not url or r.get("share_license_status") != "CC0":
+            continue
+        nom = prochain_nom(dossier, "cma", "jpg")
+        try:
+            curl(url, Path(dossier) / nom)
+        except Exception:
+            continue
+        auteur = ((r.get("creators") or [{}])[0].get("description") or "artiste inconnu")
+        pris.append({"fichier": nom, "source": "cma", "titre": r.get("title"), "auteur": auteur, "licence": "CC0 (Cleveland Museum of Art)",
+                     "page": r.get("url"), "credit": f"{r.get('title', '')[:60]} — {auteur} (domaine public)", "requete": q})
+        print(f"  OK {nom} : {r.get('title', '')[:60]} — {auteur} {r.get('creation_date', '')}")
+    return pris
+
+
+def src_smk(q, dossier, n):
+    """SMK, galerie nationale du Danemark : œuvres du domaine public."""
+    d = get(f"https://api.smk.dk/api/v1/art/search/?keys={urllib.parse.quote(q)}&offset=0&rows={n * 3}"
+            "&filters=%5Bpublic_domain:true%5D,%5Bhas_image:true%5D", cle="smk")
+    pris = []
+    for r in d.get("items", []):
+        if len(pris) >= n:
+            break
+        url = r.get("image_native") or r.get("image_thumbnail")
+        if not url or not r.get("public_domain"):
+            continue
+        nom = prochain_nom(dossier, "smk", "jpg")
+        try:
+            curl(url, Path(dossier) / nom)
+        except Exception:
+            continue
+        if not image_ok(Path(dossier) / nom, 900):
+            (Path(dossier) / nom).unlink(missing_ok=True)
+            continue
+        titre = ((r.get("titles") or [{}])[0].get("title") or q)
+        auteur = ((r.get("production") or [{}])[0].get("creator") or "artiste inconnu")
+        pris.append({"fichier": nom, "source": "smk", "titre": titre, "auteur": auteur, "licence": "domaine public (SMK)",
+                     "page": f"https://open.smk.dk/artwork/image/{r.get('object_number', '')}", "credit": f"{titre[:60]} — {auteur} (SMK, domaine public)", "requete": q})
+        print(f"  OK {nom} : {titre[:60]} — {auteur}")
+    return pris
+
+
 def jeton_openverse():
     f = os.environ.get("OPENVERSE_JETON")
     try:
@@ -317,7 +369,7 @@ def planche(dossier, sortie):
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("mode", choices=["loc", "nasa", "aic", "openverse", "pexels", "musique", "drapeau", "peinture", "planche"])
+    p.add_argument("mode", choices=["loc", "nasa", "aic", "cma", "smk", "openverse", "pexels", "musique", "drapeau", "peinture", "planche"])
     p.add_argument("a")
     p.add_argument("b")
     p.add_argument("--n", type=int, default=3)
@@ -329,7 +381,7 @@ if __name__ == "__main__":
         planche(x.a, x.b)
     else:
         Path(x.b).mkdir(parents=True, exist_ok=True)
-        f = {"loc": src_loc, "nasa": src_nasa, "aic": src_aic, "openverse": src_openverse, "pexels": src_pexels}
+        f = {"loc": src_loc, "nasa": src_nasa, "aic": src_aic, "cma": src_cma, "smk": src_smk, "openverse": src_openverse, "pexels": src_pexels}
         try:
             if x.mode == "drapeau":
                 r = drapeaux(x.a, x.b)
