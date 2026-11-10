@@ -44,7 +44,7 @@ def mixer(video, voix, musique, bruitages, sortie, debit_video=None, vol_musique
         "[mus][cle]sidechaincompress=threshold=0.02:ratio=10:attack=15:release=350:makeup=1[musb];"
         "[3:a]aformat=sample_rates=44100:channel_layouts=stereo,volume=1.0[sfx];"
         "[voix][musb][sfx]amix=inputs=3:duration=first:normalize=0,"
-        "alimiter=limit=0.95:level=disabled[a]"
+        "loudnorm=I=-14:TP=-1.5:LRA=11,alimiter=limit=0.89:level=disabled[a]"
     )
     v = ["-c:v", "libx264", "-preset", "medium", "-pix_fmt", "yuv420p"]
     if debit_video:
