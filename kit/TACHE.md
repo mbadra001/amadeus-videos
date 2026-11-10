@@ -40,8 +40,8 @@ e. **Images, animation et son** (DA « tableau d'histoire », voir `kit/DA.md`).
    2. **Cartes exactes** (5 à 8) : `python outils/cartes.py videos/NNN-slug/medias/c_<nom>.png --bbox lon0 lat0 lon1 lat1 [--surligne ISO3,...] [--etiquettes "NOM:lon:lat[:taille],..."] [--route "lon:lat,..."] [--point lon:lat]` (lieu en gros plan, région, pays surligné, route…). Vérifier coordonnées et noms par recherche web.
    3. **Photos et tableaux** dans `videos/NNN-slug/medias/` (crédits ajoutés automatiquement à `medias/credits.json`) :
       `python outils/medias.py loc "<requête précise>" videos/NNN-slug/medias --n 4` (photos historiques)
-      `python outils/medias.py nasa "<lieu>" … --n 3` (vues de l'espace), `aic "<thème>" … --n 3` (tableaux anciens),
-      `openverse "<objet>" … --n 3` (photos génériques), `pexels "<objet>" … --n 3` (si la clé est configurée).
+      `python outils/medias.py nasa "<lieu>" … --n 3` (vues de l'espace), `aic` / `cma` / `smk "<thème>" … --n 3` (tableaux et objets anciens des musées de Chicago, Cleveland, Copenhague),
+      `openverse "<objet>" … --n 3` (photos génériques), Pexels est inactif (pas de clé).
       Requêtes en anglais, avec des noms propres et des dates. Si une source répond 429, passer à la suivante ; ne jamais boucler.
    4. **Drapeaux** : `python outils/medias.py drapeau ir,us,sa videos/NNN-slug/medias` (codes ISO à 2 lettres).
    5. **Tri à l'œil (obligatoire)** : `python outils/medias.py planche videos/NNN-slug/medias <tmp>/planche.jpg`, regarder la planche, **supprimer** les images hors sujet, sombres, floues, anachroniques ou violentes (et leur entrée dans `credits.json`). Recommencer les recherches tant qu'il y a moins de 25 visuels utilisables.
