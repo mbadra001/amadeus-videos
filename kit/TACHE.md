@@ -35,25 +35,26 @@ d. **Script et voix.**
    - En mode `sans-voix`, `apercu.html` doit rendre les sous-titres plus présents (plus grands, toujours à l'écran) puisqu'ils portent seuls le récit.
    - Si `voix.py` sort avec le code 1 (cas anormal, même le mode sans voix a échoué) : `videos/ERREUR-<date>/alerte.txt` avec l'erreur, commit, push, **stop**.
 
-e. **Images, animation et son** (DA « tableau d'histoire », voir `kit/DA.md`).
-   1. **Liste des images.** Pour chaque phrase du script, noter ce qu'il faut montrer (lieu, personne, navire, événement, date) et la source la plus précise. Viser **au moins 25 visuels différents**, chacun utilisé au plus 2 fois.
+e. **Images, animation et son** (DA « tableau d'histoire », voir `kit/DA.md`). Durée totale visée : 15 à 20 minutes.
+   1. **Liste des images.** Pour chaque phrase du script, noter ce qu'il faut montrer (lieu, personne, navire, événement, date). Viser **au moins 25 visuels différents** (cartes et drapeaux compris), chacun utilisé au plus 2 fois.
    2. **Cartes exactes** (5 à 8) : `python outils/cartes.py videos/NNN-slug/medias/c_<nom>.png --bbox lon0 lat0 lon1 lat1 [--surligne ISO3,...] [--etiquettes "NOM:lon:lat[:taille],..."] [--route "lon:lat,..."] [--point lon:lat]` (lieu en gros plan, région, pays surligné, route…). Vérifier coordonnées et noms par recherche web.
-   3. **Photos et tableaux** dans `videos/NNN-slug/medias/` (crédits ajoutés automatiquement à `medias/credits.json`) :
-      `python outils/medias.py loc "<requête précise>" videos/NNN-slug/medias --n 4` (photos historiques)
-      `python outils/medias.py nasa "<lieu>" … --n 3` (vues de l'espace), `aic` / `cma` / `smk "<thème>" … --n 3` (tableaux et objets anciens des musées de Chicago, Cleveland, Copenhague),
-      `openverse "<objet>" … --n 3` (photos génériques), Pexels est inactif (pas de clé).
-      Requêtes en anglais, avec des noms propres et des dates. Si une source répond 429, passer à la suivante ; ne jamais boucler.
-   4. **Drapeaux** : `python outils/medias.py drapeau ir,us,sa videos/NNN-slug/medias` (codes ISO à 2 lettres).
-   5. **Tri à l'œil (obligatoire)** : `python outils/medias.py planche videos/NNN-slug/medias <tmp>/planche.jpg`, regarder la planche, **supprimer** les images hors sujet, sombres, floues, anachroniques ou violentes (et leur entrée dans `credits.json`). Recommencer les recherches tant qu'il y a moins de 25 visuels utilisables.
-   6. **Rendu peinture** : pour chaque photo gardée, `python outils/medias.py peinture medias/<f> medias/p_<f>` (`--doux` pour gravures, tableaux et cartes anciennes), puis utiliser les fichiers `p_*` dans les plans. Les cartes `c_*` et les drapeaux s'utilisent tels quels.
-   7. **Musique** : `python outils/medias.py musique "<ambiance : epic cinematic, dark tension, orchestral…>" videos/NNN-slug/medias --n 1` (Jamendo via Openverse, CC BY/CC0). Écouter n'est pas possible : choisir d'après le titre et le genre, éviter les titres joyeux. Si rien n'est trouvé : musique générée (`mixage.py` sans `--musique`).
-   8. **Plans** : écrire `videos/NNN-slug/plans.js` (une ligne `plan(t0,(lt,u,t)=>{…});` par plan, calée sur les temps de `voix.srt`, plan moyen 1,1 s, jamais plus de 2 s) et `cles.json` (mots clés or/rouge). S'inspirer de `kit/exemples/plans_ormuz.js`. Première et dernière image identiques (boucle).
-   9. **Assemblage** : `python outils/assembler.py videos/NNN-slug --titre "<titre>"` → `apercu.html`. Il refuse les images absentes et affiche le nombre d'images différentes et celles utilisées plus de 2 fois : corriger si besoin. Contrôler quelques images avec Playwright (`window.seek(t)` puis capture) avant l'export.
-   10. **Export** : `python outils/export_mp4.py videos/NNN-slug/apercu.html <tmp>/muette.mp4` (environ 20 min).
-   11. **Bruitages** : écrire `<tmp>/sfx.json` : `transition` sur environ une coupe sur deux, `boom` sur chaque gros chiffre, `tic` sur chaque date (se termine sur t), `riser` avant le REWIND et les révélations. Gains par défaut (discrets) : ne pas les augmenter.
-   12. **Mixage** : `python outils/mixage.py --video <tmp>/muette.mp4 --voix videos/NNN-slug/voix.mp3 --musique videos/NNN-slug/medias/musique_1.mp3 --bruitages <tmp>/sfx.json --sortie videos/NNN-slug/video.mp4` (musique à 0,85 par défaut, baissée sous la voix). `video.mp4` doit faire moins de 50 Mo ; `mixage.py` recompresse sinon.
-   13. Ne pas committer `<tmp>`, ni les originaux non peints s'ils ne sont pas utilisés ; garder `medias/` (images utilisées + `credits.json`), `plans.js`, `cles.json`.
-   - Ressources externes : le réseau de la tâche peut bloquer certains sites (Wikimedia Commons répond 429 depuis le cloud). Tester, passer à une autre source, ne jamais bloquer la vidéo pour une image.
+   3. **Recherche d'images en un seul lot** (≈ 2 à 3 min) : écrire `videos/NNN-slug/images.json` puis
+      `python outils/medias.py lot videos/NNN-slug/images.json videos/NNN-slug/medias`
+      Toutes les sources travaillent en parallèle ; le tri automatique écarte les images trop petites, sombres, plates, floues ou en double ; une planche-contact est écrite dans `videos/NNN-slug/planche_medias.jpg`. Format et contenu de `images.json` :
+      `[{"source":"wiki","q":"Iran Air Flight 655","n":2}, {"source":"loc","q":"Khomeini","n":3}, {"source":"nasa","q":"strait of hormuz","n":3}, {"source":"cma","q":"Persia","n":3}, {"source":"drapeau","q":"ir,us"}, {"source":"musique","q":"epic cinematic","n":1}, …]`
+      - `wiki` : 3 à 5 **noms propres essentiels** (navire, événement, personne, traité…), du plus important au moins important, 1 à 2 images chacun, titre exact de l'article Wikipédia en anglais (ou `fr:Titre`). Cette source donne les images les plus précises, mais **Wikimedia limite fortement le débit depuis le cloud** : elle a un budget de 170 s et peut ne rien rendre. Ne jamais compter dessus.
+      - `loc` (photos historiques, 3 à 5 requêtes, n=3), `nasa` (les lieux vus de l'espace, 2 à 3 requêtes), `aic` / `cma` / `smk` (tableaux, gravures, objets anciens, 3 à 4 requêtes, n=2 ou 3), `openverse` (photos génériques d'objets, 3 à 4 requêtes), `drapeau` (tous les pays cités, codes ISO à 2 lettres), `musique` (1 requête : ambiance cinématique ou orchestrale).
+      - Requêtes en anglais, avec noms propres et dates. Viser au moins 40 candidates pour en garder 25.
+      Les fichiers sont nommés `<source>_<requête>_<n>` (ex. `loc_khomeini_1.jpg`) ; ce nom, sans extension, est celui utilisé dans `plans.js`.
+   4. **Tri à l'œil (obligatoire, une seule fois)** : regarder `planche_medias.jpg` ; supprimer les images hors sujet, anachroniques ou violentes avec `python outils/medias.py retirer videos/NNN-slug/medias nom1,nom2` (le nom suffit, sans extension). S'il reste moins de 25 visuels, lancer un second lot (`images2.json`) avec de nouvelles requêtes, puis re-regarder la nouvelle planche.
+   5. **Rendu peinture** (≈ 5 s) : `python outils/medias.py peindre-tout videos/NNN-slug/medias` (en place, en parallèle ; gravures et tableaux en étalonnage seul). Les cartes `c_*` et les drapeaux ne sont pas touchés. À lancer une seule fois par image (le dossier mémorise ce qui est déjà peint).
+   6. **Plans** : écrire `videos/NNN-slug/plans.js` (une ligne `plan(t0,(lt,u,t)=>{…});` par plan, calée sur les temps de `voix.srt`, plan moyen 1,1 s, jamais plus de 2 s) et `cles.json` (mots clés or/rouge). S'inspirer de `kit/exemples/plans_ormuz.js` (les noms d'images y suivent l'ancienne convention). Première et dernière image identiques (boucle).
+   7. **Assemblage** : `python outils/assembler.py videos/NNN-slug --titre "<titre>"` → `apercu.html`. Il refuse les images absentes et affiche le nombre d'images différentes et celles utilisées plus de 2 fois : corriger si besoin. Contrôler quelques images avec Playwright (`window.seek(t)` puis capture) avant l'export.
+   8. **Export** (≈ 3 min, 4 navigateurs en parallèle) : `python outils/export_mp4.py videos/NNN-slug/apercu.html <tmp>/muette.mp4`.
+   9. **Bruitages** : écrire `<tmp>/sfx.json` : `transition` sur environ une coupe sur deux, `boom` sur chaque gros chiffre, `tic` sur chaque date (se termine sur t), `riser` avant le REWIND et les révélations. Gains par défaut (discrets) : ne pas les augmenter.
+   10. **Mixage** (≈ 1 min) : `python outils/mixage.py --video <tmp>/muette.mp4 --voix videos/NNN-slug/voix.mp3 --musique videos/NNN-slug/medias/musique_1.mp3 --bruitages <tmp>/sfx.json --sortie videos/NNN-slug/video.mp4` (musique à 0,85, baissée sous la voix ; sans musique trouvée, retirer `--musique` pour la musique générée). `video.mp4` doit faire moins de 50 Mo ; le plafond de débit est automatique.
+   11. Le dossier `medias/` n'est pas versionné (seul `medias/credits.json` l'est) : ne rien faire de plus. Ne pas committer `<tmp>`.
+   - Réseau : certaines sources peuvent répondre 429 ou 403 (Wikimedia surtout). Ne jamais contourner une limite de débit (pas de relais, pas de proxy tiers) : passer à une autre source, ne jamais bloquer la vidéo pour une image.
 
 f. **Checklist.** Passer la checklist finale de `REGLES.md` point par point (au moins 25 visuels différents et pertinents, crédits complets ; durée entre 62 et 64 s avec `ffprobe`, hook ≤ 2 s, voix audible (sauf mode `sans-voix`), sous-titres synchronisés et dans la zone sûre — vérifier sur des captures `window.seek(t)` —, boucle fin → début, tous les points de vue présentés, faits vérifiés, aucun contenu sous droits, taille < 50 Mo, caption conforme). Corriger et refaire l'export tant qu'un point échoue.
 
@@ -62,7 +63,7 @@ g. **Caption et méta.** Écrire `videos/NNN-slug/caption.txt` selon la section 
 
 h. **Sujets.** Ajouter une ligne `| NNN | Sxxx | titre | <date> |` dans « Déjà faits » de `kit/sujets.md`, et ajouter `"sujet_id": "Sxxx"` dans `meta.json`.
 
-i. **Livraison.** Commit « Amadeus NNN — titre », push sur `main`. Le dossier livré contient : `apercu.html`, `plans.js`, `cles.json`, `medias/` (images utilisées, musique, `credits.json`), `script.txt`, `voix.mp3`, `voix.srt`, `voix_mode.txt`, `video.mp4`, `caption.txt`, `meta.json`. La publication Telegram est déclenchée automatiquement par le push de `video.mp4`.
+i. **Livraison.** Commit « Amadeus NNN — titre », push sur `main`. Le dossier livré contient : `apercu.html`, `plans.js`, `cles.json`, `images.json`, `medias/credits.json`, `script.txt`, `voix.mp3`, `voix.srt`, `voix_mode.txt`, `video.mp4`, `caption.txt`, `meta.json`. La publication Telegram est déclenchée automatiquement par le push de `video.mp4`.
 
 j. **Marquer le sujet FAIT dans le Google Doc** (seulement après un push réussi).
    - Google Docs `update_doc` (documentId `1qvAKlDfhOXX-JwwoqF2txn5lupwbmnW7c50tfr49qAA`) avec une seule requête :

@@ -46,11 +46,12 @@ def mixer(video, voix, musique, bruitages, sortie, debit_video=None, vol_musique
         "[voix][musb][sfx]amix=inputs=3:duration=first:normalize=0,"
         "loudnorm=I=-14:TP=-1.5:LRA=11,alimiter=limit=0.89:level=disabled[a]"
     )
-    v = ["-c:v", "libx264", "-preset", "medium", "-pix_fmt", "yuv420p"]
-    if debit_video:
+    v = ["-c:v", "libx264", "-preset", "fast", "-pix_fmt", "yuv420p"]
+    if debit_video:      # débit imposé (recompression de secours)
         v += ["-b:v", f"{debit_video}k", "-maxrate", f"{int(debit_video * 1.2)}k", "-bufsize", f"{debit_video * 2}k"]
-    else:
-        v += ["-crf", "20"]
+    else:                # une seule passe : qualité constante, plafonnée pour rester sous 50 Mo
+        plafond = int((CIBLE * 8 / d) / 1000) - 170
+        v += ["-crf", "19", "-maxrate", f"{plafond}k", "-bufsize", f"{plafond * 2}k"]
     ffmpeg("-i", str(video), "-i", str(voix), "-i", str(musique), "-i", str(bruitages),
            "-filter_complex", filtre, "-map", "0:v", "-map", "[a]", *v,
            "-c:a", "aac", "-b:a", "160k", "-t", f"{d:.3f}", "-movflags", "+faststart", str(sortie))

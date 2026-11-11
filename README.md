@@ -21,18 +21,18 @@ Vidéos verticales courtes (1080×1920, 63 s) qui expliquent la géopolitique et
 │   └── stats/stats.csv          statistiques par vidéo et par plateforme
 ├── outils/
 │   ├── voix.py                  texte → voix.mp3 + voix.srt (edge-tts → Piper → sans voix)
-│   ├── medias.py                images et musique libres (Library of Congress, NASA, musées de Chicago, Cleveland
-│   │                            et Copenhague, Openverse, drapeaux flag-icons), crédits, rendu peinture, planche de tri
+│   ├── medias.py                images et musique libres, en lot et en parallèle (Wikipédia, Library of Congress, NASA, musées de
+│   │                            Chicago, Cleveland et Copenhague, Openverse, drapeaux), tri auto, crédits, rendu peinture
 │   ├── cartes.py                cartes exactes (Natural Earth) au style carte ancienne
 │   ├── assembler.py             plans.js + medias/ + voix.srt → apercu.html (modèle kit/modele_apercu.html)
-│   ├── export_mp4.py            apercu.html → vidéo muette, image par image (Playwright)
+│   ├── export_mp4.py            apercu.html → vidéo muette, image par image, 4 navigateurs en parallèle (≈ 3 min)
 │   ├── sons.py                  bruitages variés (transition, boom, tic, riser…) et musique de secours synthétisés
 │   └── mixage.py                vidéo muette + voix + musique + bruitages → video.mp4 (sidechain, < 50 Mo)
 └── videos/
     └── NNN-slug/                une vidéo par dossier
         ├── apercu.html          animation (générée par assembler.py), expose window.seek(t)
         ├── plans.js, cles.json  liste des plans et mots clés
-        ├── medias/              images utilisées, musique, credits.json
+        ├── medias/credits.json  crédits des images (les images elles-mêmes ne sont pas versionnées)
         ├── script.txt           texte parlé
         ├── voix.mp3, voix.srt   voix et temps de chaque mot
         ├── video.mp4            vidéo finale (< 50 Mo)

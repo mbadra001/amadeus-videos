@@ -1,3 +1,7 @@
 __pycache__/
 *.pyc
 voix_erreurs.txt
+# images et musique téléchargées : non versionnées (medias/credits.json suffit)
+videos/*/medias/*
+!videos/*/medias/credits.json
+videos/*/planche_medias.jpg

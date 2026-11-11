@@ -5,6 +5,10 @@ Tout est écrit dans <dossier>/ (en général videos/NNN-slug/medias/) avec un c
 cumulatif : {fichier, source, titre, auteur, licence, page, credit}.
 
 Sources d'images (de la plus précise à la plus générique) :
+  wiki      Wikipédia : TOUTES les images libres d'un article (une requête), avec licence et auteur.
+            Le plus précis pour un sujet nommé : « Iran Air Flight 655 », « USS Vincennes (CG-49) »,
+            « fr:Canal de Suez ». Préfixe de langue possible (fr:, en:, de:…), défaut en:.
+            Seules les licences libres sont gardées (domaine public, CC0, CC BY, CC BY-SA).
   loc       Bibliothèque du Congrès (photos historiques ; gardées seulement si
             « No known restrictions on publication » ou domaine public)
   nasa      NASA Image Library (domaine public : vues satellite, Terre depuis l'espace)
@@ -24,7 +28,18 @@ Traitements :
             (--doux : étalonnage seul, pour gravures et cartes anciennes)
   planche   planche-contact numérotée des images d'un dossier, pour les vérifier à l'œil
 
-Exemples :
+Mode rapide (recommandé) : toutes les recherches d'un coup, en parallèle, avec tri automatique
+  python outils/medias.py lot videos/007-x/images.json videos/007-x/medias
+  images.json : [{"source":"wiki","q":"Iran Air Flight 655","n":6}, {"source":"loc","q":"Khomeini","n":3},
+                 {"source":"drapeau","q":"ir,us"}, {"source":"musique","q":"epic cinematic","n":1}, ...]
+  Les sources tournent en même temps (une file par source, débit poli), puis le tri automatique écarte
+  les images trop petites, sombres, plates, floues ou en double, et une planche-contact est écrite.
+  python outils/medias.py tri videos/007-x/medias            tri automatique seul
+  python outils/medias.py retirer videos/007-x/medias a,b    supprime des images (et leurs crédits)
+  python outils/medias.py peindre-tout videos/007-x/medias   rendu peinture de toutes les images, en parallèle
+
+Exemples (une source à la fois) :
+  python outils/medias.py wiki "Iran Air Flight 655" videos/007-x/medias --n 6
   python outils/medias.py loc "Khomeini 1979" videos/007-x/medias --n 4
   python outils/medias.py nasa "strait of hormuz" videos/007-x/medias --n 3
   python outils/medias.py aic "naval battle" videos/007-x/medias --n 2
@@ -37,11 +52,16 @@ Exemples :
 Rythme : une requête toutes les 1,5 s par source, nouvel essai sur 429/5xx.
 """
 import argparse
+import concurrent.futures
+import html
 import json
 import os
+import re
 import subprocess
 import sys
+import threading
 import time
+import unicodedata
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -49,6 +69,12 @@ from pathlib import Path
 UA = "amadeus-videos/1.0 (outil de montage video ; https://github.com/mbadra001/amadeus-videos)"
 LICENCES_OV = "cc0,pdm,by,by-sa"
 _dernier = {}
+_ctx = threading.local()      # étiquette des noms de fichiers (loc_khomeini_1.jpg), propre à chaque fil
+
+
+def slug(q):
+    s = unicodedata.normalize("NFKD", q).encode("ascii", "ignore").decode().lower()
+    return re.sub(r"[^a-z0-9]+", "-", s).strip("-")[:24] or "img"
 
 
 # ----------------------------------------------------------------- réseau
@@ -92,10 +118,12 @@ def enregistrer(dossier, entrees):
 
 
 def prochain_nom(dossier, prefixe, ext):
+    etiq = getattr(_ctx, "etiq", "")
+    base = f"{prefixe}_{etiq}" if etiq else prefixe
     i = 1
-    while (Path(dossier) / f"{prefixe}_{i}.{ext}").exists():
+    while (Path(dossier) / f"{base}_{i}.{ext}").exists():
         i += 1
-    return f"{prefixe}_{i}.{ext}"
+    return f"{base}_{i}.{ext}"
 
 
 def image_ok(chemin, mini=900):
@@ -280,6 +308,7 @@ def src_openverse(q, dossier, n, audio=False):
         if not audio and max(r.get("width") or 0, r.get("height") or 0) < 1000:
             continue
         ext = "mp3" if audio else (r.get("filetype") or "jpg").lower().replace("jpeg", "jpg")[:4]
+        _ctx.etiq = "" if audio else getattr(_ctx, "etiq", "")
         nom = prochain_nom(dossier, "musique" if audio else "ov", ext)
         try:
             curl(r["url"] if audio else miniature_wikimedia(r["url"]), Path(dossier) / nom)
@@ -367,28 +396,319 @@ def planche(dossier, sortie):
     print(f"OK planche : {sortie} ({len(fs)} images)")
 
 
+# ----------------------------------------------------------------- Wikipédia
+WIKI_EXCLUS = re.compile(r"flag of|logo|icon|crest|seal of|coat of arms|signature|blank|locator|location map|commons-|"
+                         r"wikisource|symbol|emblem|stub|ambox|question mark|padlock|portal|edit-|nuvola|oojs|banner", re.I)
+LIC_OK = re.compile(r"public domain|^pd\b|^pd-|cc0|cc[ -]by(-sa)?[ -]?\d|attribution|no restrictions|free use|\bgov", re.I)
+LIC_NON = re.compile(r"-nc|-nd|non.?commercial|fair use|noderiv", re.I)
+
+
+def propre(h):
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", h or ""))).strip()
+
+
+def wiki_api(lang, params, patience=100):
+    """API Wikipédia. Le débit anonyme est limité par adresse (partagée entre sessions cloud) : en cas de 429,
+    on attend exactement la durée demandée par le serveur (en-tête Retry-After), dans la limite de `patience` secondes."""
+    q = urllib.parse.urlencode({"format": "json", "redirects": 1, **params})
+    debut = time.time()
+    while True:
+        try:
+            return get(f"https://{lang}.wikipedia.org/w/api.php?{q}", essais=1, cle="wiki")
+        except urllib.error.HTTPError as e:
+            if e.code != 429:
+                raise
+            attente = min(int(e.headers.get("Retry-After") or 20) + 1, 90)
+            if time.time() - debut + attente > patience:
+                raise RuntimeError(f"Wikimedia limite le débit (429, attente demandée {attente} s) : abandon après {patience} s")
+            time.sleep(attente)
+
+
+def _suivre(correspondances, titre):
+    """Titre final d'un article après normalisation et redirections renvoyées par l'API."""
+    for liste in correspondances:
+        titre = next((c["to"] for c in liste if c["from"] == titre), titre)
+    return titre
+
+
+def wiki_lot(rs, dossier, budget=170):
+    """Images libres de plusieurs articles Wikipédia avec très peu de requêtes (la limite de débit est partagée) :
+    1 requête pour les listes d'images de tous les articles, 1 pour les licences (par paquets de 30), puis les téléchargements.
+    `budget` : durée maximale en secondes ; au-delà, les articles restants sont ignorés. Wikimedia limite fortement le débit
+    depuis les serveurs cloud (adresse partagée) : ne jamais en dépendre, la liste des articles est donc à classer par priorité."""
+    debut = time.time()
+    par_langue = {}
+    for r in rs:
+        m = re.match(r"^([a-z]{2,3}):(.+)$", r["q"])
+        lang, titre = m.groups() if m else ("en", r["q"])
+        par_langue.setdefault(lang, []).append((r, titre))
+    pris = []
+    for lang, items in par_langue.items():
+        # 1) liste des images de chaque article (une seule requête, suites comprises)
+        pages, corr = {}, []
+        params = {"action": "query", "titles": "|".join(t for _, t in items), "prop": "images", "imlimit": "max"}
+        while True:
+            d = wiki_api(lang, params)
+            q_ = d.get("query") or {}
+            corr = [q_.get("normalized", []), q_.get("redirects", [])]
+            for pg in q_.get("pages", {}).values():
+                pages.setdefault(pg["title"], {"images": [], "missing": "missing" in pg})["images"] += [i["title"] for i in pg.get("images", [])]
+            if "continue" not in d:
+                break
+            params = {**params, **d["continue"]}
+        # articles introuvables : on cherche le plus proche
+        resolus = {}
+        for r, t in items:
+            final = _suivre(corr, t)
+            if final not in pages or pages[final]["missing"]:
+                h = (wiki_api(lang, {"action": "query", "list": "search", "srsearch": t, "srlimit": 1}).get("query") or {}).get("search", [])
+                if h:
+                    d2 = wiki_api(lang, {"action": "query", "titles": h[0]["title"], "prop": "images", "imlimit": "max"})
+                    for pg in (d2.get("query") or {}).get("pages", {}).values():
+                        pages[pg["title"]] = {"images": [i["title"] for i in pg.get("images", [])], "missing": False}
+                    final = h[0]["title"]
+            resolus[t] = final
+        # 2) licences et adresses des fichiers retenus (paquets de 30)
+        fichiers = sorted({f for t in resolus.values() for f in pages.get(t, {}).get("images", [])
+                           if re.search(r"\.(jpe?g|png)$", f, re.I) and not WIKI_EXCLUS.search(f)})
+        info = {}
+        for k in range(0, len(fichiers), 30):
+            d = wiki_api(lang, {"action": "query", "titles": "|".join(fichiers[k:k + 30]), "prop": "imageinfo",
+                                "iiprop": "url|extmetadata|size|mime", "iiurlwidth": 1600,
+                                "iiextmetadatafilter": "LicenseShortName|Artist|NonFree"})
+            for pg in (d.get("query") or {}).get("pages", {}).values():
+                ii = (pg.get("imageinfo") or [None])[0]
+                if not ii or ii.get("mime") not in ("image/jpeg", "image/png"):
+                    continue
+                md = ii.get("extmetadata") or {}
+                lic = (md.get("LicenseShortName") or {}).get("value", "")
+                if (md.get("NonFree") or {}).get("value", "").lower() == "true" or LIC_NON.search(lic) or not LIC_OK.search(lic):
+                    continue
+                if max(ii.get("width", 0), ii.get("height", 0)) < 1000:
+                    continue
+                info[pg["title"]] = (ii, lic, propre((md.get("Artist") or {}).get("value", "")))
+        # 3) téléchargements, article par article
+        for r, t in items:
+            if time.time() - debut > budget:
+                print(f"  wiki : budget de {budget} s dépassé, « {t} » ignoré")
+                continue
+            final = resolus[t]
+            cands = [(f, *info[f]) for f in pages.get(final, {}).get("images", []) if f in info]
+            cands.sort(key=lambda c: (c[1].get("mime") != "image/jpeg", -(c[1].get("width", 0) * c[1].get("height", 0))))
+            _ctx.etiq = slug(r.get("etiquette") or t)
+            n_ok = 0
+            for f, ii, lic, auteur in cands:
+                if n_ok >= r.get("n", 3) or time.time() - debut > budget:
+                    break
+                nom = prochain_nom(dossier, "wiki", "jpg")
+                try:
+                    subprocess.run(["curl", "-sSL", "--fail", "--retry", "4", "--retry-delay", "3", "--max-time", "90", "-A", UA,
+                                    "-o", str(Path(dossier) / nom), ii.get("thumburl") or ii["url"]], check=True)
+                except Exception:
+                    (Path(dossier) / nom).unlink(missing_ok=True)
+                    continue
+                if not image_ok(Path(dossier) / nom, 900):
+                    (Path(dossier) / nom).unlink(missing_ok=True)
+                    continue
+                titre_f = re.sub(r"^[^:]+:", "", f).rsplit(".", 1)[0]
+                auteur = auteur[:60] or "auteur inconnu"
+                pris.append({"fichier": nom, "source": f"wikipedia/{lang}", "titre": titre_f, "auteur": auteur, "licence": lic,
+                             "page": ii.get("descriptionurl"), "article": final, "credit": f"{titre_f[:60]} — {auteur} ({lic})", "requete": r["q"]})
+                print(f"  OK {nom} : {titre_f[:70]} ({lic})")
+                n_ok += 1
+                time.sleep(0.6)
+            if n_ok == 0:
+                print(f"  aucune image libre exploitable : wiki « {t} »")
+    return pris
+
+
+def src_wiki(q, dossier, n):
+    return wiki_lot([{"q": q, "n": n}], dossier)
+
+
+SOURCES = {"loc": src_loc, "nasa": src_nasa, "aic": src_aic, "cma": src_cma, "smk": src_smk,
+           "openverse": src_openverse, "pexels": src_pexels, "wiki": src_wiki}
+
+
+# ----------------------------------------------------------------- lot, tri, peinture en parallèle
+def lot(fichier, dossier):
+    """Exécute toutes les recherches d'un fichier JSON : une file par source, les sources en parallèle."""
+    requetes = json.load(open(fichier, encoding="utf-8"))
+    Path(dossier).mkdir(parents=True, exist_ok=True)
+    groupes = {}
+    for r in requetes:
+        groupes.setdefault(r["source"], []).append(r)
+
+    def courir(source, rs):
+        sortie = []
+        if source == "wiki":      # tous les articles ensemble : très peu de requêtes
+            try:
+                return wiki_lot(rs, dossier)
+            except Exception as e:
+                print(f"  ERREUR wiki : {e}", file=sys.stderr)
+                return []
+        for r in rs:
+            _ctx.etiq = slug(r.get("etiquette") or r["q"])
+            try:
+                if source == "drapeau":
+                    res = drapeaux(r["q"], dossier)
+                elif source == "musique":
+                    res = src_openverse(r["q"], dossier, r.get("n", 1), audio=True)
+                else:
+                    res = SOURCES[source](r["q"], dossier, r.get("n", 3))
+            except Exception as e:
+                print(f"  ERREUR {source} « {r['q']} » : {e}", file=sys.stderr)
+                continue
+            if not res:
+                print(f"  aucun résultat utilisable : {source} « {r['q']} »")
+            sortie += res
+        return sortie
+
+    debut = time.time()
+    with concurrent.futures.ThreadPoolExecutor(max_workers=len(groupes)) as ex:
+        res = [f.result() for f in [ex.submit(courir, s, rs) for s, rs in groupes.items()]]
+    toutes = [e for r in res for e in r]
+    enregistrer(dossier, toutes)
+    print(f"lot : {len(toutes)} fichiers en {time.time() - debut:.0f} s ({len(requetes)} recherches, {len(groupes)} sources en parallèle)")
+
+
+def _dhash(g):
+    import cv2
+    d = cv2.resize(g, (9, 8))
+    return int("".join("1" if b else "0" for b in (d[:, 1:] > d[:, :-1]).flatten()), 2)
+
+
+def tri_auto(dossier, mini=900, supprimer=True):
+    """Écarte les images trop petites, sombres, claires, plates, floues ou en double (garde la plus grande)."""
+    import cv2
+    dossier = Path(dossier)
+    fs = [f for f in sorted(dossier.iterdir()) if f.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp")
+          and not f.name.startswith(("c_", "p_", "toile"))]
+    mesures = []
+    rejets = []
+    for f in fs:
+        im = cv2.imread(str(f))
+        if im is None:
+            rejets.append((f, "illisible"))
+            continue
+        h, w = im.shape[:2]
+        if max(h, w) < mini:
+            rejets.append((f, f"trop petite ({w}x{h})"))
+            continue
+        k = 512 / max(h, w)
+        g = cv2.cvtColor(cv2.resize(im, (max(int(w * k), 9), max(int(h * k), 8))), cv2.COLOR_BGR2GRAY)
+        moy, ecart, nettete = float(g.mean()), float(g.std()), float(cv2.Laplacian(g, cv2.CV_64F).var())
+        if moy < 20:
+            rejets.append((f, f"trop sombre ({moy:.0f})"))
+        elif moy > 238:
+            rejets.append((f, f"trop claire ({moy:.0f})"))
+        elif ecart < 15:
+            rejets.append((f, f"image plate ({ecart:.0f})"))
+        elif nettete < 8:
+            rejets.append((f, f"floue ({nettete:.0f})"))
+        else:
+            mesures.append((w * h, f, _dhash(g)))
+    gardes = []
+    for pixels, f, hh in sorted(mesures, key=lambda m: -m[0]):    # les plus grandes d'abord
+        doublon = next((g for _, g, gh in gardes if bin(hh ^ gh).count("1") <= 5), None)
+        if doublon:
+            rejets.append((f, f"doublon de {doublon.name}"))
+        else:
+            gardes.append((pixels, f, hh))
+    for f, raison in rejets:
+        print(f"  écartée {f.name} : {raison}")
+        if supprimer:
+            f.unlink(missing_ok=True)
+    if supprimer and rejets:
+        retirer_credits(dossier, [f.name for f, _ in rejets])
+    print(f"tri : {len(gardes)} gardées, {len(rejets)} écartées")
+    return [f.name for _, f, _ in gardes]
+
+
+def retirer_credits(dossier, noms):
+    f = Path(dossier) / "credits.json"
+    if f.exists():
+        c = [e for e in json.loads(f.read_text(encoding="utf-8")) if e.get("fichier") not in set(noms)]
+        f.write_text(json.dumps(c, ensure_ascii=False, indent=1), encoding="utf-8")
+
+
+def retirer(dossier, liste):
+    noms = []
+    for n in liste.split(","):
+        n = n.strip()
+        for f in Path(dossier).glob(n if "." in n else n + ".*"):
+            f.unlink()
+            noms.append(f.name)
+            print(f"  retirée {f.name}")
+    retirer_credits(dossier, noms)
+
+
+def _peindre_un(args):
+    chemin, doux = args
+    chemin = Path(chemin)
+    tmp = chemin.with_name(chemin.stem + ".tmp.jpg")
+    peinture(chemin, tmp, doux=doux)
+    final = chemin.with_suffix(".jpg")
+    chemin.unlink()
+    tmp.rename(final)
+    return chemin.name, final.name
+
+
+def peindre_tout(dossier):
+    """Rend toutes les images en peinture (en place, en parallèle). Gravures et tableaux (aic, cma, smk) : étalonnage seul."""
+    dossier = Path(dossier)
+    marque = dossier / "peint.json"
+    deja = set(json.loads(marque.read_text()) if marque.exists() else [])
+    fs = [f for f in sorted(dossier.iterdir()) if f.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp")
+          and not f.name.startswith(("c_", "toile")) and f.stem not in deja]
+    debut = time.time()
+    with concurrent.futures.ProcessPoolExecutor(max_workers=os.cpu_count() or 2) as ex:
+        res = list(ex.map(_peindre_un, [(f, f.name.startswith(("aic_", "cma_", "smk_"))) for f in fs]))
+    f_cred = dossier / "credits.json"
+    if f_cred.exists():
+        chg = {a: b for a, b in res if a != b}
+        c = json.loads(f_cred.read_text(encoding="utf-8"))
+        for e in c:
+            e["fichier"] = chg.get(e.get("fichier"), e.get("fichier"))
+        f_cred.write_text(json.dumps(c, ensure_ascii=False, indent=1), encoding="utf-8")
+    marque.write_text(json.dumps(sorted(deja | {Path(b).stem for _, b in res})))
+    print(f"peinture : {len(res)} images en {time.time() - debut:.0f} s")
+
+
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("mode", choices=["loc", "nasa", "aic", "cma", "smk", "openverse", "pexels", "musique", "drapeau", "peinture", "planche"])
+    p.add_argument("mode", choices=["lot", "tri", "retirer", "peindre-tout", "wiki", "loc", "nasa", "aic", "cma", "smk",
+                                    "openverse", "pexels", "musique", "drapeau", "peinture", "planche"])
     p.add_argument("a")
-    p.add_argument("b")
+    p.add_argument("b", nargs="?")
     p.add_argument("--n", type=int, default=3)
     p.add_argument("--doux", action="store_true")
+    p.add_argument("--planche", default=None, help="lot : chemin de la planche-contact (défaut : <dossier>/../planche_medias.jpg)")
     x = p.parse_args()
     if x.mode == "peinture":
         peinture(x.a, x.b, doux=x.doux)
     elif x.mode == "planche":
         planche(x.a, x.b)
+    elif x.mode == "tri":
+        tri_auto(x.a)
+    elif x.mode == "retirer":
+        retirer(x.a, x.b)
+    elif x.mode == "peindre-tout":
+        peindre_tout(x.a)
+    elif x.mode == "lot":
+        lot(x.a, x.b)
+        tri_auto(x.b)
+        planche(x.b, x.planche or str(Path(x.b).resolve().parent / "planche_medias.jpg"))
     else:
         Path(x.b).mkdir(parents=True, exist_ok=True)
-        f = {"loc": src_loc, "nasa": src_nasa, "aic": src_aic, "cma": src_cma, "smk": src_smk, "openverse": src_openverse, "pexels": src_pexels}
+        _ctx.etiq = slug(x.a)
         try:
             if x.mode == "drapeau":
                 r = drapeaux(x.a, x.b)
             elif x.mode == "musique":
                 r = src_openverse(x.a, x.b, x.n, audio=True)
             else:
-                r = f[x.mode](x.a, x.b, x.n)
+                r = SOURCES[x.mode](x.a, x.b, x.n)
         except Exception as e:
             print(f"ERREUR {x.mode} « {x.a} » : {e}", file=sys.stderr)
             sys.exit(1)
