@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<title>Nucléaire iranien : 440 kilos introuvables</title>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Archivo+Black&family=DM+Serif+Display&family=Space+Mono:wght@400;700&display=block" rel="stylesheet">
+<style>html,body{margin:0;background:#0E0D0C;overflow:hidden}canvas{display:block}</style>
+</head><body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+const W=1080,H=1920,FPS=30;
+const OR='#E5B547',ORF='#A07828',CR='#F0E8D6',RG='#D62C30',GR='#78746C';
+window.DUREE=63.41;
+const MOTS=[[0.1, 0.437, "Quatre"], [0.45, 0.575, "cent"], [0.587, 0.912, "quarante"], [0.925, 1.2, "kilos"], [1.212, 1.662, "d'uranium"], [1.675, 2.05, "enrichi"], [2.062, 2.125, "à"], [2.137, 2.55, "soixante"], [2.562, 2.725, "pour"], [2.737, 2.987, "cent."], [3.862, 4.012, "Et"], [4.025, 4.412, "personne"], [4.425, 4.537, "ne"], [4.55, 4.687, "sait"], [4.7, 4.762, "où"], [4.775, 4.912, "ils"], [4.925, 5.175, "sont"], [6.05, 6.262, "Ce"], [6.275, 6.925, "11 novembre"], [7.225, 7.562, "Téhéran"], [7.575, 8.062, "prévient"], [8.237, 8.375, "pas"], [8.387, 8.5, "un"], [8.512, 8.837, "atome"], [8.85, 8.962, "ne"], [8.975, 9.287, "quittera"], [9.3, 9.662, "l'Iran"], [10.525, 10.875, "Aucune"], [10.887, 11.525, "négociation"], [11.537, 11.65, "n'est"], [11.662, 11.825, "en"], [11.837, 12.312, "cours"], [13.175, 13.4, "Ça"], [13.412, 13.525, "te"], [13.537, 14.05, "concerne"], [14.362, 14.575, "chaque"], [14.587, 14.8, "crise"], [14.812, 14.987, "sur"], [15.0, 15.1, "ce"], [15.112, 15.437, "dossier"], [15.45, 15.575, "fait"], [15.587, 15.9, "grimper"], [15.912, 16.012, "le"], [16.025, 16.525, "pétrole"], [16.787, 17.0, "donc"], [17.012, 17.175, "ton"], [17.187, 17.487, "plein"], [18.362, 18.9, "Remontons"], [18.912, 19.025, "le"], [19.037, 19.3, "temps"], [20.175, 20.337, "En"], [20.35, 21.45, "1957"], [21.762, 21.887, "sous"], [21.9, 22.012, "le"], [22.025, 22.275, "Shah"], [22.637, 22.75, "les"], [22.762, 23.3, "États-Unis"], [23.312, 23.537, "signent"], [23.55, 23.762, "avec"], [23.775, 24.062, "l'Iran"], [24.075, 24.112, "un"], [24.125, 24.462, "accord"], [24.475, 24.912, "nucléaire"], [24.925, 25.45, "civil"], [26.312, 26.475, "En"], [26.487, 27.512, "1968"], [27.85, 28.137, "l'Iran"], [28.15, 28.412, "signe"], [28.425, 28.512, "le"], [28.525, 28.825, "traité"], [28.837, 28.95, "de"], [28.962, 29.912, "non-prolifération"], [30.787, 30.962, "En"], [30.975, 31.55, "2002"], [31.875, 32.012, "le"], [32.025, 32.25, "site"], [32.262, 32.575, "secret"], [32.587, 32.675, "de"], [32.687, 33.087, "Natanz"], [33.1, 33.15, "est"], [33.162, 33.65, "révélé"], [34.512, 34.675, "En"], [34.687, 35.412, "2015"], [35.75, 36.112, "l'accord"], [36.125, 36.225, "de"], [36.237, 36.462, "Vienne"], [36.475, 36.8, "limite"], [36.812, 37.462, "l'enrichissement"], [37.475, 37.525, "à"], [37.537, 39.087, "3,67 %"], [39.962, 40.137, "En"], [40.15, 40.9, "2018"], [41.175, 41.75, "Washington"], [41.762, 41.912, "s'en"], [41.925, 42.487, "retire"], [43.35, 43.662, "Chaque"], [43.675, 43.862, "camp"], [43.875, 43.925, "a"], [43.937, 44.075, "sa"], [44.087, 44.55, "version"], [45.425, 45.775, "Téhéran"], [45.787, 45.912, "dit"], [45.925, 46.075, "que"], [46.087, 46.237, "son"], [46.25, 46.625, "programme"], [46.637, 46.687, "est"], [46.7, 47.312, "pacifique"], [47.625, 47.675, "et"], [47.687, 47.8, "que"], [47.812, 47.9, "le"], [47.912, 48.225, "traité"], [48.237, 48.375, "lui"], [48.387, 48.575, "donne"], [48.587, 48.675, "le"], [48.687, 48.875, "droit"], [48.887, 49.537, "d'enrichir"], [50.412, 51.05, "Washington"], [51.062, 51.112, "et"], [51.125, 51.512, "Israël"], [51.525, 51.925, "refusent"], [51.937, 51.987, "un"], [52.0, 52.275, "Iran"], [52.287, 52.55, "doté"], [52.562, 52.65, "de"], [52.662, 52.75, "la"], [52.762, 53.175, "bombe"], [54.05, 54.525, "L'AIEA"], [54.537, 54.937, "réclame"], [54.95, 55.075, "ses"], [55.087, 55.9, "inspecteurs"], [56.775, 57.375, "Aujourd'hui"], [57.75, 57.887, "les"], [57.9, 58.25, "usines"], [58.262, 58.4, "sont"], [58.412, 58.825, "détruites"], [58.837, 58.912, "ou"], [58.925, 58.962, "à"], [58.975, 59.325, "l'arrêt"], [60.2, 60.387, "Une"], [60.4, 60.775, "question"], [60.787, 61.25, "demeure"], [61.45, 61.525, "où"], [61.537, 61.675, "sont"], [61.687, 61.787, "les"], [61.8, 62.15, "quatre"], [62.162, 62.275, "cent"], [62.287, 62.587, "quarante"], [62.6, 63.012, "kilos"]];
+const ctx=document.getElementById('c').getContext('2d');
+const IMG={};
+const FICHIERS=["aic_persian_2.jpg", "c_fordo.png", "c_iran.png", "c_monde.png", "c_moyen_orient.png", "c_natanz.png", "c_ormuz.png", "c_vienne.png", "cma_isfahan_1.jpg", "cma_isfahan_2.jpg", "cma_persia_1.jpg", "cma_persia_2.jpg", "drapeau_at.svg", "drapeau_il.svg", "drapeau_ir.svg", "drapeau_us.svg", "nasa_iran_1.jpg", "nasa_iran_2.jpg", "nasa_iran_3.jpg", "nasa_persian-gulf_1.jpg", "nasa_tehran_2.jpg", "nasa_tehran_3.jpg", "ov_gas-centrifuge-uranium-e_1.jpg", "ov_oil-tanker_1.jpg", "ov_oil-tanker_2.jpg", "ov_vienna-international-cen_1.jpg", "ov_vienna-international-cen_2.jpg", "ov_vienna-international-cen_3.jpg", "ov_yellowcake-uranium_1.jpg", "ov_yellowcake-uranium_2.jpg", "smk_persian_2.jpg", "toile.png", "wiki_international-atomic-ene_1.jpg", "wiki_international-atomic-ene_2.jpg", "wiki_joint-comprehensive-plan_1.jpg", "wiki_joint-comprehensive-plan_2.jpg", "wiki_mohammad-reza-pahlavi_1.jpg", "wiki_mohammad-reza-pahlavi_2.jpg", "wiki_natanz-nuclear-facility_1.jpg", "wiki_natanz-nuclear-facility_2.jpg", "wiki_tehran-research-reactor_1.jpg"];
+function charger(f){return new Promise(r=>{const i=new Image();i.onload=()=>{let o=i;if(f.endsWith('.svg')){o=document.createElement('canvas');o.width=1280;o.height=960;o.getContext('2d').drawImage(i,0,0,1280,960)}IMG[f.split('.')[0]]=o;r()};i.onerror=()=>{console.error('image '+f);r()};i.src='medias/'+f})}
+function rng(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296}}
+const ease=x=>x<0?0:x>1?1:1-Math.pow(1-x,3), easeIO=x=>x<0?0:x>1?1:x*x*(3-2*x);
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)), lerp=(a,b,x)=>a+(b-a)*x;
+function zoomFlou(lt,f,cy=860){const a=ease(lt/.35);ctx.save();ctx.globalAlpha=a;const s=lerp(1.3,1,a);ctx.translate(W/2,cy);ctx.scale(s,s);ctx.translate(-W/2,-cy);ctx.filter=`blur(${(1-a)*9}px)`;f();ctx.restore()}
+function tremble(lt){const k=Math.exp(-lt/.18);return [Math.sin(lt*90)*22*k,Math.cos(lt*77)*16*k]}
+function flash(lt){const a=Math.exp(-lt/.07)*.7;if(a>.01){ctx.fillStyle=`rgba(255,240,210,${a})`;ctx.fillRect(0,0,W,H)}}
+function grosChiffre(txt,lt,y=760,taille=300,coul=OR,sous=null){if(lt<0)return;const [dx,dy]=tremble(lt);zoomFlou(lt,()=>{ctx.save();ctx.translate(dx,dy);
+  ctx.font=`${taille}px "Abril Fatface"`;const w=ctx.measureText(txt).width;if(w>W-140){taille*=(W-140)/w;ctx.font=`${taille}px "Abril Fatface"`}
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';ctx.lineWidth=14;ctx.strokeStyle='rgba(20,10,4,.85)';ctx.strokeText(txt,W/2,y);ctx.shadowColor=coul;ctx.shadowBlur=35;ctx.fillStyle=coul;ctx.fillText(txt,W/2,y);ctx.shadowBlur=0;
+  if(sous){ctx.font='52px "Archivo Black"';ctx.lineWidth=10;ctx.strokeText(sous,W/2,y+taille*.62);ctx.fillStyle=CR;ctx.fillText(sous,W/2,y+taille*.62)}ctx.restore()},y);flash(lt)}
+function titre(txt,lt,y=330,taille=92){if(lt<0)return;zoomFlou(lt,()=>{ctx.font=`${taille}px "DM Serif Display"`;ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=12;ctx.strokeStyle='rgba(20,10,4,.8)';
+  txt.split('\n').forEach((l,i)=>{ctx.strokeText(l,W/2,y+i*taille*1.1);ctx.fillStyle=OR;ctx.shadowColor='rgba(229,181,71,.5)';ctx.shadowBlur=20;ctx.fillText(l,W/2,y+i*taille*1.1);ctx.shadowBlur=0});ctx.textAlign='left'},y)}
+function mot(txt,lt,y,taille=96,coul=CR){if(lt<0)return;zoomFlou(lt,()=>{ctx.font=`${taille}px "Archivo Black"`;ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=14;ctx.strokeStyle='rgba(15,8,3,.9)';
+  txt.split('\n').forEach((l,i)=>{ctx.strokeText(l,W/2,y+i*taille*1.05);ctx.fillStyle=coul;ctx.fillText(l,W/2,y+i*taille*1.05)});ctx.textAlign='left'},y)}
+function tampon(txt,lt,x,y,coul=RG,rot=-.18){if(lt<0)return;const a=ease(lt/.18);ctx.save();ctx.translate(x,y);ctx.rotate(rot);const s=lerp(2.4,1,a);ctx.scale(s,s);ctx.globalAlpha=a*.92;
+  ctx.font='92px "Archivo Black"';const w=ctx.measureText(txt).width+60;ctx.strokeStyle=coul;ctx.lineWidth=10;ctx.strokeRect(-w/2,-68,w,136);ctx.lineWidth=3;ctx.strokeRect(-w/2+14,-54,w-28,108);
+  ctx.fillStyle=coul;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(txt,0,6);ctx.restore()}
+function mention(txt,y,coul=CR){ctx.font='bold 32px "Space Mono"';ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=8;ctx.strokeStyle='rgba(10,6,2,.9)';ctx.strokeText(txt,W/2,y);ctx.fillStyle=coul;ctx.fillText(txt,W/2,y);ctx.textAlign='left'}
+function avion(x,y,s,rot=0){ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.scale(s,s);ctx.fillStyle='#1a120a';ctx.shadowColor=OR;ctx.shadowBlur=25;ctx.beginPath();ctx.moveTo(-90,-8);ctx.lineTo(80,-8);ctx.quadraticCurveTo(100,0,80,8);ctx.lineTo(-90,8);ctx.closePath();ctx.fill();
+  ctx.beginPath();ctx.moveTo(-10,-6);ctx.lineTo(-40,-75);ctx.lineTo(-20,-75);ctx.lineTo(25,-6);ctx.fill();ctx.beginPath();ctx.moveTo(-10,6);ctx.lineTo(-40,75);ctx.lineTo(-20,75);ctx.lineTo(25,6);ctx.fill();
+  ctx.beginPath();ctx.moveTo(-85,-6);ctx.lineTo(-100,-35);ctx.lineTo(-88,-35);ctx.lineTo(-70,-6);ctx.fill();ctx.restore()}
+function missile(x0,y0,x1,y1,lt,d=.7){if(lt<0)return false;const a=clamp(lt/d,0,1);ctx.save();ctx.strokeStyle=CR;ctx.lineWidth=6;ctx.shadowColor='#fff';ctx.shadowBlur=30;ctx.beginPath();
+  for(let i=0;i<=20;i++){const b=a*i/20;ctx.lineTo(lerp(x0,x1,b),lerp(y0,y1,b)-Math.sin(b*Math.PI)*160)}ctx.stroke();ctx.restore();return a>=1}
+function eclat(x,y,lt){if(lt<0||lt>.8)return;const r=lerp(20,240,ease(lt/.5)),a=1-lt/.8;const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(255,250,220,${a})`);g.addColorStop(.4,`rgba(229,181,71,${a*.8})`);g.addColorStop(1,'rgba(214,44,48,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill()}
+function sepia(a){if(a<=0)return;ctx.save();ctx.globalCompositeOperation='color';ctx.globalAlpha=a;ctx.fillStyle='#8a6a3a';ctx.fillRect(0,0,W,H);ctx.restore()}
+
+
+// ---------- visuels
+// img(nom) : image chargée depuis medias/ (nom de fichier sans extension) ; repli sur la première image si absente
+function img(nom){if(IMG[nom])return IMG[nom];if(nom)console.error('image absente : '+nom);return Object.entries(IMG).find(([k])=>k!='toile'&&!k.startsWith('drapeau_'))[1]}
+// plein écran recadré (images verticales, carrées, cartes) avec poussée nette
+function plein(nom,u,c0=[.5,.5,1],c1=null){const im=img(nom);c1=c1||[c0[0],c0[1],c0[2]*.82];const k=easeIO(u);
+  let hh=lerp(c0[2],c1[2],k)*im.height,ww=hh*W/H;if(ww>im.width){ww=im.width;hh=ww*H/W}
+  const cx=lerp(c0[0],c1[0],k)*im.width,cy=lerp(c0[1],c1[1],k)*im.height;ctx.drawImage(im,clamp(cx-ww/2,0,im.width-ww),clamp(cy-hh/2,0,im.height-hh),ww,hh,0,0,W,H)}
+// tableau encadré : image paysage entière dans un cadre doré, fond = même image floutée
+function cadre(nom,u,y=760,derive=1){const im=img(nom);
+  ctx.save();ctx.filter='blur(26px) brightness(.38) sepia(.35)';const hh=im.height,ww=hh*W/H;ctx.drawImage(im,(im.width-ww)/2,0,ww,hh,-60,-60,W+120,H+120);ctx.restore();
+  const s=lerp(1,1.09,easeIO(u)),k=Math.min(980/im.width,1120/im.height),w=im.width*k*s,h=im.height*k*s,x=W/2-w/2+derive*lerp(-12,12,u),yy=y-h/2;
+  ctx.save();ctx.shadowColor='rgba(0,0,0,.8)';ctx.shadowBlur=50;ctx.fillStyle='#000';ctx.fillRect(x-26,yy-26,w+52,h+52);ctx.restore();
+  const g=ctx.createLinearGradient(x-26,yy-26,x+w+26,yy+h+26);g.addColorStop(0,'#7a5a1c');g.addColorStop(.3,'#e8c66a');g.addColorStop(.55,'#8f6a22');g.addColorStop(.8,'#f0d27a');g.addColorStop(1,'#6b4c15');
+  ctx.fillStyle=g;ctx.fillRect(x-26,yy-26,w+52,h+52);ctx.strokeStyle='#3a2a0a';ctx.lineWidth=3;ctx.strokeRect(x-26,yy-26,w+52,h+52);ctx.strokeRect(x-8,yy-8,w+16,h+16);
+  ctx.drawImage(im,x,yy,w,h)}
+// drapeau qui flotte (SVG officiel flag-icons)
+function drapeau(code,x,y,w,t){const im=img('drapeau_'+code),h=w*.75,n=48;
+  for(let i=0;i<n;i++){const v=i/n,dy=Math.sin(v*6-t*5)*16*v,sh=.13*Math.cos(v*6-t*5)*v;ctx.drawImage(im,v*im.width,0,im.width/n+1,im.height,x+v*w,y+dy,w/n+1,h);
+    ctx.fillStyle=sh>0?`rgba(0,0,0,${sh*1.5})`:`rgba(255,240,200,${-sh})`;ctx.fillRect(x+v*w,y+dy,w/n+1,h)}
+  ctx.save();ctx.globalCompositeOperation='overlay';ctx.globalAlpha=.35;ctx.drawImage(IMG.toile,x,y,w,h);ctx.restore()}
+function fondDrapeau(nom){ctx.save();ctx.filter='blur(30px) brightness(.3) sepia(.5)';const im=img(nom);ctx.drawImage(im,0,0,im.width,im.height,-100,-100,W+200,H+200);ctx.restore()}
+function fondRouge(nom){ctx.save();ctx.filter='blur(22px) brightness(.5) sepia(.6)';const im=img(nom);ctx.drawImage(im,0,0,im.width,im.height,-80,-80,W+160,H+160);ctx.restore();
+  ctx.save();ctx.globalCompositeOperation='multiply';const g=ctx.createLinearGradient(0,0,W*.3,H);g.addColorStop(0,'#9a1a20');g.addColorStop(1,'#3a070b');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.restore()}
+function sepiaTon(a){if(a<=0)return;ctx.save();ctx.globalCompositeOperation='color';ctx.globalAlpha=a;ctx.fillStyle='#8a6a3a';ctx.fillRect(0,0,W,H);ctx.restore()}
+function rewind(lt){const a=clamp(1-lt/.6,0,1);if(a<=0)return;const r=rng(Math.floor(lt*FPS)+1);
+  for(let b=0;b<12;b++){const y=Math.floor(r()*H),h=10+Math.floor(r()*50),dx=Math.floor((r()-.5)*150*a);ctx.drawImage(ctx.canvas,0,y,W,h,dx,y,W,h)}
+  for(let y=0;y<H;y+=6){ctx.fillStyle=`rgba(0,0,0,${.16*a})`;ctx.fillRect(0,y,W,2)}ctx.font='bold 60px "Space Mono"';ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.fillText('◀◀ REWIND',90,400)}
+function finition(t){ctx.save();ctx.globalCompositeOperation='overlay';ctx.globalAlpha=.28;ctx.drawImage(IMG.toile,0,0);ctx.restore();
+  const v=ctx.createRadialGradient(W/2,H*.45,320,W/2,H*.45,1250);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(10,6,2,.68)');ctx.fillStyle=v;ctx.fillRect(0,0,W,H);
+  const g=ctx.createLinearGradient(0,1050,0,H);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(.5,'rgba(0,0,0,.5)');g.addColorStop(1,'rgba(0,0,0,.6)');ctx.fillStyle=g;ctx.fillRect(0,1050,W,H-1050);
+  ctx.strokeStyle='rgba(229,181,71,.5)';ctx.lineWidth=3;ctx.strokeRect(34,34,W-68,H-68)}
+function particules(t){const r=rng(42);for(let i=0;i<40;i++){const x0=r()*W,y0=r()*H,v=15+r()*40,ph=r()*6.28,sz=1+r()*2.4;
+  const x=(x0+Math.sin(t*.5+ph)*30)%W,y=((y0-t*v)%H+H)%H;ctx.globalAlpha=.12+.3*Math.abs(Math.sin(t*1.3+ph));ctx.fillStyle=OR;ctx.beginPath();ctx.arc(x,y,sz,0,7);ctx.fill()}ctx.globalAlpha=1}
+
+// ---------- plans
+const P=[];const plan=(t0,f,o={})=>P.push({t0,f,...o});
+const BAR=[.5,.5,.95];
+plan(0.0,(lt,u)=>{plein('ov_yellowcake-uranium_2',u,BAR,[.5,.5,.8]);grosChiffre('440 KG',lt,560,250,OR)});
+plan(1.15,(lt,u)=>{cadre('ov_yellowcake-uranium_1',u,760);mot("D'URANIUM\nENRICHI",lt,320,96,CR)});
+plan(2.05,(lt,u)=>{fondRouge('ov_yellowcake-uranium_1');grosChiffre('60 %',lt,760,330,OR)});
+plan(3.15,(lt,u)=>{plein('c_iran',u,[.5,.5,.9],[.5,.48,.75]);mention('AIEA · ESTIMATION JUIN 2025',300,OR)});
+plan(3.95,(lt,u)=>{plein('nasa_iran_1',u,[.5,.5,1],[.55,.5,.8]);mot('PERSONNE\nNE SAIT',lt,320,110,CR)});
+plan(4.8,(lt,u)=>{plein('c_natanz',u,[.5,.5,.85],[.5,.5,.65]);tampon('OÙ ?',lt-.2,W/2,1000,RG,-.12)});
+plan(6.0,(lt,u)=>{fondRouge('nasa_tehran_2');grosChiffre('11 NOV.',lt,700,230,OR,'2026')});
+plan(7.15,(lt,u,t)=>{fondDrapeau('nasa_iran_2');drapeau('ir',90,560,900,t);mot('TÉHÉRAN',lt,330,120,OR)});
+plan(8.15,(lt,u)=>{plein('nasa_iran_2',u,[.5,.5,1],[.5,.45,.8]);mot('PAS UN ATOME',lt,320,100,CR)});
+plan(9.1,(lt,u)=>{plein('c_iran',u,[.5,.5,.75],[.5,.5,.6]);mot("NE QUITTERA\nL'IRAN",lt,300,96,CR)});
+plan(10.4,(lt,u,t)=>{fondDrapeau('c_monde');drapeau('ir',190,230,700,t);drapeau('us',190,800,700,t+1.3);mot('VS',lt,770,90,OR)});
+plan(11.5,(lt,u)=>{plein('c_monde',u,[.5,.5,.9],[.5,.5,.75]);tampon('AUCUNE\nNÉGOCIATION',lt-.3,W/2,1000,RG,-.12)});
+plan(13.15,(lt,u)=>{cadre('ov_oil-tanker_1',u,760);mot('POUR TOI',lt,320,120,OR)});
+plan(14.3,(lt,u)=>{plein('nasa_persian-gulf_1',u,[.5,.5,1],[.55,.5,.8]);mot('CHAQUE CRISE',lt,300,100,CR)});
+plan(15.35,(lt,u)=>{cadre('ov_oil-tanker_2',u,760);mot('PÉTROLE ↑',lt,320,120,RG)});
+plan(17.0,(lt,u)=>{fondRouge('ov_oil-tanker_2');grosChiffre('TON PLEIN',lt,760,170,OR)});
+plan(18.3,(lt,u)=>{cadre('smk_persian_2',u,760);sepiaTon(.7)},{rewind:true});
+plan(19.3,(lt,u)=>{plein('cma_persia_1',u,[.5,.45,.9],[.5,.45,.75]);sepiaTon(.6);titre('Remontons\nle temps',lt,260,84)});
+plan(20.15,(lt,u)=>{fondRouge('wiki_mohammad-reza-pahlavi_1');grosChiffre('1957',lt,760,330,OR)});
+plan(21.5,(lt,u)=>{plein('wiki_mohammad-reza-pahlavi_1',u,[.5,.35,.8],[.5,.3,.6]);sepiaTon(.4);mot('LE SHAH',lt,300,110,OR)});
+plan(22.55,(lt,u,t)=>{fondDrapeau('c_monde');drapeau('us',90,560,900,t);sepiaTon(.3);mot('ÉTATS-UNIS',lt,330,110,OR)});
+plan(23.5,(lt,u)=>{plein('c_monde',u,[.5,.45,.75],[.55,.45,.6]);sepiaTon(.3)});
+plan(24.4,(lt,u)=>{cadre('wiki_mohammad-reza-pahlavi_2',u,760);sepiaTon(.4);mot('ACCORD\nNUCLÉAIRE CIVIL',lt,300,84,CR)});
+plan(25.55,(lt,u)=>{cadre('aic_persian_2',u,760);sepiaTon(.4)});
+plan(26.3,(lt,u)=>{fondRouge('cma_isfahan_1');grosChiffre('1968',lt,760,330,OR)});
+plan(27.6,(lt,u)=>{plein('wiki_international-atomic-ene_1',u,[.5,.5,.9],[.5,.5,.75]);sepiaTon(.3)});
+plan(28.45,(lt,u)=>{plein('cma_isfahan_1',u,[.5,.5,.9],[.5,.45,.72]);sepiaTon(.35);mot('TRAITÉ DE NON-\nPROLIFÉRATION',lt,300,78,CR)});
+plan(29.7,(lt,u)=>{plein('cma_persia_2',u,[.5,.5,.9],[.5,.5,.75]);sepiaTon(.4)});
+plan(30.75,(lt,u)=>{fondRouge('wiki_natanz-nuclear-facility_1');grosChiffre('2002',lt,760,330,OR)});
+plan(31.85,(lt,u)=>{plein('c_natanz',u,[.55,.55,.7],[.55,.55,.5]);sepiaTon(.2);mot('SITE SECRET',lt,300,100,RG)});
+plan(32.75,(lt,u)=>{cadre('wiki_natanz-nuclear-facility_1',u,760);sepiaTon(.25);titre('Natanz',lt,300)});
+plan(33.75,(lt,u)=>{cadre('ov_gas-centrifuge-uranium-e_1',u,760,-1);sepiaTon(.2);tampon('RÉVÉLÉ',lt-.3,W/2,1050,RG,-.14)});
+plan(34.55,(lt,u)=>{fondRouge('c_vienne');grosChiffre('2015',lt,760,330,OR)});
+plan(35.7,(lt,u)=>{plein('c_vienne',u,[.52,.55,.8],[.52,.6,.6]);mot('ACCORD\nDE VIENNE',lt,300,100,CR)});
+plan(36.55,(lt,u)=>{cadre('wiki_joint-comprehensive-plan_1',u,760);mention('VIENNE · 14 JUILLET 2015',1080,OR)});
+plan(37.4,(lt,u)=>{fondRouge('ov_gas-centrifuge-uranium-e_1');grosChiffre('3,67 %',lt,760,260,OR,'MAXIMUM')});
+plan(38.6,(lt,u)=>{cadre('wiki_joint-comprehensive-plan_2',u,760,-1)});
+plan(39.95,(lt,u)=>{fondRouge('wiki_joint-comprehensive-plan_2');grosChiffre('2018',lt,760,330,OR)});
+plan(41.1,(lt,u,t)=>{fondDrapeau('c_monde');drapeau('us',90,560,900,t);mot('WASHINGTON',lt,330,110,OR)});
+plan(41.95,(lt,u)=>{cadre('wiki_joint-comprehensive-plan_1',u,760,-1);tampon("S'EN RETIRE",lt-.1,W/2,1080,RG,-.14)});
+plan(43.35,(lt,u)=>{plein('c_moyen_orient',u,[.6,.5,.85],[.6,.5,.7]);mot('CHAQUE CAMP',lt,300,100,OR)});
+plan(44.4,(lt,u)=>{plein('nasa_iran_3',u,[.5,.5,1],[.5,.5,.8]);mot('SA VERSION',lt,320,100,CR)});
+plan(45.35,(lt,u,t)=>{fondDrapeau('nasa_tehran_3');drapeau('ir',90,560,900,t);mot('TÉHÉRAN',lt,330,120,OR)});
+plan(46.5,(lt,u)=>{cadre('cma_isfahan_2',u,760);mot('PACIFIQUE',lt,320,110,CR)});
+plan(47.55,(lt,u)=>{plein('nasa_tehran_3',u,[.5,.5,1],[.5,.5,.8]);mot('LE TRAITÉ',lt,320,110,CR)});
+plan(48.6,(lt,u)=>{cadre('ov_gas-centrifuge-uranium-e_1',u,760);mot("LE DROIT\nD'ENRICHIR",lt,300,96,OR)});
+plan(50.35,(lt,u,t)=>{fondDrapeau('c_moyen_orient');drapeau('us',190,230,700,t);drapeau('il',190,800,700,t+1.3)});
+plan(51.2,(lt,u)=>{plein('c_moyen_orient',u,[.4,.6,.7],[.38,.62,.55]);mot('WASHINGTON\nET ISRAËL',lt,300,90,OR)});
+plan(52.3,(lt,u)=>{fondRouge('c_moyen_orient');tampon('PAS DE\nBOMBE',lt-.1,W/2,800,RG,-.12)});
+plan(53.95,(lt,u)=>{cadre('ov_vienna-international-cen_1',u,760);mot("L'AIEA",lt,320,120,OR)});
+plan(55.0,(lt,u)=>{cadre('wiki_international-atomic-ene_2',u,760,-1);mot('SES\nINSPECTEURS',lt,300,100,CR)});
+plan(56.05,(lt,u)=>{cadre('ov_vienna-international-cen_3',u,760)});
+plan(56.75,(lt,u)=>{plein('c_fordo',u,[.5,.5,.8],[.5,.5,.6]);titre("Aujourd'hui",lt,260)});
+plan(57.85,(lt,u)=>{cadre('wiki_natanz-nuclear-facility_2',u,760);tampon('DÉTRUITES',lt-.4,W/2,1080,RG,-.12)});
+plan(58.95,(lt,u)=>{cadre('wiki_tehran-research-reactor_1',u,760,-1);tampon("À L'ARRÊT",lt-.1,W/2,1080,RG,-.12)});
+plan(60.15,(lt,u)=>{cadre('ov_vienna-international-cen_2',u,760);mot('UNE QUESTION',lt,320,100,CR)});
+plan(61.5,(lt,u)=>{plein('ov_yellowcake-uranium_2',u,[.5,.5,.8],BAR);grosChiffre('440 KG',lt-.25,560,250,OR)});
+
+
+// ---------- sous-titres
+const CLES_OR=["URANIUM", "NATANZ", "VIENNE", "1957", "1968", "2002", "2015", "2018", "QUARANTE", "KILOS", "PÉTROLE", "SHAH"];
+const CLES_RG=["BOMBE", "SECRET", "DÉTRUITES", "RETIRE", "NÉGOCIATION"];
+const PUNCH=MOTS.filter(m=>{const u=m[2].toUpperCase();return CLES_RG.some(k=>u.includes(k))||CLES_OR.some(k=>u.includes(k))}).map(m=>m[0]);
+function punch(t){let z=0;for(const k of PUNCH)if(k<=t&&t-k<.3)z=Math.max(z,Math.exp(-(t-k)/.1));return 1+.045*z}
+function sousTitre(t){let m=null;for(const x of MOTS){if(t>=x[0]-.03&&t<x[1]+.12)m=x}if(!m)return;
+  const txt=m[2].toUpperCase().replace(/[.,:;?!](?!\d)/g,'').trim();const lt=t-m[0];const s=lerp(1.3,1,ease(lt/.08));
+  const cle=CLES_RG.some(k=>txt.includes(k))?RG:CLES_OR.some(k=>txt.includes(k))?OR:null;
+  ctx.save();ctx.translate(W/2,1320);ctx.scale(s,s);let taille=104;ctx.font=`${taille}px "Archivo Black"`;let w=ctx.measureText(txt).width;if(w>860){taille*=860/w;ctx.font=`${taille}px "Archivo Black"`;w=860}
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';ctx.lineWidth=16;ctx.strokeStyle='#000';ctx.strokeText(txt,0,0);ctx.fillStyle=cle||'#fff';ctx.fillText(txt,0,0);
+  if(cle){ctx.fillStyle=cle;ctx.fillRect(-w/2,taille*.52,w,10)}ctx.restore()}
+
+// ---------- transitions variées (2 à 4 images)
+function rendu(t){const pi=P.reduce((a,p,i)=>t>=p.t0?i:a,0),p=P[pi],lt=t-p.t0,fin=(P[pi+1]?P[pi+1].t0:DUREE),u=lt/(fin-p.t0);
+  const N=4,dt=t-p.t0,tr=pi>0&&dt<N/FPS?{type:(pi*7)%5,k:1-dt/(N/FPS)}:null;
+  ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.filter='none';ctx.globalAlpha=1;ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);
+  const z=punch(t);ctx.translate(W/2,H/2);ctx.scale(z,z);
+  if(tr&&tr.type==0){const s=1+tr.k*.45;ctx.scale(s,s);ctx.filter=`blur(${tr.k*8}px)`}
+  if(tr&&tr.type==1){ctx.translate(-tr.k*W*.35,0);ctx.filter=`blur(${tr.k*16}px)`}
+  if(tr&&tr.type==4){ctx.translate(tr.k*W*.25,0);ctx.rotate(tr.k*.04)}
+  ctx.translate(-W/2,-H/2);p.f(lt,u,t);ctx.restore();
+  if(tr&&tr.type==2){ctx.fillStyle=`rgba(255,235,190,${tr.k*.75})`;ctx.fillRect(0,0,W,H)}
+  if(tr&&tr.type==3){ctx.fillStyle=`rgba(0,0,0,${tr.k*.85})`;ctx.fillRect(0,0,W,H)}
+  if(p.rewind)rewind(lt);
+  particules(t);finition(t);sousTitre(t)}
+window.PRET=(async()=>{await Promise.all(FICHIERS.map(charger));for(const f of ['300px "Abril Fatface"','100px "Archivo Black"','92px "DM Serif Display"','26px "Space Mono"','bold 60px "Space Mono"'])await document.fonts.load(f,'ÉÀ0123');await document.fonts.ready;rendu(0);return true})();
+window.seek=async t=>{await window.PRET;rendu(Math.min(t,DUREE-1/FPS))};
+</script></body></html>
