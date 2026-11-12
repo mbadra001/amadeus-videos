@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<title>Kaliningrad : un million de Russes encerclés par l'OTAN</title>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Archivo+Black&family=DM+Serif+Display&family=Space+Mono:wght@400;700&display=block" rel="stylesheet">
+<style>html,body{margin:0;background:#0E0D0C;overflow:hidden}canvas{display:block}</style>
+</head><body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+const W=1080,H=1920,FPS=30;
+const OR='#E5B547',ORF='#A07828',CR='#F0E8D6',RG='#D62C30',GR='#78746C';
+window.DUREE=63.85;
+const MOTS=[[0.1, 0.262, "Un"], [0.275, 0.562, "million"], [0.575, 0.675, "de"], [0.687, 0.937, "Russes"], [0.95, 1.137, "vivent"], [1.15, 1.312, "sur"], [1.325, 1.437, "une"], [1.45, 1.65, "terre"], [1.662, 2.1, "encerclée"], [2.112, 2.287, "par"], [2.3, 2.687, "l'OTAN."], [3.562, 3.762, "Le"], [3.775, 4.462, "3 novembre"], [4.812, 4.95, "la"], [4.962, 5.287, "Pologne"], [5.3, 5.437, "dit"], [5.45, 5.675, "avoir"], [5.687, 6.037, "déjoué"], [6.05, 6.162, "une"], [6.175, 6.8, "provocation"], [6.812, 6.875, "à"], [6.887, 7.037, "sa"], [7.05, 7.487, "frontière"], [7.5, 7.675, "avec"], [7.687, 8.525, "Kaliningrad"], [9.4, 9.612, "Le"], [9.625, 9.937, "11"], [10.212, 10.325, "des"], [10.337, 10.687, "alertes"], [10.7, 10.75, "aux"], [10.762, 11.012, "drones"], [11.025, 11.225, "visent"], [11.237, 11.337, "les"], [11.35, 11.6, "pays"], [11.612, 12.075, "baltes"], [12.937, 13.162, "Ça"], [13.175, 13.287, "te"], [13.3, 13.825, "concerne"], [14.062, 14.187, "c'est"], [14.2, 14.5, "ici"], [14.512, 14.612, "que"], [14.625, 14.712, "la"], [14.725, 15.05, "Russie"], [15.062, 15.087, "et"], [15.1, 15.412, "l'OTAN"], [15.425, 15.575, "se"], [15.587, 15.85, "touchent"], [15.862, 15.925, "au"], [15.937, 16.1, "plus"], [16.112, 16.45, "près"], [17.325, 17.862, "Remontons"], [17.875, 17.987, "le"], [18.0, 18.262, "temps"], [19.137, 19.3, "En"], [19.312, 20.512, "1255"], [20.862, 21.012, "les"], [21.025, 21.45, "chevaliers"], [21.462, 21.95, "Teutoniques"], [21.962, 22.175, "fondent"], [22.187, 22.975, "Königsberg"], [23.85, 24.112, "Kant"], [24.125, 24.175, "y"], [24.187, 24.325, "naît"], [24.337, 24.437, "en"], [24.45, 25.625, "1724"], [26.5, 26.662, "En"], [26.675, 27.712, "1945"], [27.95, 28.012, "à"], [28.025, 28.587, "Potsdam"], [28.925, 29.075, "la"], [29.087, 29.275, "ville"], [29.287, 29.337, "est"], [29.35, 29.737, "confiée"], [29.75, 29.787, "à"], [29.8, 30.087, "l'Union"], [30.1, 30.887, "soviétique"], [31.762, 31.925, "En"], [31.937, 33.075, "1946"], [33.325, 33.45, "elle"], [33.462, 33.762, "devient"], [33.775, 34.625, "Kaliningrad"], [35.5, 35.675, "En"], [35.687, 36.362, "2004"], [36.7, 36.812, "la"], [36.825, 37.3, "Lituanie"], [37.312, 37.65, "rejoint"], [37.662, 37.975, "l'OTAN"], [37.987, 38.037, "et"], [38.05, 38.337, "l'Union"], [38.35, 39.062, "européenne"], [39.925, 40.437, "L'enclave"], [40.45, 40.5, "est"], [40.512, 40.825, "coupée"], [40.837, 40.925, "de"], [40.937, 41.025, "la"], [41.037, 41.462, "Russie"], [42.325, 42.637, "Chaque"], [42.65, 42.837, "camp"], [42.85, 42.9, "a"], [42.912, 43.05, "sa"], [43.062, 43.525, "version"], [44.4, 44.85, "Moscou"], [44.862, 45.237, "dénonce"], [45.25, 45.312, "un"], [45.325, 45.762, "blocus"], [45.775, 45.937, "quand"], [45.95, 46.362, "Vilnius"], [46.375, 46.725, "limite"], [46.737, 46.85, "le"], [46.862, 47.3, "transit"], [47.312, 47.375, "en"], [47.387, 48.137, "2022"], [49.012, 49.587, "Varsovie"], [49.6, 49.65, "et"], [49.662, 50.062, "Vilnius"], [50.075, 50.475, "dénoncent"], [50.487, 50.6, "les"], [50.612, 50.975, "missiles"], [50.987, 51.412, "Iskander"], [51.425, 51.462, "à"], [51.475, 51.612, "leurs"], [51.625, 52.112, "portes"], [52.975, 53.537, "Aujourd'hui"], [53.912, 54.087, "la"], [54.1, 54.362, "flotte"], [54.375, 54.575, "russe"], [54.587, 54.687, "de"], [54.7, 54.787, "la"], [54.8, 55.237, "Baltique"], [55.25, 55.3, "est"], [55.312, 55.625, "basée"], [55.637, 55.7, "à"], [55.712, 56.475, "Baltiïsk"], [57.337, 57.487, "Et"], [57.5, 57.687, "vers"], [57.7, 57.787, "la"], [57.8, 58.45, "Biélorussie"], [58.787, 58.875, "il"], [58.887, 59.0, "n'y"], [59.012, 59.075, "a"], [59.087, 59.25, "qu'un"], [59.262, 59.625, "couloir"], [59.637, 59.762, "de"], [59.775, 60.3, "soixante-cinq"], [60.312, 60.95, "kilomètres"], [61.825, 61.987, "Au"], [62.0, 62.212, "bout"], [62.462, 62.525, "un"], [62.537, 62.825, "million"], [62.837, 62.95, "de"], [62.962, 63.45, "Russes"]];
+const ctx=document.getElementById('c').getContext('2d');
+const IMG={};
+const FICHIERS=["c_baltes.png", "c_baltiysk.png", "c_enclave.png", "c_europe.png", "c_iskander.png", "c_potsdam.png", "c_sepopol.png", "c_suwalki.png", "c_transit.png", "c_ville.png", "drapeau_by.svg", "drapeau_de.svg", "drapeau_eu.svg", "drapeau_lt.svg", "drapeau_pl.svg", "drapeau_ru.svg", "loc_east-prussia_1.jpg", "loc_east-prussia_3.jpg", "loc_konigsberg_1.jpg", "loc_konigsberg_3.jpg", "loc_potsdam-conference-1945_2.jpg", "nasa_baltic-sea_1.jpg", "nasa_baltic-sea_2.jpg", "nasa_baltic-sea_3.jpg", "ov_kaliningrad-cathedral_2.jpg", "ov_kaliningrad-cathedral_3.jpg", "ov_kaliningrad-city_2.jpg", "ov_kaliningrad-city_3.jpg", "ov_kant-statue_1.jpg", "ov_kant-statue_2.jpg", "ov_nato-fighter-jet-baltic-_1.jpg", "ov_polish-border-guard_2.jpg", "ov_russian-navy-baltic-flee_2.jpg", "toile.png", "wiki_baltiysk_1.jpg", "wiki_immanuel-kant_1.jpg", "wiki_immanuel-kant_2.jpg", "wiki_kaliningrad_1.jpg", "wiki_kaliningrad_2.jpg", "wiki_konigsberg-castle_1.jpg", "wiki_konigsberg-castle_2.jpg", "wiki_potsdam-conference_1.jpg", "wiki_potsdam-conference_2.jpg"];
+function charger(f){return new Promise(r=>{const i=new Image();i.onload=()=>{let o=i;if(f.endsWith('.svg')){o=document.createElement('canvas');o.width=1280;o.height=960;o.getContext('2d').drawImage(i,0,0,1280,960)}IMG[f.split('.')[0]]=o;r()};i.onerror=()=>{console.error('image '+f);r()};i.src='medias/'+f})}
+function rng(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296}}
+const ease=x=>x<0?0:x>1?1:1-Math.pow(1-x,3), easeIO=x=>x<0?0:x>1?1:x*x*(3-2*x);
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)), lerp=(a,b,x)=>a+(b-a)*x;
+function zoomFlou(lt,f,cy=860){const a=ease(lt/.35);ctx.save();ctx.globalAlpha=a;const s=lerp(1.3,1,a);ctx.translate(W/2,cy);ctx.scale(s,s);ctx.translate(-W/2,-cy);ctx.filter=`blur(${(1-a)*9}px)`;f();ctx.restore()}
+function tremble(lt){const k=Math.exp(-lt/.18);return [Math.sin(lt*90)*22*k,Math.cos(lt*77)*16*k]}
+function flash(lt){const a=Math.exp(-lt/.07)*.7;if(a>.01){ctx.fillStyle=`rgba(255,240,210,${a})`;ctx.fillRect(0,0,W,H)}}
+function grosChiffre(txt,lt,y=760,taille=300,coul=OR,sous=null){if(lt<0)return;const [dx,dy]=tremble(lt);zoomFlou(lt,()=>{ctx.save();ctx.translate(dx,dy);
+  ctx.font=`${taille}px "Abril Fatface"`;const w=ctx.measureText(txt).width;if(w>W-140){taille*=(W-140)/w;ctx.font=`${taille}px "Abril Fatface"`}
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';ctx.lineWidth=14;ctx.strokeStyle='rgba(20,10,4,.85)';ctx.strokeText(txt,W/2,y);ctx.shadowColor=coul;ctx.shadowBlur=35;ctx.fillStyle=coul;ctx.fillText(txt,W/2,y);ctx.shadowBlur=0;
+  if(sous){ctx.font='52px "Archivo Black"';ctx.lineWidth=10;ctx.strokeText(sous,W/2,y+taille*.62);ctx.fillStyle=CR;ctx.fillText(sous,W/2,y+taille*.62)}ctx.restore()},y);flash(lt)}
+function titre(txt,lt,y=330,taille=92){if(lt<0)return;zoomFlou(lt,()=>{ctx.font=`${taille}px "DM Serif Display"`;ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=12;ctx.strokeStyle='rgba(20,10,4,.8)';
+  txt.split('\n').forEach((l,i)=>{ctx.strokeText(l,W/2,y+i*taille*1.1);ctx.fillStyle=OR;ctx.shadowColor='rgba(229,181,71,.5)';ctx.shadowBlur=20;ctx.fillText(l,W/2,y+i*taille*1.1);ctx.shadowBlur=0});ctx.textAlign='left'},y)}
+function mot(txt,lt,y,taille=96,coul=CR){if(lt<0)return;zoomFlou(lt,()=>{ctx.font=`${taille}px "Archivo Black"`;ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=14;ctx.strokeStyle='rgba(15,8,3,.9)';
+  txt.split('\n').forEach((l,i)=>{ctx.strokeText(l,W/2,y+i*taille*1.05);ctx.fillStyle=coul;ctx.fillText(l,W/2,y+i*taille*1.05)});ctx.textAlign='left'},y)}
+function tampon(txt,lt,x,y,coul=RG,rot=-.18){if(lt<0)return;const a=ease(lt/.18);ctx.save();ctx.translate(x,y);ctx.rotate(rot);const s=lerp(2.4,1,a);ctx.scale(s,s);ctx.globalAlpha=a*.92;
+  ctx.font='92px "Archivo Black"';const w=ctx.measureText(txt).width+60;ctx.strokeStyle=coul;ctx.lineWidth=10;ctx.strokeRect(-w/2,-68,w,136);ctx.lineWidth=3;ctx.strokeRect(-w/2+14,-54,w-28,108);
+  ctx.fillStyle=coul;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(txt,0,6);ctx.restore()}
+function mention(txt,y,coul=CR){ctx.font='bold 32px "Space Mono"';ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=8;ctx.strokeStyle='rgba(10,6,2,.9)';ctx.strokeText(txt,W/2,y);ctx.fillStyle=coul;ctx.fillText(txt,W/2,y);ctx.textAlign='left'}
+function avion(x,y,s,rot=0){ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.scale(s,s);ctx.fillStyle='#1a120a';ctx.shadowColor=OR;ctx.shadowBlur=25;ctx.beginPath();ctx.moveTo(-90,-8);ctx.lineTo(80,-8);ctx.quadraticCurveTo(100,0,80,8);ctx.lineTo(-90,8);ctx.closePath();ctx.fill();
+  ctx.beginPath();ctx.moveTo(-10,-6);ctx.lineTo(-40,-75);ctx.lineTo(-20,-75);ctx.lineTo(25,-6);ctx.fill();ctx.beginPath();ctx.moveTo(-10,6);ctx.lineTo(-40,75);ctx.lineTo(-20,75);ctx.lineTo(25,6);ctx.fill();
+  ctx.beginPath();ctx.moveTo(-85,-6);ctx.lineTo(-100,-35);ctx.lineTo(-88,-35);ctx.lineTo(-70,-6);ctx.fill();ctx.restore()}
+function missile(x0,y0,x1,y1,lt,d=.7){if(lt<0)return false;const a=clamp(lt/d,0,1);ctx.save();ctx.strokeStyle=CR;ctx.lineWidth=6;ctx.shadowColor='#fff';ctx.shadowBlur=30;ctx.beginPath();
+  for(let i=0;i<=20;i++){const b=a*i/20;ctx.lineTo(lerp(x0,x1,b),lerp(y0,y1,b)-Math.sin(b*Math.PI)*160)}ctx.stroke();ctx.restore();return a>=1}
+function eclat(x,y,lt){if(lt<0||lt>.8)return;const r=lerp(20,240,ease(lt/.5)),a=1-lt/.8;const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(255,250,220,${a})`);g.addColorStop(.4,`rgba(229,181,71,${a*.8})`);g.addColorStop(1,'rgba(214,44,48,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill()}
+function sepia(a){if(a<=0)return;ctx.save();ctx.globalCompositeOperation='color';ctx.globalAlpha=a;ctx.fillStyle='#8a6a3a';ctx.fillRect(0,0,W,H);ctx.restore()}
+
+
+// ---------- visuels
+// img(nom) : image chargée depuis medias/ (nom de fichier sans extension) ; repli sur la première image si absente
+function img(nom){if(IMG[nom])return IMG[nom];if(nom)console.error('image absente : '+nom);return Object.entries(IMG).find(([k])=>k!='toile'&&!k.startsWith('drapeau_'))[1]}
+// plein écran recadré (images verticales, carrées, cartes) avec poussée nette
+function plein(nom,u,c0=[.5,.5,1],c1=null){const im=img(nom);c1=c1||[c0[0],c0[1],c0[2]*.82];const k=easeIO(u);
+  let hh=lerp(c0[2],c1[2],k)*im.height,ww=hh*W/H;if(ww>im.width){ww=im.width;hh=ww*H/W}
+  const cx=lerp(c0[0],c1[0],k)*im.width,cy=lerp(c0[1],c1[1],k)*im.height;ctx.drawImage(im,clamp(cx-ww/2,0,im.width-ww),clamp(cy-hh/2,0,im.height-hh),ww,hh,0,0,W,H)}
+// tableau encadré : image paysage entière dans un cadre doré, fond = même image floutée
+function cadre(nom,u,y=760,derive=1){const im=img(nom);
+  ctx.save();ctx.filter='blur(26px) brightness(.38) sepia(.35)';const hh=im.height,ww=hh*W/H;ctx.drawImage(im,(im.width-ww)/2,0,ww,hh,-60,-60,W+120,H+120);ctx.restore();
+  const s=lerp(1,1.09,easeIO(u)),k=Math.min(980/im.width,1120/im.height),w=im.width*k*s,h=im.height*k*s,x=W/2-w/2+derive*lerp(-12,12,u),yy=y-h/2;
+  ctx.save();ctx.shadowColor='rgba(0,0,0,.8)';ctx.shadowBlur=50;ctx.fillStyle='#000';ctx.fillRect(x-26,yy-26,w+52,h+52);ctx.restore();
+  const g=ctx.createLinearGradient(x-26,yy-26,x+w+26,yy+h+26);g.addColorStop(0,'#7a5a1c');g.addColorStop(.3,'#e8c66a');g.addColorStop(.55,'#8f6a22');g.addColorStop(.8,'#f0d27a');g.addColorStop(1,'#6b4c15');
+  ctx.fillStyle=g;ctx.fillRect(x-26,yy-26,w+52,h+52);ctx.strokeStyle='#3a2a0a';ctx.lineWidth=3;ctx.strokeRect(x-26,yy-26,w+52,h+52);ctx.strokeRect(x-8,yy-8,w+16,h+16);
+  ctx.drawImage(im,x,yy,w,h)}
+// drapeau qui flotte (SVG officiel flag-icons)
+function drapeau(code,x,y,w,t){const im=img('drapeau_'+code),h=w*.75,n=48;
+  for(let i=0;i<n;i++){const v=i/n,dy=Math.sin(v*6-t*5)*16*v,sh=.13*Math.cos(v*6-t*5)*v;ctx.drawImage(im,v*im.width,0,im.width/n+1,im.height,x+v*w,y+dy,w/n+1,h);
+    ctx.fillStyle=sh>0?`rgba(0,0,0,${sh*1.5})`:`rgba(255,240,200,${-sh})`;ctx.fillRect(x+v*w,y+dy,w/n+1,h)}
+  ctx.save();ctx.globalCompositeOperation='overlay';ctx.globalAlpha=.35;ctx.drawImage(IMG.toile,x,y,w,h);ctx.restore()}
+function fondDrapeau(nom){ctx.save();ctx.filter='blur(30px) brightness(.3) sepia(.5)';const im=img(nom);ctx.drawImage(im,0,0,im.width,im.height,-100,-100,W+200,H+200);ctx.restore()}
+function fondRouge(nom){ctx.save();ctx.filter='blur(22px) brightness(.5) sepia(.6)';const im=img(nom);ctx.drawImage(im,0,0,im.width,im.height,-80,-80,W+160,H+160);ctx.restore();
+  ctx.save();ctx.globalCompositeOperation='multiply';const g=ctx.createLinearGradient(0,0,W*.3,H);g.addColorStop(0,'#9a1a20');g.addColorStop(1,'#3a070b');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.restore()}
+function sepiaTon(a){if(a<=0)return;ctx.save();ctx.globalCompositeOperation='color';ctx.globalAlpha=a;ctx.fillStyle='#8a6a3a';ctx.fillRect(0,0,W,H);ctx.restore()}
+function rewind(lt){const a=clamp(1-lt/.6,0,1);if(a<=0)return;const r=rng(Math.floor(lt*FPS)+1);
+  for(let b=0;b<12;b++){const y=Math.floor(r()*H),h=10+Math.floor(r()*50),dx=Math.floor((r()-.5)*150*a);ctx.drawImage(ctx.canvas,0,y,W,h,dx,y,W,h)}
+  for(let y=0;y<H;y+=6){ctx.fillStyle=`rgba(0,0,0,${.16*a})`;ctx.fillRect(0,y,W,2)}ctx.font='bold 60px "Space Mono"';ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.fillText('◀◀ REWIND',90,400)}
+function finition(t){ctx.save();ctx.globalCompositeOperation='overlay';ctx.globalAlpha=.28;ctx.drawImage(IMG.toile,0,0);ctx.restore();
+  const v=ctx.createRadialGradient(W/2,H*.45,320,W/2,H*.45,1250);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(10,6,2,.68)');ctx.fillStyle=v;ctx.fillRect(0,0,W,H);
+  const g=ctx.createLinearGradient(0,1050,0,H);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(.5,'rgba(0,0,0,.5)');g.addColorStop(1,'rgba(0,0,0,.6)');ctx.fillStyle=g;ctx.fillRect(0,1050,W,H-1050);
+  ctx.strokeStyle='rgba(229,181,71,.5)';ctx.lineWidth=3;ctx.strokeRect(34,34,W-68,H-68)}
+function particules(t){const r=rng(42);for(let i=0;i<40;i++){const x0=r()*W,y0=r()*H,v=15+r()*40,ph=r()*6.28,sz=1+r()*2.4;
+  const x=(x0+Math.sin(t*.5+ph)*30)%W,y=((y0-t*v)%H+H)%H;ctx.globalAlpha=.12+.3*Math.abs(Math.sin(t*1.3+ph));ctx.fillStyle=OR;ctx.beginPath();ctx.arc(x,y,sz,0,7);ctx.fill()}ctx.globalAlpha=1}
+
+// ---------- plans
+const P=[];const plan=(t0,f,o={})=>P.push({t0,f,...o});
+const BAR=[.5,.5,.95];
+plan(0.0,(lt,u)=>{plein('c_europe',u,BAR,[.5,.45,.75]);grosChiffre('1 MILLION',lt,560,200,OR,'DE RUSSES')});
+plan(1.1,(lt,u)=>{plein('c_enclave',u,[.5,.5,.9],[.45,.5,.7]);mot('ENCERCLÉE',lt,320,110,RG)});
+plan(2.2,(lt,u)=>{plein('nasa_baltic-sea_2',u,[.5,.5,1],[.55,.5,.8]);mot("PAR L'OTAN",lt,320,110,OR)});
+plan(3.4,(lt,u)=>{fondRouge('ov_polish-border-guard_2');grosChiffre('3 NOV.',lt,760,230,OR,'2026')});
+plan(4.6,(lt,u,t)=>{fondDrapeau('nasa_baltic-sea_3');drapeau('pl',90,560,900,t);mot('LA POLOGNE',lt,330,110,OR)});
+plan(5.7,(lt,u)=>{cadre('ov_polish-border-guard_2',u,760);tampon('PROVOCATION\nDÉJOUÉE',lt-.4,W/2,1080,RG,-.12)});
+plan(6.9,(lt,u)=>{plein('c_sepopol',u,[.5,.5,.9],[.5,.55,.7]);mot('FRONTIÈRE',lt,300,110,CR)});
+plan(7.9,(lt,u)=>{cadre('wiki_kaliningrad_1',u,760);titre('Kaliningrad',lt,300)});
+plan(9.2,(lt,u)=>{fondRouge('nasa_baltic-sea_3');grosChiffre('11 NOV.',lt,760,230,OR,'2026')});
+plan(10.3,(lt,u)=>{plein('ov_nato-fighter-jet-baltic-_1',u,[.5,.5,.9],[.5,.45,.7]);mot('ALERTES\nAUX DRONES',lt,300,96,RG)});
+plan(11.3,(lt,u)=>{plein('c_baltes',u,[.5,.5,.9],[.5,.5,.7]);mot('PAYS BALTES',lt,300,100,OR)});
+plan(12.4,(lt,u,t)=>{fondDrapeau('c_baltes');drapeau('lt',90,560,900,t)});
+plan(12.95,(lt,u)=>{plein('nasa_baltic-sea_1',u,[.5,.5,1],[.5,.5,.8]);mot('ÇA TE\nCONCERNE',lt,300,100,OR)});
+plan(14.0,(lt,u,t)=>{fondDrapeau('nasa_baltic-sea_1');drapeau('ru',190,230,700,t);drapeau('eu',190,800,700,t+1.3);mot('FACE À FACE',lt,770,80,OR)});
+plan(15.2,(lt,u)=>{plein('ov_nato-fighter-jet-baltic-_1',u,[.5,.45,.75],[.5,.5,.6]);mot('AU PLUS PRÈS',lt,320,100,RG)});
+plan(16.3,(lt,u)=>{plein('c_suwalki',u,[.5,.5,.85],[.5,.5,.65])});
+plan(17.3,(lt,u)=>{cadre('wiki_baltiysk_1',u,760);sepiaTon(.7);titre('Remontons\nle temps',lt,260,84)},{rewind:true});
+plan(18.4,(lt,u)=>{plein('c_ville',u,[.5,.5,.9],[.5,.5,.7]);sepiaTon(.6)});
+plan(19.1,(lt,u)=>{fondRouge('loc_konigsberg_1');grosChiffre('1255',lt,760,330,OR)});
+plan(20.5,(lt,u)=>{plein('c_potsdam',u,[.75,.4,.6],[.75,.38,.45]);sepiaTon(.5);mot('CHEVALIERS\nTEUTONIQUES',lt,300,86,CR)});
+plan(21.8,(lt,u)=>{cadre('loc_konigsberg_1',u,760);sepiaTon(.5);titre('Königsberg',lt,300)});
+plan(22.9,(lt,u)=>{cadre('loc_konigsberg_3',u,760);sepiaTon(.5)});
+plan(23.75,(lt,u)=>{plein('wiki_immanuel-kant_2',u,[.5,.4,.85],[.5,.35,.65]);sepiaTon(.3);mot('KANT',lt,300,120,OR)});
+plan(24.4,(lt,u)=>{fondRouge('wiki_immanuel-kant_2');grosChiffre('1724',lt,760,330,OR)});
+plan(25.6,(lt,u)=>{plein('wiki_immanuel-kant_1',u,[.5,.45,.9],[.5,.4,.7]);sepiaTon(.4)});
+plan(26.45,(lt,u)=>{fondRouge('wiki_potsdam-conference_2');grosChiffre('1945',lt,760,330,OR)});
+plan(27.8,(lt,u)=>{cadre('wiki_potsdam-conference_2',u,760);sepiaTon(.3);titre('Potsdam',lt,300)});
+plan(28.9,(lt,u)=>{cadre('wiki_potsdam-conference_1',u,760);sepiaTon(.4);mot('CONFIÉE',lt,300,110,CR)});
+plan(29.75,(lt,u)=>{cadre('loc_potsdam-conference-1945_2',u,760);sepiaTon(.4);mot("À L'UNION\nSOVIÉTIQUE",lt,300,90,RG)});
+plan(30.9,(lt,u)=>{plein('c_potsdam',u,[.5,.5,.85],[.6,.45,.7]);sepiaTon(.3)});
+plan(31.75,(lt,u)=>{fondRouge('loc_potsdam-conference-1945_2');grosChiffre('1946',lt,760,330,OR)});
+plan(33.0,(lt,u)=>{cadre('wiki_konigsberg-castle_2',u,760);sepiaTon(.2)});
+plan(33.75,(lt,u)=>{cadre('wiki_kaliningrad_2',u,760);titre('Kaliningrad',lt,300)});
+plan(34.8,(lt,u)=>{plein('c_ville',u,[.5,.5,.7],[.5,.5,.55]);mention('EX-KÖNIGSBERG · 4 JUILLET 1946',300,OR)});
+plan(35.6,(lt,u)=>{fondRouge('ov_kaliningrad-city_3');grosChiffre('2004',lt,760,330,OR)});
+plan(36.7,(lt,u,t)=>{fondDrapeau('c_transit');drapeau('lt',90,560,900,t);mot('LA LITUANIE',lt,330,110,OR)});
+plan(37.6,(lt,u,t)=>{fondDrapeau('ov_kaliningrad-city_3');drapeau('eu',90,560,900,t);mot("OTAN\nET UNION EUROPÉENNE",lt,300,76,CR)});
+plan(38.7,(lt,u)=>{cadre('ov_kaliningrad-city_2',u,760)});
+plan(39.8,(lt,u)=>{plein('c_enclave',u,[.45,.5,.6],[.45,.5,.45]);mot("L'ENCLAVE",lt,300,110,OR)});
+plan(40.7,(lt,u)=>{fondRouge('c_europe');tampon('COUPÉE',lt-.1,W/2,900,RG,-.12)});
+plan(42.1,(lt,u)=>{plein('ov_kaliningrad-cathedral_3',u,[.5,.5,.9],[.5,.45,.7]);mot('CHAQUE CAMP',lt,300,100,OR)});
+plan(43.1,(lt,u)=>{cadre('ov_kaliningrad-cathedral_2',u,760);mot('SA VERSION',lt,320,100,CR)});
+plan(44.2,(lt,u,t)=>{fondDrapeau('wiki_kaliningrad_1');drapeau('ru',90,560,900,t);mot('MOSCOU',lt,330,120,OR)});
+plan(45.3,(lt,u)=>{fondRouge('ov_kaliningrad-city_2');tampon('BLOCUS',lt-.4,W/2,900,RG,-.12)});
+plan(46.2,(lt,u)=>{plein('c_transit',u,[.5,.5,.9],[.5,.5,.7]);mot('LE TRANSIT',lt,300,100,CR)});
+plan(47.2,(lt,u)=>{fondRouge('wiki_konigsberg-castle_2');grosChiffre('2022',lt,760,330,OR)});
+plan(48.4,(lt,u,t)=>{fondDrapeau('nasa_baltic-sea_2');drapeau('pl',190,230,700,t);drapeau('lt',190,800,700,t+1.3)});
+plan(49.5,(lt,u)=>{plein('c_iskander',u,[.5,.5,.85],[.5,.45,.7]);mot('MISSILES\nISKANDER',lt,300,96,RG)});
+plan(50.9,(lt,u)=>{plein('c_iskander',u,[.55,.42,.6],[.55,.42,.45]);tampon('À LEURS\nPORTES',lt-.4,W/2,1080,RG,-.12)});
+plan(52.0,(lt,u)=>{cadre('loc_east-prussia_3',u,760)});
+plan(52.9,(lt,u)=>{plein('ov_kant-statue_2',u,[.5,.5,.9],[.5,.45,.7]);titre("Aujourd'hui",lt,260)});
+plan(53.9,(lt,u)=>{cadre('ov_russian-navy-baltic-flee_2',u,760);mot('FLOTTE\nDE LA BALTIQUE',lt,300,86,CR)});
+plan(55.0,(lt,u)=>{plein('c_baltiysk',u,[.5,.5,.9],[.42,.5,.7]);titre('Baltiïsk',lt,300)});
+plan(56.0,(lt,u)=>{cadre('wiki_baltiysk_1',u,760,-1);mention('PILLAU, 1636 · AUJOURD\'HUI BALTIÏSK',300,OR)});
+plan(57.2,(lt,u,t)=>{fondDrapeau('loc_east-prussia_3');drapeau('by',90,560,900,t);mot('BIÉLORUSSIE',lt,330,100,OR)});
+plan(58.4,(lt,u)=>{plein('c_suwalki',u,[.55,.55,.7],[.6,.6,.5]);mot('UN COULOIR',lt,300,100,CR)});
+plan(59.7,(lt,u)=>{fondRouge('c_sepopol');grosChiffre('65 KM',lt,760,300,OR)});
+plan(60.9,(lt,u)=>{plein('ov_kant-statue_1',u,[.5,.45,.85],[.5,.45,.7]);mot('AU BOUT',lt,300,110,CR)});
+plan(61.9,(lt,u)=>{plein('c_europe',u,[.5,.45,.75],BAR);grosChiffre('1 MILLION',lt-.6,560,200,OR,'DE RUSSES')});
+
+
+// ---------- sous-titres
+const CLES_OR=["MILLION", "KALININGRAD", "KÖNIGSBERG", "KANT", "POTSDAM", "BALTIÏSK", "1255", "1724", "1945", "1946", "2004", "2022", "SOIXANTE-CINQ", "LITUANIE", "POLOGNE"];
+const CLES_RG=["ENCERCLÉE", "PROVOCATION", "DRONES", "BLOCUS", "ISKANDER", "COUPÉE"];
+const PUNCH=MOTS.filter(m=>{const u=m[2].toUpperCase();return CLES_RG.some(k=>u.includes(k))||CLES_OR.some(k=>u.includes(k))}).map(m=>m[0]);
+function punch(t){let z=0;for(const k of PUNCH)if(k<=t&&t-k<.3)z=Math.max(z,Math.exp(-(t-k)/.1));return 1+.045*z}
+function sousTitre(t){let m=null;for(const x of MOTS){if(t>=x[0]-.03&&t<x[1]+.12)m=x}if(!m)return;
+  const txt=m[2].toUpperCase().replace(/[.,:;?!](?!\d)/g,'').trim();const lt=t-m[0];const s=lerp(1.3,1,ease(lt/.08));
+  const cle=CLES_RG.some(k=>txt.includes(k))?RG:CLES_OR.some(k=>txt.includes(k))?OR:null;
+  ctx.save();ctx.translate(W/2,1320);ctx.scale(s,s);let taille=104;ctx.font=`${taille}px "Archivo Black"`;let w=ctx.measureText(txt).width;if(w>860){taille*=860/w;ctx.font=`${taille}px "Archivo Black"`;w=860}
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';ctx.lineWidth=16;ctx.strokeStyle='#000';ctx.strokeText(txt,0,0);ctx.fillStyle=cle||'#fff';ctx.fillText(txt,0,0);
+  if(cle){ctx.fillStyle=cle;ctx.fillRect(-w/2,taille*.52,w,10)}ctx.restore()}
+
+// ---------- transitions variées (2 à 4 images)
+function rendu(t){const pi=P.reduce((a,p,i)=>t>=p.t0?i:a,0),p=P[pi],lt=t-p.t0,fin=(P[pi+1]?P[pi+1].t0:DUREE),u=lt/(fin-p.t0);
+  const N=4,dt=t-p.t0,tr=pi>0&&dt<N/FPS?{type:(pi*7)%5,k:1-dt/(N/FPS)}:null;
+  ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.filter='none';ctx.globalAlpha=1;ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);
+  const z=punch(t);ctx.translate(W/2,H/2);ctx.scale(z,z);
+  if(tr&&tr.type==0){const s=1+tr.k*.45;ctx.scale(s,s);ctx.filter=`blur(${tr.k*8}px)`}
+  if(tr&&tr.type==1){ctx.translate(-tr.k*W*.35,0);ctx.filter=`blur(${tr.k*16}px)`}
+  if(tr&&tr.type==4){ctx.translate(tr.k*W*.25,0);ctx.rotate(tr.k*.04)}
+  ctx.translate(-W/2,-H/2);p.f(lt,u,t);ctx.restore();
+  if(tr&&tr.type==2){ctx.fillStyle=`rgba(255,235,190,${tr.k*.75})`;ctx.fillRect(0,0,W,H)}
+  if(tr&&tr.type==3){ctx.fillStyle=`rgba(0,0,0,${tr.k*.85})`;ctx.fillRect(0,0,W,H)}
+  if(p.rewind)rewind(lt);
+  particules(t);finition(t);sousTitre(t)}
+window.PRET=(async()=>{await Promise.all(FICHIERS.map(charger));for(const f of ['300px "Abril Fatface"','100px "Archivo Black"','92px "DM Serif Display"','26px "Space Mono"','bold 60px "Space Mono"'])await document.fonts.load(f,'ÉÀ0123');await document.fonts.ready;rendu(0);return true})();
+window.seek=async t=>{await window.PRET;rendu(Math.min(t,DUREE-1/FPS))};
+</script></body></html>
