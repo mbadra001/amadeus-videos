@@ -17,3 +17,4 @@ C'est la seule source pour choisir un sujet (voir kit/TACHE.md, étape b). Ce fi
 | 006 | S002 | Taïwan : 1949, la guerre civile chinoise jamais terminée | 2026-11-09 |
 | 007 | S042 | Nucléaire iranien : 440 kilos d'uranium introuvables | 2026-11-11 |
 | 008 | S041 | Kaliningrad : un million de Russes encerclés par l'OTAN | 2026-11-12 |
+| 009 | S020 | Haïti : 150 millions de francs-or, le prix de la liberté | 2026-11-13 |
