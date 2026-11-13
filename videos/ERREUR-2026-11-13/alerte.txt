@@ -1,0 +1,2 @@
+Sujet S020 non marqué dans le Doc : Google Docs update_doc a répondu « Error POSTing to endpoint: Service Unavailable » (4 tentatives entre 13 h 05 et 13 h 15 UTC ; read_file_content aussi indisponible). À faire : remplacer « S020 · À FAIRE · » par « S020 · FAIT le 2026-11-13 (vidéo 009) · ».
+TikTok non publié pour 009 : Metricool getScheduledPosts a répondu « Error POSTing to endpoint: Service Unavailable » (2 tentatives). Telegram confirmé (.telegram_ok présent), vidéo publique en 200. Pas de .tiktok_ok : le rattrapage du lendemain programmera le post.
