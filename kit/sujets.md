@@ -19,3 +19,4 @@ C'est la seule source pour choisir un sujet (voir kit/TACHE.md, étape b). Ce fi
 | 008 | S041 | Kaliningrad : un million de Russes encerclés par l'OTAN | 2026-11-12 |
 | 009 | S020 | Haïti : 150 millions de francs-or, le prix de la liberté | 2026-11-13 |
 | 010 | S021 | Qatar : 3 millions d'habitants, le médiateur du monde | 2026-11-14 |
+| 011 | S081 | OTAN : 32 pays, une seule promesse | 2026-11-15 |
