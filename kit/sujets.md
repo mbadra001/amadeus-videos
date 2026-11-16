@@ -20,3 +20,4 @@ C'est la seule source pour choisir un sujet (voir kit/TACHE.md, étape b). Ce fi
 | 009 | S020 | Haïti : 150 millions de francs-or, le prix de la liberté | 2026-11-13 |
 | 010 | S021 | Qatar : 3 millions d'habitants, le médiateur du monde | 2026-11-14 |
 | 011 | S081 | OTAN : 32 pays, une seule promesse | 2026-11-15 |
+| 012 | S039 | Somaliland : 35 ans d'indépendance, un seul pays pour la reconnaître | 2026-11-16 |
