@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<title>Iran contre Arabie saoudite : 47 ans de rivalité</title>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Archivo+Black&family=DM+Serif+Display&family=Space+Mono:wght@400;700&display=block" rel="stylesheet">
+<style>html,body{margin:0;background:#0E0D0C;overflow:hidden}canvas{display:block}</style>
+</head><body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+const W=1080,H=1920,FPS=30;
+const OR='#E5B547',ORF='#A07828',CR='#F0E8D6',RG='#D62C30',GR='#78746C';
+window.DUREE=63.75;
+const MOTS=[[0.1, 0.662, "Quarante-sept"], [0.675, 0.737, "ans"], [0.75, 0.85, "de"], [0.862, 1.412, "rivalité"], [1.425, 1.65, "entre"], [1.662, 1.75, "les"], [1.762, 1.937, "deux"], [1.95, 2.175, "géants"], [2.187, 2.312, "du"], [2.325, 2.85, "Golfe"], [3.725, 4.1, "Début"], [4.112, 4.587, "novembre"], [4.887, 5.012, "des"], [5.025, 5.487, "émissaires"], [5.5, 5.925, "saoudiens"], [5.937, 6.075, "sont"], [6.087, 6.212, "à"], [6.225, 6.687, "Téhéran"], [7.55, 7.7, "Et"], [7.712, 7.825, "des"], [7.837, 8.087, "drones"], [8.1, 8.312, "houthis"], [8.325, 8.525, "visent"], [8.537, 9.05, "Riyad"], [9.925, 10.15, "Ça"], [10.162, 10.275, "te"], [10.287, 10.837, "concerne"], [11.087, 11.462, "l'Arabie"], [11.475, 11.925, "saoudite"], [11.937, 11.975, "est"], [11.987, 12.1, "le"], [12.112, 12.375, "premier"], [12.387, 13.062, "exportateur"], [13.075, 13.187, "de"], [13.2, 13.575, "pétrole"], [13.587, 13.8, "brut"], [13.812, 13.912, "du"], [13.925, 14.287, "monde"], [15.162, 15.487, "Chaque"], [15.5, 15.75, "frappe"], [15.762, 15.937, "pèse"], [15.95, 16.112, "sur"], [16.125, 16.287, "ton"], [16.3, 16.6, "plein"], [17.475, 18.012, "Remontons"], [18.025, 18.137, "le"], [18.15, 18.412, "temps"], [19.287, 19.45, "En"], [19.462, 20.762, "1979"], [21.112, 21.25, "la"], [21.262, 21.812, "révolution"], [21.825, 22.237, "islamique"], [22.25, 22.512, "chasse"], [22.525, 22.662, "le"], [22.675, 22.987, "Shah"], [23.862, 24.262, "Khomeini"], [24.275, 24.387, "veut"], [24.4, 24.912, "exporter"], [24.925, 25.05, "sa"], [25.062, 25.7, "révolution"], [26.575, 26.737, "En"], [26.75, 27.812, "1987"], [28.15, 28.187, "à"], [28.2, 28.287, "La"], [28.3, 28.625, "Mecque"], [28.95, 29.1, "des"], [29.112, 29.225, "heurts"], [29.237, 29.462, "entre"], [29.475, 29.787, "pèlerins"], [29.8, 30.187, "iraniens"], [30.2, 30.262, "et"], [30.275, 30.725, "policiers"], [30.737, 31.162, "saoudiens"], [31.175, 31.35, "font"], [31.362, 32.437, "402 morts"], [33.3, 33.462, "En"], [33.475, 34.175, "2016"], [34.5, 34.8, "Riyad"], [34.812, 35.25, "exécute"], [35.262, 35.387, "le"], [35.4, 35.612, "cheikh"], [35.625, 35.925, "chiite"], [35.937, 36.387, "Nimr"], [36.4, 37.15, "al-Nimr"], [38.012, 38.25, "Son"], [38.262, 38.75, "ambassade"], [38.762, 38.812, "à"], [38.825, 39.2, "Téhéran"], [39.212, 39.275, "est"], [39.287, 39.525, "prise"], [39.537, 40.012, "d'assaut"], [40.875, 41.537, "Rupture"], [42.412, 42.725, "Chaque"], [42.737, 42.925, "camp"], [42.937, 42.987, "a"], [43.0, 43.137, "sa"], [43.15, 43.612, "version"], [44.487, 44.912, "Riyad"], [44.925, 45.212, "accuse"], [45.225, 45.55, "Téhéran"], [45.562, 45.837, "d'armer"], [45.85, 45.962, "les"], [45.975, 46.275, "Houthis"], [46.287, 46.337, "et"], [46.35, 46.475, "de"], [46.487, 47.3, "déstabiliser"], [48.175, 48.525, "Téhéran"], [48.537, 48.9, "dénonce"], [48.912, 49.287, "l'alliance"], [49.3, 49.725, "saoudienne"], [49.737, 49.95, "avec"], [49.962, 50.512, "Washington"], [50.525, 50.55, "et"], [50.562, 50.662, "la"], [50.675, 50.875, "guerre"], [50.887, 50.937, "au"], [50.95, 51.45, "Yémen"], [52.312, 52.512, "Le"], [52.525, 53.687, "10 mars 2023"], [53.962, 54.275, "Pékin"], [54.287, 54.362, "les"], [54.375, 55.05, "réconcilie"], [55.912, 56.075, "En"], [56.087, 57.262, "mars 2026"], [57.512, 57.675, "des"], [57.687, 57.937, "drones"], [57.95, 58.325, "iraniens"], [58.337, 58.612, "frappent"], [58.625, 58.725, "la"], [58.737, 59.187, "raffinerie"], [59.2, 59.3, "de"], [59.312, 59.425, "Ras"], [59.437, 59.95, "Tanura"], [60.812, 61.437, "Aujourd'hui"], [61.712, 61.812, "ils"], [61.825, 62.275, "négocient"], [62.287, 62.725, "encore"], [62.962, 63.35, "après"]];
+const ctx=document.getElementById('c').getContext('2d');
+const IMG={};
+const FICHIERS=["aic_persian_2.jpg", "c_axe.png", "c_golfe.png", "c_iran.png", "c_mecque.png", "c_pekin.png", "c_petrole.png", "c_ras_tanura.png", "c_yemen.png", "cma_mecca_1.jpg", "cma_mecca_2.jpg", "cma_persia_1.jpg", "cma_persia_3.jpg", "drapeau_cn.svg", "drapeau_ir.svg", "drapeau_sa.svg", "drapeau_us.svg", "drapeau_ye.svg", "loc_khomeini_1.jpg", "loc_khomeini_2.jpg", "loc_mecca-pilgrims_1.jpg", "loc_mecca-pilgrims_2.jpg", "loc_shah-of-iran-mohammad-re_1.jpg", "loc_shah-of-iran-mohammad-re_2.jpg", "loc_shah-of-iran-mohammad-re_3.jpg", "nasa_persian-gulf_1.jpg", "nasa_persian-gulf_3.jpg", "nasa_riyadh_2.jpg", "nasa_tehran_1.jpg", "nasa_tehran_2.jpg", "ov_beijing-great-hall-of-th_1.jpg", "ov_beijing-great-hall-of-th_2.jpg", "ov_gas-station-fuel-pump_1.jpg", "ov_masjid-al-haram-kaaba_1.jpg", "ov_masjid-al-haram-kaaba_2.jpg", "ov_oil-refinery_2.jpg", "ov_oil-tanker_1.jpg", "ov_oil-tanker_2.jpg", "ov_qom-iran-shrine_1.jpg", "ov_qom-iran-shrine_2.jpg", "ov_riyadh-kingdom-centre_1.jpg", "ov_riyadh-kingdom-centre_2.jpg", "ov_sanaa-yemen_1.jpg", "ov_sanaa-yemen_2.jpg", "ov_tehran-azadi-tower_1.jpg", "ov_tehran-azadi-tower_2.jpg", "ov_tehran-azadi-tower_3.jpg", "ov_washington-white-house_1.jpg", "ov_washington-white-house_2.jpg", "smk_desert_2.jpg", "toile.png"];
+function charger(f){return new Promise(r=>{const i=new Image();i.onload=()=>{let o=i;if(f.endsWith('.svg')){o=document.createElement('canvas');o.width=1280;o.height=960;o.getContext('2d').drawImage(i,0,0,1280,960)}IMG[f.split('.')[0]]=o;r()};i.onerror=()=>{console.error('image '+f);r()};i.src='medias/'+f})}
+function rng(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296}}
+const ease=x=>x<0?0:x>1?1:1-Math.pow(1-x,3), easeIO=x=>x<0?0:x>1?1:x*x*(3-2*x);
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)), lerp=(a,b,x)=>a+(b-a)*x;
+function zoomFlou(lt,f,cy=860){const a=ease(lt/.35);ctx.save();ctx.globalAlpha=a;const s=lerp(1.3,1,a);ctx.translate(W/2,cy);ctx.scale(s,s);ctx.translate(-W/2,-cy);ctx.filter=`blur(${(1-a)*9}px)`;f();ctx.restore()}
+function tremble(lt){const k=Math.exp(-lt/.18);return [Math.sin(lt*90)*22*k,Math.cos(lt*77)*16*k]}
+function flash(lt){const a=Math.exp(-lt/.07)*.7;if(a>.01){ctx.fillStyle=`rgba(255,240,210,${a})`;ctx.fillRect(0,0,W,H)}}
+function grosChiffre(txt,lt,y=760,taille=300,coul=OR,sous=null){if(lt<0)return;const [dx,dy]=tremble(lt);zoomFlou(lt,()=>{ctx.save();ctx.translate(dx,dy);
+  ctx.font=`${taille}px "Abril Fatface"`;const w=ctx.measureText(txt).width;if(w>W-140){taille*=(W-140)/w;ctx.font=`${taille}px "Abril Fatface"`}
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';ctx.lineWidth=14;ctx.strokeStyle='rgba(20,10,4,.85)';ctx.strokeText(txt,W/2,y);ctx.shadowColor=coul;ctx.shadowBlur=35;ctx.fillStyle=coul;ctx.fillText(txt,W/2,y);ctx.shadowBlur=0;
+  if(sous){ctx.font='52px "Archivo Black"';ctx.lineWidth=10;ctx.strokeText(sous,W/2,y+taille*.62);ctx.fillStyle=CR;ctx.fillText(sous,W/2,y+taille*.62)}ctx.restore()},y);flash(lt)}
+function titre(txt,lt,y=330,taille=92){if(lt<0)return;zoomFlou(lt,()=>{ctx.font=`${taille}px "DM Serif Display"`;ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=12;ctx.strokeStyle='rgba(20,10,4,.8)';
+  txt.split('\n').forEach((l,i)=>{ctx.strokeText(l,W/2,y+i*taille*1.1);ctx.fillStyle=OR;ctx.shadowColor='rgba(229,181,71,.5)';ctx.shadowBlur=20;ctx.fillText(l,W/2,y+i*taille*1.1);ctx.shadowBlur=0});ctx.textAlign='left'},y)}
+function mot(txt,lt,y,taille=96,coul=CR){if(lt<0)return;zoomFlou(lt,()=>{ctx.font=`${taille}px "Archivo Black"`;ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=14;ctx.strokeStyle='rgba(15,8,3,.9)';
+  txt.split('\n').forEach((l,i)=>{ctx.strokeText(l,W/2,y+i*taille*1.05);ctx.fillStyle=coul;ctx.fillText(l,W/2,y+i*taille*1.05)});ctx.textAlign='left'},y)}
+function tampon(txt,lt,x,y,coul=RG,rot=-.18){if(lt<0)return;const a=ease(lt/.18);ctx.save();ctx.translate(x,y);ctx.rotate(rot);const s=lerp(2.4,1,a);ctx.scale(s,s);ctx.globalAlpha=a*.92;
+  ctx.font='92px "Archivo Black"';const w=ctx.measureText(txt).width+60;ctx.strokeStyle=coul;ctx.lineWidth=10;ctx.strokeRect(-w/2,-68,w,136);ctx.lineWidth=3;ctx.strokeRect(-w/2+14,-54,w-28,108);
+  ctx.fillStyle=coul;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(txt,0,6);ctx.restore()}
+function mention(txt,y,coul=CR){ctx.font='bold 32px "Space Mono"';ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=8;ctx.strokeStyle='rgba(10,6,2,.9)';ctx.strokeText(txt,W/2,y);ctx.fillStyle=coul;ctx.fillText(txt,W/2,y);ctx.textAlign='left'}
+function avion(x,y,s,rot=0){ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.scale(s,s);ctx.fillStyle='#1a120a';ctx.shadowColor=OR;ctx.shadowBlur=25;ctx.beginPath();ctx.moveTo(-90,-8);ctx.lineTo(80,-8);ctx.quadraticCurveTo(100,0,80,8);ctx.lineTo(-90,8);ctx.closePath();ctx.fill();
+  ctx.beginPath();ctx.moveTo(-10,-6);ctx.lineTo(-40,-75);ctx.lineTo(-20,-75);ctx.lineTo(25,-6);ctx.fill();ctx.beginPath();ctx.moveTo(-10,6);ctx.lineTo(-40,75);ctx.lineTo(-20,75);ctx.lineTo(25,6);ctx.fill();
+  ctx.beginPath();ctx.moveTo(-85,-6);ctx.lineTo(-100,-35);ctx.lineTo(-88,-35);ctx.lineTo(-70,-6);ctx.fill();ctx.restore()}
+function missile(x0,y0,x1,y1,lt,d=.7){if(lt<0)return false;const a=clamp(lt/d,0,1);ctx.save();ctx.strokeStyle=CR;ctx.lineWidth=6;ctx.shadowColor='#fff';ctx.shadowBlur=30;ctx.beginPath();
+  for(let i=0;i<=20;i++){const b=a*i/20;ctx.lineTo(lerp(x0,x1,b),lerp(y0,y1,b)-Math.sin(b*Math.PI)*160)}ctx.stroke();ctx.restore();return a>=1}
+function eclat(x,y,lt){if(lt<0||lt>.8)return;const r=lerp(20,240,ease(lt/.5)),a=1-lt/.8;const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(255,250,220,${a})`);g.addColorStop(.4,`rgba(229,181,71,${a*.8})`);g.addColorStop(1,'rgba(214,44,48,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill()}
+function sepia(a){if(a<=0)return;ctx.save();ctx.globalCompositeOperation='color';ctx.globalAlpha=a;ctx.fillStyle='#8a6a3a';ctx.fillRect(0,0,W,H);ctx.restore()}
+
+
+// ---------- visuels
+// img(nom) : image chargée depuis medias/ (nom de fichier sans extension) ; repli sur la première image si absente
+function img(nom){if(IMG[nom])return IMG[nom];if(nom)console.error('image absente : '+nom);return Object.entries(IMG).find(([k])=>k!='toile'&&!k.startsWith('drapeau_'))[1]}
+// plein écran recadré (images verticales, carrées, cartes) avec poussée nette
+function plein(nom,u,c0=[.5,.5,1],c1=null){const im=img(nom);c1=c1||[c0[0],c0[1],c0[2]*.82];const k=easeIO(u);
+  let hh=lerp(c0[2],c1[2],k)*im.height,ww=hh*W/H;if(ww>im.width){ww=im.width;hh=ww*H/W}
+  const cx=lerp(c0[0],c1[0],k)*im.width,cy=lerp(c0[1],c1[1],k)*im.height;ctx.drawImage(im,clamp(cx-ww/2,0,im.width-ww),clamp(cy-hh/2,0,im.height-hh),ww,hh,0,0,W,H)}
+// tableau encadré : image paysage entière dans un cadre doré, fond = même image floutée
+function cadre(nom,u,y=760,derive=1){const im=img(nom);
+  ctx.save();ctx.filter='blur(26px) brightness(.38) sepia(.35)';const hh=im.height,ww=hh*W/H;ctx.drawImage(im,(im.width-ww)/2,0,ww,hh,-60,-60,W+120,H+120);ctx.restore();
+  const s=lerp(1,1.09,easeIO(u)),k=Math.min(980/im.width,1120/im.height),w=im.width*k*s,h=im.height*k*s,x=W/2-w/2+derive*lerp(-12,12,u),yy=y-h/2;
+  ctx.save();ctx.shadowColor='rgba(0,0,0,.8)';ctx.shadowBlur=50;ctx.fillStyle='#000';ctx.fillRect(x-26,yy-26,w+52,h+52);ctx.restore();
+  const g=ctx.createLinearGradient(x-26,yy-26,x+w+26,yy+h+26);g.addColorStop(0,'#7a5a1c');g.addColorStop(.3,'#e8c66a');g.addColorStop(.55,'#8f6a22');g.addColorStop(.8,'#f0d27a');g.addColorStop(1,'#6b4c15');
+  ctx.fillStyle=g;ctx.fillRect(x-26,yy-26,w+52,h+52);ctx.strokeStyle='#3a2a0a';ctx.lineWidth=3;ctx.strokeRect(x-26,yy-26,w+52,h+52);ctx.strokeRect(x-8,yy-8,w+16,h+16);
+  ctx.drawImage(im,x,yy,w,h)}
+// drapeau qui flotte (SVG officiel flag-icons)
+function drapeau(code,x,y,w,t){const im=img('drapeau_'+code),h=w*.75,n=48;
+  for(let i=0;i<n;i++){const v=i/n,dy=Math.sin(v*6-t*5)*16*v,sh=.13*Math.cos(v*6-t*5)*v;ctx.drawImage(im,v*im.width,0,im.width/n+1,im.height,x+v*w,y+dy,w/n+1,h);
+    ctx.fillStyle=sh>0?`rgba(0,0,0,${sh*1.5})`:`rgba(255,240,200,${-sh})`;ctx.fillRect(x+v*w,y+dy,w/n+1,h)}
+  ctx.save();ctx.globalCompositeOperation='overlay';ctx.globalAlpha=.35;ctx.drawImage(IMG.toile,x,y,w,h);ctx.restore()}
+function fondDrapeau(nom){ctx.save();ctx.filter='blur(30px) brightness(.3) sepia(.5)';const im=img(nom);ctx.drawImage(im,0,0,im.width,im.height,-100,-100,W+200,H+200);ctx.restore()}
+function fondRouge(nom){ctx.save();ctx.filter='blur(22px) brightness(.5) sepia(.6)';const im=img(nom);ctx.drawImage(im,0,0,im.width,im.height,-80,-80,W+160,H+160);ctx.restore();
+  ctx.save();ctx.globalCompositeOperation='multiply';const g=ctx.createLinearGradient(0,0,W*.3,H);g.addColorStop(0,'#9a1a20');g.addColorStop(1,'#3a070b');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.restore()}
+function sepiaTon(a){if(a<=0)return;ctx.save();ctx.globalCompositeOperation='color';ctx.globalAlpha=a;ctx.fillStyle='#8a6a3a';ctx.fillRect(0,0,W,H);ctx.restore()}
+function rewind(lt){const a=clamp(1-lt/.6,0,1);if(a<=0)return;const r=rng(Math.floor(lt*FPS)+1);
+  for(let b=0;b<12;b++){const y=Math.floor(r()*H),h=10+Math.floor(r()*50),dx=Math.floor((r()-.5)*150*a);ctx.drawImage(ctx.canvas,0,y,W,h,dx,y,W,h)}
+  for(let y=0;y<H;y+=6){ctx.fillStyle=`rgba(0,0,0,${.16*a})`;ctx.fillRect(0,y,W,2)}ctx.font='bold 60px "Space Mono"';ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.fillText('◀◀ REWIND',90,400)}
+function finition(t){ctx.save();ctx.globalCompositeOperation='overlay';ctx.globalAlpha=.28;ctx.drawImage(IMG.toile,0,0);ctx.restore();
+  const v=ctx.createRadialGradient(W/2,H*.45,320,W/2,H*.45,1250);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(10,6,2,.68)');ctx.fillStyle=v;ctx.fillRect(0,0,W,H);
+  const g=ctx.createLinearGradient(0,1050,0,H);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(.5,'rgba(0,0,0,.5)');g.addColorStop(1,'rgba(0,0,0,.6)');ctx.fillStyle=g;ctx.fillRect(0,1050,W,H-1050);
+  ctx.strokeStyle='rgba(229,181,71,.5)';ctx.lineWidth=3;ctx.strokeRect(34,34,W-68,H-68)}
+function particules(t){const r=rng(42);for(let i=0;i<40;i++){const x0=r()*W,y0=r()*H,v=15+r()*40,ph=r()*6.28,sz=1+r()*2.4;
+  const x=(x0+Math.sin(t*.5+ph)*30)%W,y=((y0-t*v)%H+H)%H;ctx.globalAlpha=.12+.3*Math.abs(Math.sin(t*1.3+ph));ctx.fillStyle=OR;ctx.beginPath();ctx.arc(x,y,sz,0,7);ctx.fill()}ctx.globalAlpha=1}
+
+// ---------- plans
+const P=[];const plan=(t0,f,o={})=>P.push({t0,f,...o});
+const CO=[.5,.5,.95];
+plan(0.0,(lt,u)=>{plein('c_golfe',u,CO,[.5,.45,.7]);grosChiffre('47 ANS',lt,560,220,OR,'')});
+plan(1.1,(lt,u,t)=>{fondDrapeau('ov_tehran-azadi-tower_1');drapeau('ir',90,560,900,t);mot('DE RIVALITÉ',lt,300,110,RG)});
+plan(1.9,(lt,u,t)=>{fondDrapeau('ov_riyadh-kingdom-centre_1');drapeau('sa',90,560,900,t);mot('DEUX\nGÉANTS',lt,300,110,OR)});
+plan(2.9,(lt,u)=>{plein('nasa_persian-gulf_3',u,[.5,.5,.9],[.45,.5,.7]);titre('Le Golfe',lt,300)});
+plan(3.7,(lt,u)=>{fondRouge('nasa_tehran_1');grosChiffre('NOV.',lt,760,260,OR,'2026')});
+plan(4.8,(lt,u)=>{cadre('ov_tehran-azadi-tower_2',u,760);mot('ÉMISSAIRES\nSAOUDIENS',lt,300,100,OR)});
+plan(5.9,(lt,u)=>{plein('nasa_tehran_1',u,[.5,.5,.9],[.5,.45,.7]);mention('TÉHÉRAN, VUE DE L\'ESPACE',300,OR)});
+plan(6.8,(lt,u)=>{plein('c_axe',u,CO,[.5,.5,.7]);mot('TÉHÉRAN\nRIYAD',lt,300,110,OR)});
+plan(7.6,(lt,u)=>{cadre('ov_sanaa-yemen_1',u,760);mot('DRONES\nHOUTHIS',lt,300,110,RG);mention('SANAA, TENUE PAR LES HOUTHIS',1180,OR)});
+plan(8.4,(lt,u)=>{cadre('ov_riyadh-kingdom-centre_2',u,760);mot('VISENT\nRIYAD',lt,300,110,RG)});
+plan(9.3,(lt,u)=>{plein('nasa_riyadh_2',u,[.5,.5,.9],[.5,.45,.7]);mention('RIYAD, VUE DE L\'ESPACE',300,OR)});
+plan(9.9,(lt,u)=>{cadre('ov_gas-station-fuel-pump_1',u,760);mot('ÇA TE\nCONCERNE',lt,300,110,OR)});
+plan(11.0,(lt,u)=>{plein('c_petrole',u,[.5,.5,.9],[.33,.42,.5]);mot('ARABIE\nSAOUDITE',lt,300,110,OR)});
+plan(12.1,(lt,u)=>{fondRouge('ov_oil-tanker_2');grosChiffre('N°1',lt,760,300,OR,'EXPORTATEUR DE BRUT')});
+plan(13.2,(lt,u)=>{cadre('ov_oil-tanker_2',u,760);mot('PÉTROLE\nBRUT',lt,300,110,OR)});
+plan(14.2,(lt,u)=>{cadre('ov_oil-refinery_2',u,760);mention('UNE RAFFINERIE',300,OR)});
+plan(15.1,(lt,u)=>{cadre('ov_oil-tanker_1',u,760);mot('CHAQUE\nFRAPPE',lt,300,110,RG)});
+plan(16.0,(lt,u)=>{plein('ov_gas-station-fuel-pump_1',u,[.5,.5,.9],[.5,.4,.7]);mot('TON PLEIN',lt,300,120,OR)});
+plan(17.0,(lt,u)=>{cadre('loc_shah-of-iran-mohammad-re_2',u,780);sepiaTon(.7);titre('Remontons\nle temps',lt,260,84)},{rewind:true});
+plan(18.3,(lt,u)=>{plein('c_iran',u,CO,[.45,.45,.7]);sepiaTon(.4)});
+plan(19.3,(lt,u)=>{fondRouge('loc_shah-of-iran-mohammad-re_1');grosChiffre('1979',lt,760,330,OR,'')});
+plan(20.6,(lt,u)=>{cadre('loc_khomeini_2',u,760);sepiaTon(.5);mot('RÉVOLUTION\nISLAMIQUE',lt,300,100,OR)});
+plan(21.8,(lt,u)=>{plein('loc_shah-of-iran-mohammad-re_1',u,[.5,.4,.9],[.5,.35,.7]);sepiaTon(.6);mot('CHASSE\nLE SHAH',lt,300,110,RG)});
+plan(22.9,(lt,u)=>{plein('loc_shah-of-iran-mohammad-re_3',u,[.5,.4,.9],[.5,.35,.7]);sepiaTon(.6);mention('MOHAMMAD REZA PAHLAVI',300,OR)});
+plan(23.9,(lt,u)=>{cadre('loc_khomeini_1',u,760);sepiaTon(.5);mot('KHOMEINI',lt,300,120,OR)});
+plan(24.6,(lt,u)=>{cadre('ov_qom-iran-shrine_1',u,760);sepiaTon(.4);mot('EXPORTER',lt,300,120,RG)});
+plan(25.6,(lt,u)=>{cadre('cma_persia_3',u,760);sepiaTon(.4);mot('SA\nRÉVOLUTION',lt,300,110,OR)});
+plan(26.6,(lt,u)=>{fondRouge('cma_persia_3');grosChiffre('1987',lt,760,330,OR,'')});
+plan(27.7,(lt,u)=>{plein('c_mecque',u,CO,[.5,.5,.7]);sepiaTon(.3);titre('La Mecque',lt,300)});
+plan(28.6,(lt,u)=>{cadre('loc_mecca-pilgrims_1',u,760);sepiaTon(.6);mot('PÈLERINS\nIRANIENS',lt,300,110,OR)});
+plan(29.6,(lt,u)=>{cadre('ov_masjid-al-haram-kaaba_1',u,760);sepiaTon(.4);mot('HEURTS',lt,300,130,RG)});
+plan(30.4,(lt,u)=>{cadre('loc_mecca-pilgrims_2',u,760);sepiaTon(.6);mot('POLICIERS\nSAOUDIENS',lt,300,100,OR)});
+plan(31.3,(lt,u)=>{fondRouge('ov_masjid-al-haram-kaaba_1');grosChiffre('402',lt,760,330,OR,'MORTS')});
+plan(32.5,(lt,u)=>{cadre('cma_mecca_1',u,760);sepiaTon(.3);mention('LA MECQUE, 31 JUILLET 1987',300,OR)});
+plan(33.3,(lt,u)=>{fondRouge('nasa_riyadh_2');grosChiffre('2016',lt,760,330,OR,'')});
+plan(34.4,(lt,u)=>{cadre('ov_riyadh-kingdom-centre_1',u,760);mot('RIYAD\nEXÉCUTE',lt,300,110,RG)});
+plan(35.4,(lt,u)=>{cadre('ov_qom-iran-shrine_2',u,760);mot('CHEIKH\nCHIITE',lt,300,110,OR)});
+plan(36.3,(lt,u,t)=>{fondDrapeau('ov_qom-iran-shrine_2');drapeau('sa',90,560,900,t);mot('NIMR\nAL-NIMR',lt,300,110,OR)});
+plan(37.5,(lt,u)=>{plein('nasa_tehran_2',u,[.5,.5,.9],[.5,.45,.7]);mot('AMBASSADE\nSAOUDIENNE',lt,300,100,OR)});
+plan(38.6,(lt,u)=>{cadre('ov_tehran-azadi-tower_3',u,760);mot("PRISE\nD'ASSAUT",lt,300,110,RG)});
+plan(39.7,(lt,u)=>{plein('c_axe',u,[.5,.5,.7],[.5,.55,.55]);mention('TÉHÉRAN — RIYAD',300,OR)});
+plan(40.8,(lt,u)=>{fondRouge('ov_tehran-azadi-tower_3');tampon('RUPTURE',lt-.1,W/2,960,RG,-.1)});
+plan(42.1,(lt,u,t)=>{fondDrapeau('nasa_persian-gulf_1');drapeau('sa',60,520,460,t);drapeau('ir',560,520,460,t);mot('CHAQUE\nCAMP',lt,300,110,OR)});
+plan(43.1,(lt,u)=>{cadre('smk_desert_2',u,760);mot('SA VERSION',lt,300,110,OR)});
+plan(44.3,(lt,u,t)=>{fondDrapeau('ov_riyadh-kingdom-centre_2');drapeau('sa',90,560,900,t);mot('RIYAD\nACCUSE',lt,300,110,OR)});
+plan(45.4,(lt,u)=>{plein('c_yemen',u,CO,[.5,.55,.7]);mot("D'ARMER\nLES HOUTHIS",lt,300,100,RG)});
+plan(46.4,(lt,u)=>{cadre('ov_sanaa-yemen_2',u,760);mot('DÉSTABILISER',lt,300,100,RG)});
+plan(47.4,(lt,u)=>{plein('nasa_persian-gulf_1',u,[.5,.5,.9],[.5,.45,.7]);mention('LE GOLFE, VU DE L\'ESPACE',300,OR)});
+plan(48.1,(lt,u,t)=>{fondDrapeau('ov_tehran-azadi-tower_1');drapeau('ir',90,560,900,t);mot('TÉHÉRAN\nDÉNONCE',lt,300,110,OR)});
+plan(49.0,(lt,u)=>{cadre('ov_washington-white-house_1',u,760);mot("L'ALLIANCE",lt,300,120,OR)});
+plan(49.9,(lt,u,t)=>{fondDrapeau('ov_washington-white-house_2');drapeau('us',90,560,900,t);mot('WASHINGTON',lt,300,110,OR)});
+plan(50.7,(lt,u,t)=>{fondDrapeau('ov_sanaa-yemen_1');drapeau('ye',90,560,900,t);mot('GUERRE\nAU YÉMEN',lt,300,110,RG)});
+plan(51.6,(lt,u)=>{plein('c_yemen',u,[.5,.55,.7],[.45,.55,.55]);mention('YÉMEN',300,OR)});
+plan(52.3,(lt,u)=>{fondRouge('ov_beijing-great-hall-of-th_1');grosChiffre('10 MARS',lt,760,230,OR,'2023')});
+plan(53.5,(lt,u,t)=>{fondDrapeau('ov_beijing-great-hall-of-th_1');drapeau('cn',90,560,900,t);mot('PÉKIN',lt,300,130,OR)});
+plan(54.3,(lt,u)=>{plein('c_pekin',u,[.5,.5,.9],[.55,.45,.6]);mot('RÉCONCILIE',lt,300,110,OR)});
+plan(55.1,(lt,u)=>{cadre('ov_beijing-great-hall-of-th_2',u,760);mention('PALAIS DU PEUPLE, PÉKIN',300,OR)});
+plan(55.9,(lt,u)=>{fondRouge('ov_oil-tanker_1');grosChiffre('MARS',lt,760,260,OR,'2026')});
+plan(57.1,(lt,u)=>{plein('c_ras_tanura',u,CO,[.6,.45,.7]);mot('DRONES\nIRANIENS',lt,300,110,RG)});
+plan(58.1,(lt,u)=>{cadre('ov_oil-refinery_2',u,760);mot('RAFFINERIE',lt,300,110,RG)});
+plan(59.1,(lt,u)=>{plein('c_ras_tanura',u,[.6,.45,.7],[.62,.42,.5]);titre('Ras Tanura',lt,300)});
+plan(60.0,(lt,u)=>{plein('nasa_persian-gulf_3',u,[.45,.5,.75],[.5,.5,.6]);titre("Aujourd'hui",lt,260)});
+plan(61.0,(lt,u,t)=>{fondDrapeau('nasa_tehran_2');drapeau('sa',60,520,460,t);drapeau('ir',560,520,460,t);mot('NÉGOCIENT\nENCORE',lt,300,100,OR)});
+plan(62.2,(lt,u)=>{plein('c_golfe',u,[.5,.45,.7],CO);grosChiffre('47 ANS',lt-.4,560,220,OR,'')});
+
+
+// ---------- sous-titres
+const CLES_OR=["GOLFE", "TÉHÉRAN", "RIYAD", "PÉTROLE", "1979", "1987", "2016", "2023", "2026", "10", "MARS", "KHOMEINI", "SHAH", "RÉVOLUTION", "PÉKIN", "WASHINGTON", "QUARANTE-SEPT", "PREMIER", "MECQUE", "NOVEMBRE", "ÉMISSAIRES", "NÉGOCIENT", "RÉCONCILIE", "YÉMEN", "402"];
+const CLES_RG=["RIVALITÉ", "DRONES", "FRAPPE", "MORTS", "EXÉCUTE", "D'ASSAUT", "RUPTURE", "HOUTHIS", "GUERRE", "FRAPPENT", "HEURTS", "DÉSTABILISER"];
+const PUNCH=MOTS.filter(m=>{const u=m[2].toUpperCase();return CLES_RG.some(k=>u.includes(k))||CLES_OR.some(k=>u.includes(k))}).map(m=>m[0]);
+function punch(t){let z=0;for(const k of PUNCH)if(k<=t&&t-k<.3)z=Math.max(z,Math.exp(-(t-k)/.1));return 1+.045*z}
+function sousTitre(t){let m=null;for(const x of MOTS){if(t>=x[0]-.03&&t<x[1]+.12)m=x}if(!m)return;
+  const txt=m[2].toUpperCase().replace(/[.,:;?!](?!\d)/g,'').trim();const lt=t-m[0];const s=lerp(1.3,1,ease(lt/.08));
+  const cle=CLES_RG.some(k=>txt.includes(k))?RG:CLES_OR.some(k=>txt.includes(k))?OR:null;
+  ctx.save();ctx.translate(W/2,1320);ctx.scale(s,s);let taille=104;ctx.font=`${taille}px "Archivo Black"`;let w=ctx.measureText(txt).width;if(w>860){taille*=860/w;ctx.font=`${taille}px "Archivo Black"`;w=860}
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';ctx.lineWidth=16;ctx.strokeStyle='#000';ctx.strokeText(txt,0,0);ctx.fillStyle=cle||'#fff';ctx.fillText(txt,0,0);
+  if(cle){ctx.fillStyle=cle;ctx.fillRect(-w/2,taille*.52,w,10)}ctx.restore()}
+
+// ---------- transitions variées (2 à 4 images)
+function rendu(t){const pi=P.reduce((a,p,i)=>t>=p.t0?i:a,0),p=P[pi],lt=t-p.t0,fin=(P[pi+1]?P[pi+1].t0:DUREE),u=lt/(fin-p.t0);
+  const N=4,dt=t-p.t0,tr=pi>0&&dt<N/FPS?{type:(pi*7)%5,k:1-dt/(N/FPS)}:null;
+  ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.filter='none';ctx.globalAlpha=1;ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);
+  const z=punch(t);ctx.translate(W/2,H/2);ctx.scale(z,z);
+  if(tr&&tr.type==0){const s=1+tr.k*.45;ctx.scale(s,s);ctx.filter=`blur(${tr.k*8}px)`}
+  if(tr&&tr.type==1){ctx.translate(-tr.k*W*.35,0);ctx.filter=`blur(${tr.k*16}px)`}
+  if(tr&&tr.type==4){ctx.translate(tr.k*W*.25,0);ctx.rotate(tr.k*.04)}
+  ctx.translate(-W/2,-H/2);p.f(lt,u,t);ctx.restore();
+  if(tr&&tr.type==2){ctx.fillStyle=`rgba(255,235,190,${tr.k*.75})`;ctx.fillRect(0,0,W,H)}
+  if(tr&&tr.type==3){ctx.fillStyle=`rgba(0,0,0,${tr.k*.85})`;ctx.fillRect(0,0,W,H)}
+  if(p.rewind)rewind(lt);
+  particules(t);finition(t);sousTitre(t)}
+window.PRET=(async()=>{await Promise.all(FICHIERS.map(charger));for(const f of ['300px "Abril Fatface"','100px "Archivo Black"','92px "DM Serif Display"','26px "Space Mono"','bold 60px "Space Mono"'])await document.fonts.load(f,'ÉÀ0123');await document.fonts.ready;rendu(0);return true})();
+window.seek=async t=>{await window.PRET;rendu(Math.min(t,DUREE-1/FPS))};
+</script></body></html>

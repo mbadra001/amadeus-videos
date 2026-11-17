@@ -21,3 +21,4 @@ C'est la seule source pour choisir un sujet (voir kit/TACHE.md, étape b). Ce fi
 | 010 | S021 | Qatar : 3 millions d'habitants, le médiateur du monde | 2026-11-14 |
 | 011 | S081 | OTAN : 32 pays, une seule promesse | 2026-11-15 |
 | 012 | S039 | Somaliland : 35 ans d'indépendance, un seul pays pour la reconnaître | 2026-11-16 |
+| 013 | S082 | Iran contre Arabie saoudite : 47 ans de rivalité | 2026-11-17 |
