@@ -22,3 +22,4 @@ C'est la seule source pour choisir un sujet (voir kit/TACHE.md, étape b). Ce fi
 | 011 | S081 | OTAN : 32 pays, une seule promesse | 2026-11-15 |
 | 012 | S039 | Somaliland : 35 ans d'indépendance, un seul pays pour la reconnaître | 2026-11-16 |
 | 013 | S082 | Iran contre Arabie saoudite : 47 ans de rivalité | 2026-11-17 |
+| 014 | S035 | Sahara occidental : 1991, le référendum jamais organisé | 2026-11-18 |
