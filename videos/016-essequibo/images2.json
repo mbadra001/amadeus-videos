@@ -1,0 +1,21 @@
+[
+ {"source":"wiki","q":"Guayana Esequiba","n":2},
+ {"source":"wiki","q":"Peace Palace","n":2},
+ {"source":"wiki","q":"Essequibo River","n":2},
+ {"source":"loc","q":"British Guiana","n":3},
+ {"source":"loc","q":"Venezuela boundary","n":3},
+ {"source":"loc","q":"Caracas","n":3},
+ {"source":"loc","q":"Grover Cleveland","n":2},
+ {"source":"loc","q":"Paris Quai d'Orsay","n":2},
+ {"source":"nasa","q":"Guyana","n":3},
+ {"source":"nasa","q":"Orinoco River","n":2},
+ {"source":"nasa","q":"Venezuela","n":2},
+ {"source":"cma","q":"Guiana","n":3},
+ {"source":"aic","q":"Venezuela","n":2},
+ {"source":"smk","q":"Guiana","n":2},
+ {"source":"openverse","q":"Peace Palace The Hague","n":2},
+ {"source":"openverse","q":"Guyana rainforest","n":2},
+ {"source":"openverse","q":"Essequibo river","n":3},
+ {"source":"openverse","q":"Geneva Palais des Nations","n":2},
+ {"source":"openverse","q":"US Department of State building","n":2}
+]

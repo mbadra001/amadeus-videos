@@ -24,3 +24,4 @@ C'est la seule source pour choisir un sujet (voir kit/TACHE.md, étape b). Ce fi
 | 013 | S082 | Iran contre Arabie saoudite : 47 ans de rivalité | 2026-11-17 |
 | 014 | S035 | Sahara occidental : 1991, le référendum jamais organisé | 2026-11-18 |
 | 015 | S065 | Myanmar : 100 000 morts, l'armée toujours au pouvoir | 2026-11-19 |
+| 016 | S067 | Essequibo : deux tiers du Guyana réclamés par le Venezuela | 2026-11-20 |
