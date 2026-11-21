@@ -1,0 +1,22 @@
+[
+ {"source":"nasa","q":"Crimean peninsula","n":3},
+ {"source":"nasa","q":"Sea of Azov","n":2},
+ {"source":"nasa","q":"Ukraine night","n":2},
+ {"source":"loc","q":"Nikita Khrushchev","n":3},
+ {"source":"loc","q":"Catherine the Great","n":3},
+ {"source":"loc","q":"Tatar Crimea","n":3},
+ {"source":"loc","q":"Sebastopol","n":3},
+ {"source":"loc","q":"Kremlin","n":2},
+ {"source":"smk","q":"Catherine II","n":2},
+ {"source":"aic","q":"Russian empire","n":2},
+ {"source":"openverse","q":"Khrushchev","n":3},
+ {"source":"openverse","q":"Crimean Tatars","n":3},
+ {"source":"openverse","q":"Kerch city","n":2},
+ {"source":"openverse","q":"Supreme Soviet","n":2},
+ {"source":"openverse","q":"Ukraine parliament Verkhovna Rada","n":2},
+ {"source":"openverse","q":"Swallow's Nest Crimea","n":2},
+ {"source":"openverse","q":"train railway bridge","n":2},
+ {"source":"openverse","q":"traffic cars bridge","n":2},
+ {"source":"openverse","q":"Catherine the Great monument","n":2},
+ {"source":"openverse","q":"Black Sea fleet ship","n":2}
+]
