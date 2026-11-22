@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<title>Éthiopie : 130 millions d'habitants, pas un seul port</title>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Archivo+Black&family=DM+Serif+Display&family=Space+Mono:wght@400;700&display=block" rel="stylesheet">
+<style>html,body{margin:0;background:#0E0D0C;overflow:hidden}canvas{display:block}</style>
+</head><body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+const W=1080,H=1920,FPS=30;
+const OR='#E5B547',ORF='#A07828',CR='#F0E8D6',RG='#D62C30',GR='#78746C';
+window.DUREE=63.81;
+const MOTS=[[0.1, 0.925, "130 millions"], [0.937, 1.45, "d'habitants"], [2.325, 2.475, "Et"], [2.487, 2.637, "pas"], [2.65, 2.787, "un"], [2.8, 3.025, "seul"], [3.037, 3.475, "port"], [4.35, 4.637, "Cette"], [4.65, 5.05, "semaine"], [5.4, 5.912, "l'Éthiopie"], [5.925, 5.962, "et"], [5.975, 6.4, "l'Érythrée"], [6.412, 6.65, "massent"], [6.662, 6.812, "leurs"], [6.825, 7.075, "troupes"], [7.087, 7.25, "près"], [7.262, 7.375, "de"], [7.387, 7.812, "Badme"], [8.675, 9.075, "Depuis"], [9.087, 9.637, "octobre"], [9.925, 10.2, "plus"], [10.212, 10.487, "aucune"], [10.5, 10.887, "relation"], [10.9, 11.775, "diplomatique"], [12.637, 12.875, "Ça"], [12.887, 13.0, "te"], [13.012, 13.5, "concerne"], [13.7, 13.75, "en"], [13.762, 14.225, "face"], [14.525, 14.7, "la"], [14.712, 14.9, "mer"], [14.912, 15.262, "Rouge"], [15.55, 15.725, "route"], [15.737, 15.825, "du"], [15.837, 16.225, "commerce"], [16.237, 16.812, "mondial"], [17.675, 18.212, "Remontons"], [18.225, 18.337, "le"], [18.35, 18.612, "temps"], [19.487, 19.65, "En"], [19.662, 20.912, "1890"], [21.212, 21.662, "l'Érythrée"], [21.675, 21.987, "devient"], [22.0, 22.337, "colonie"], [22.35, 23.037, "italienne"], [23.9, 24.062, "En"], [24.075, 25.087, "1952"], [25.4, 25.65, "l'ONU"], [25.662, 25.775, "la"], [25.787, 26.137, "fédère"], [26.15, 26.175, "à"], [26.187, 26.762, "l'Éthiopie"], [27.625, 27.787, "En"], [27.8, 28.837, "1962"], [29.162, 29.337, "Hailé"], [29.35, 29.75, "Sélassié"], [29.762, 30.312, "l'annexe"], [31.187, 31.512, "Trente"], [31.525, 31.575, "ans"], [31.587, 31.712, "de"], [31.725, 32.15, "guerre"], [33.025, 33.187, "En"], [33.2, 34.45, "1993"], [34.775, 35.2, "l'Érythrée"], [35.212, 35.425, "vote"], [35.437, 36.1, "l'indépendance"], [36.112, 36.175, "à"], [36.187, 37.875, "99,8 %"], [38.75, 39.287, "L'Éthiopie"], [39.3, 39.487, "perd"], [39.5, 39.625, "sa"], [39.637, 40.1, "côte"], [40.975, 41.187, "De"], [41.2, 42.475, "1998 à"], [42.487, 42.9, " 2000"], [43.25, 43.387, "la"], [43.4, 43.6, "guerre"], [43.612, 43.737, "de"], [43.75, 44.012, "Badme"], [44.025, 44.175, "fait"], [44.187, 44.3, "des"], [44.312, 44.7, "dizaines"], [44.712, 44.825, "de"], [44.837, 45.125, "milliers"], [45.137, 45.237, "de"], [45.25, 45.7, "morts"], [46.562, 46.737, "Paix"], [46.75, 47.062, "signée"], [47.075, 47.162, "en"], [47.175, 48.087, "2018"], [48.95, 49.15, "Pour"], [49.162, 49.762, "Addis-Abeba"], [50.087, 50.45, "l'accès"], [50.462, 50.512, "à"], [50.525, 50.612, "la"], [50.625, 50.825, "mer"], [50.837, 50.875, "est"], [50.887, 51.437, "vital"], [52.3, 52.5, "Pour"], [52.512, 52.962, "Asmara"], [53.275, 53.387, "c'est"], [53.4, 53.525, "un"], [53.537, 54.0, "prétexte"], [54.012, 54.187, "pour"], [54.2, 54.5, "prendre"], [54.512, 54.6, "le"], [54.612, 54.8, "port"], [54.812, 55.387, "d'Assab"], [56.25, 56.85, "Aujourd'hui"], [57.187, 57.325, "plus"], [57.337, 57.45, "de"], [57.462, 58.387, "90 %"], [58.4, 58.512, "du"], [58.525, 58.912, "commerce"], [58.925, 59.362, "éthiopien"], [59.375, 59.6, "passe"], [59.612, 59.762, "par"], [59.775, 60.375, "Djibouti"], [61.237, 62.175, "130 millions"], [62.412, 62.762, "toujours"], [62.775, 62.925, "sans"], [62.937, 63.412, "port"]];
+const ctx=document.getElementById('c').getContext('2d');
+const IMG={};
+const FICHIERS=["aic_ethiopia_1.jpg", "aic_ethiopia_2.jpg", "c_afrique.png", "c_assab.png", "c_badme.png", "c_corne.png", "c_djibouti.png", "c_erythree.png", "c_ethiopie.png", "c_mer-rouge.png", "cma_ethiopia_1.jpg", "drapeau_dj.svg", "drapeau_er.svg", "drapeau_et.svg", "drapeau_it.svg", "drapeau_un.svg", "loc_abyssinia-soldiers_1.jpg", "loc_ethiopia_3.jpg", "loc_ethiopia_4.jpg", "loc_haile-selassie_2.jpg", "loc_haile-selassie_3.jpg", "loc_united-nations-general-a_1.jpg", "nasa_ethiopia_1.jpg", "nasa_ethiopia_2.jpg", "nasa_ethiopia_3.jpg", "nasa_horn-of-africa_2.jpg", "nasa_red-sea_1.jpg", "nasa_red-sea_2.jpg", "nasa_red-sea_3.jpg", "ov_addis-ababa-city_1.jpg", "ov_addis-ababa-city_2.jpg", "ov_addis-ababa-city_3.jpg", "ov_addis-ababa-djibouti-rai_1.jpg", "ov_asmara-eritrea_1.jpg", "ov_assab-eritrea_1.jpg", "ov_container-ship-red-sea_2.jpg", "ov_ethiopia-trucks-road_1.jpg", "ov_massawa-port_1.jpg", "ov_massawa-port_2.jpg", "ov_port-of-djibouti-contain_1.jpg", "ov_port-of-djibouti-contain_2.jpg", "ov_port-of-djibouti-contain_3.jpg", "ov_tigray-mountains_1.jpg", "ov_tigray-mountains_2.jpg", "toile.png", "wiki_abiy-ahmed_1.jpg", "wiki_abiy-ahmed_2.jpg", "wiki_assab_1.jpg", "wiki_eritreanethiopian-war_1.jpg", "wiki_haile-selassie_1.jpg", "wiki_haile-selassie_2.jpg"];
+function charger(f){return new Promise(r=>{const i=new Image();i.onload=()=>{let o=i;if(f.endsWith('.svg')){o=document.createElement('canvas');o.width=1280;o.height=960;o.getContext('2d').drawImage(i,0,0,1280,960)}IMG[f.split('.')[0]]=o;r()};i.onerror=()=>{console.error('image '+f);r()};i.src='medias/'+f})}
+function rng(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296}}
+const ease=x=>x<0?0:x>1?1:1-Math.pow(1-x,3), easeIO=x=>x<0?0:x>1?1:x*x*(3-2*x);
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)), lerp=(a,b,x)=>a+(b-a)*x;
+function zoomFlou(lt,f,cy=860){const a=ease(lt/.35);ctx.save();ctx.globalAlpha=a;const s=lerp(1.3,1,a);ctx.translate(W/2,cy);ctx.scale(s,s);ctx.translate(-W/2,-cy);ctx.filter=`blur(${(1-a)*9}px)`;f();ctx.restore()}
+function tremble(lt){const k=Math.exp(-lt/.18);return [Math.sin(lt*90)*22*k,Math.cos(lt*77)*16*k]}
+function flash(lt){const a=Math.exp(-lt/.07)*.7;if(a>.01){ctx.fillStyle=`rgba(255,240,210,${a})`;ctx.fillRect(0,0,W,H)}}
+function grosChiffre(txt,lt,y=760,taille=300,coul=OR,sous=null){if(lt<0)return;const [dx,dy]=tremble(lt);zoomFlou(lt,()=>{ctx.save();ctx.translate(dx,dy);
+  ctx.font=`${taille}px "Abril Fatface"`;const w=ctx.measureText(txt).width;if(w>W-140){taille*=(W-140)/w;ctx.font=`${taille}px "Abril Fatface"`}
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';ctx.lineWidth=14;ctx.strokeStyle='rgba(20,10,4,.85)';ctx.strokeText(txt,W/2,y);ctx.shadowColor=coul;ctx.shadowBlur=35;ctx.fillStyle=coul;ctx.fillText(txt,W/2,y);ctx.shadowBlur=0;
+  if(sous){ctx.font='52px "Archivo Black"';ctx.lineWidth=10;ctx.strokeText(sous,W/2,y+taille*.62);ctx.fillStyle=CR;ctx.fillText(sous,W/2,y+taille*.62)}ctx.restore()},y);flash(lt)}
+function titre(txt,lt,y=330,taille=92){if(lt<0)return;zoomFlou(lt,()=>{ctx.font=`${taille}px "DM Serif Display"`;ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=12;ctx.strokeStyle='rgba(20,10,4,.8)';
+  txt.split('\n').forEach((l,i)=>{ctx.strokeText(l,W/2,y+i*taille*1.1);ctx.fillStyle=OR;ctx.shadowColor='rgba(229,181,71,.5)';ctx.shadowBlur=20;ctx.fillText(l,W/2,y+i*taille*1.1);ctx.shadowBlur=0});ctx.textAlign='left'},y)}
+function mot(txt,lt,y,taille=96,coul=CR){if(lt<0)return;zoomFlou(lt,()=>{ctx.font=`${taille}px "Archivo Black"`;ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=14;ctx.strokeStyle='rgba(15,8,3,.9)';
+  txt.split('\n').forEach((l,i)=>{ctx.strokeText(l,W/2,y+i*taille*1.05);ctx.fillStyle=coul;ctx.fillText(l,W/2,y+i*taille*1.05)});ctx.textAlign='left'},y)}
+function tampon(txt,lt,x,y,coul=RG,rot=-.18){if(lt<0)return;const a=ease(lt/.18);ctx.save();ctx.translate(x,y);ctx.rotate(rot);const s=lerp(2.4,1,a);ctx.scale(s,s);ctx.globalAlpha=a*.92;
+  ctx.font='92px "Archivo Black"';const w=ctx.measureText(txt).width+60;ctx.strokeStyle=coul;ctx.lineWidth=10;ctx.strokeRect(-w/2,-68,w,136);ctx.lineWidth=3;ctx.strokeRect(-w/2+14,-54,w-28,108);
+  ctx.fillStyle=coul;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(txt,0,6);ctx.restore()}
+function mention(txt,y,coul=CR){ctx.font='bold 32px "Space Mono"';ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=8;ctx.strokeStyle='rgba(10,6,2,.9)';ctx.strokeText(txt,W/2,y);ctx.fillStyle=coul;ctx.fillText(txt,W/2,y);ctx.textAlign='left'}
+function avion(x,y,s,rot=0){ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.scale(s,s);ctx.fillStyle='#1a120a';ctx.shadowColor=OR;ctx.shadowBlur=25;ctx.beginPath();ctx.moveTo(-90,-8);ctx.lineTo(80,-8);ctx.quadraticCurveTo(100,0,80,8);ctx.lineTo(-90,8);ctx.closePath();ctx.fill();
+  ctx.beginPath();ctx.moveTo(-10,-6);ctx.lineTo(-40,-75);ctx.lineTo(-20,-75);ctx.lineTo(25,-6);ctx.fill();ctx.beginPath();ctx.moveTo(-10,6);ctx.lineTo(-40,75);ctx.lineTo(-20,75);ctx.lineTo(25,6);ctx.fill();
+  ctx.beginPath();ctx.moveTo(-85,-6);ctx.lineTo(-100,-35);ctx.lineTo(-88,-35);ctx.lineTo(-70,-6);ctx.fill();ctx.restore()}
+function missile(x0,y0,x1,y1,lt,d=.7){if(lt<0)return false;const a=clamp(lt/d,0,1);ctx.save();ctx.strokeStyle=CR;ctx.lineWidth=6;ctx.shadowColor='#fff';ctx.shadowBlur=30;ctx.beginPath();
+  for(let i=0;i<=20;i++){const b=a*i/20;ctx.lineTo(lerp(x0,x1,b),lerp(y0,y1,b)-Math.sin(b*Math.PI)*160)}ctx.stroke();ctx.restore();return a>=1}
+function eclat(x,y,lt){if(lt<0||lt>.8)return;const r=lerp(20,240,ease(lt/.5)),a=1-lt/.8;const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(255,250,220,${a})`);g.addColorStop(.4,`rgba(229,181,71,${a*.8})`);g.addColorStop(1,'rgba(214,44,48,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill()}
+function sepia(a){if(a<=0)return;ctx.save();ctx.globalCompositeOperation='color';ctx.globalAlpha=a;ctx.fillStyle='#8a6a3a';ctx.fillRect(0,0,W,H);ctx.restore()}
+
+
+// ---------- visuels
+// img(nom) : image chargée depuis medias/ (nom de fichier sans extension) ; repli sur la première image si absente
+function img(nom){if(IMG[nom])return IMG[nom];if(nom)console.error('image absente : '+nom);return Object.entries(IMG).find(([k])=>k!='toile'&&!k.startsWith('drapeau_'))[1]}
+// plein écran recadré (images verticales, carrées, cartes) avec poussée nette
+function plein(nom,u,c0=[.5,.5,1],c1=null){const im=img(nom);c1=c1||[c0[0],c0[1],c0[2]*.82];const k=easeIO(u);
+  let hh=lerp(c0[2],c1[2],k)*im.height,ww=hh*W/H;if(ww>im.width){ww=im.width;hh=ww*H/W}
+  const cx=lerp(c0[0],c1[0],k)*im.width,cy=lerp(c0[1],c1[1],k)*im.height;ctx.drawImage(im,clamp(cx-ww/2,0,im.width-ww),clamp(cy-hh/2,0,im.height-hh),ww,hh,0,0,W,H)}
+// tableau encadré : image paysage entière dans un cadre doré, fond = même image floutée
+function cadre(nom,u,y=760,derive=1){const im=img(nom);
+  ctx.save();ctx.filter='blur(26px) brightness(.38) sepia(.35)';const hh=im.height,ww=hh*W/H;ctx.drawImage(im,(im.width-ww)/2,0,ww,hh,-60,-60,W+120,H+120);ctx.restore();
+  const s=lerp(1,1.09,easeIO(u)),k=Math.min(980/im.width,1120/im.height),w=im.width*k*s,h=im.height*k*s,x=W/2-w/2+derive*lerp(-12,12,u),yy=y-h/2;
+  ctx.save();ctx.shadowColor='rgba(0,0,0,.8)';ctx.shadowBlur=50;ctx.fillStyle='#000';ctx.fillRect(x-26,yy-26,w+52,h+52);ctx.restore();
+  const g=ctx.createLinearGradient(x-26,yy-26,x+w+26,yy+h+26);g.addColorStop(0,'#7a5a1c');g.addColorStop(.3,'#e8c66a');g.addColorStop(.55,'#8f6a22');g.addColorStop(.8,'#f0d27a');g.addColorStop(1,'#6b4c15');
+  ctx.fillStyle=g;ctx.fillRect(x-26,yy-26,w+52,h+52);ctx.strokeStyle='#3a2a0a';ctx.lineWidth=3;ctx.strokeRect(x-26,yy-26,w+52,h+52);ctx.strokeRect(x-8,yy-8,w+16,h+16);
+  ctx.drawImage(im,x,yy,w,h)}
+// drapeau qui flotte (SVG officiel flag-icons)
+function drapeau(code,x,y,w,t){const im=img('drapeau_'+code),h=w*.75,n=48;
+  for(let i=0;i<n;i++){const v=i/n,dy=Math.sin(v*6-t*5)*16*v,sh=.13*Math.cos(v*6-t*5)*v;ctx.drawImage(im,v*im.width,0,im.width/n+1,im.height,x+v*w,y+dy,w/n+1,h);
+    ctx.fillStyle=sh>0?`rgba(0,0,0,${sh*1.5})`:`rgba(255,240,200,${-sh})`;ctx.fillRect(x+v*w,y+dy,w/n+1,h)}
+  ctx.save();ctx.globalCompositeOperation='overlay';ctx.globalAlpha=.35;ctx.drawImage(IMG.toile,x,y,w,h);ctx.restore()}
+function fondDrapeau(nom){ctx.save();ctx.filter='blur(30px) brightness(.3) sepia(.5)';const im=img(nom);ctx.drawImage(im,0,0,im.width,im.height,-100,-100,W+200,H+200);ctx.restore()}
+function fondRouge(nom){ctx.save();ctx.filter='blur(22px) brightness(.5) sepia(.6)';const im=img(nom);ctx.drawImage(im,0,0,im.width,im.height,-80,-80,W+160,H+160);ctx.restore();
+  ctx.save();ctx.globalCompositeOperation='multiply';const g=ctx.createLinearGradient(0,0,W*.3,H);g.addColorStop(0,'#9a1a20');g.addColorStop(1,'#3a070b');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.restore()}
+function sepiaTon(a){if(a<=0)return;ctx.save();ctx.globalCompositeOperation='color';ctx.globalAlpha=a;ctx.fillStyle='#8a6a3a';ctx.fillRect(0,0,W,H);ctx.restore()}
+function rewind(lt){const a=clamp(1-lt/.6,0,1);if(a<=0)return;const r=rng(Math.floor(lt*FPS)+1);
+  for(let b=0;b<12;b++){const y=Math.floor(r()*H),h=10+Math.floor(r()*50),dx=Math.floor((r()-.5)*150*a);ctx.drawImage(ctx.canvas,0,y,W,h,dx,y,W,h)}
+  for(let y=0;y<H;y+=6){ctx.fillStyle=`rgba(0,0,0,${.16*a})`;ctx.fillRect(0,y,W,2)}ctx.font='bold 60px "Space Mono"';ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.fillText('◀◀ REWIND',90,400)}
+function finition(t){ctx.save();ctx.globalCompositeOperation='overlay';ctx.globalAlpha=.28;ctx.drawImage(IMG.toile,0,0);ctx.restore();
+  const v=ctx.createRadialGradient(W/2,H*.45,320,W/2,H*.45,1250);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(10,6,2,.68)');ctx.fillStyle=v;ctx.fillRect(0,0,W,H);
+  const g=ctx.createLinearGradient(0,1050,0,H);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(.5,'rgba(0,0,0,.5)');g.addColorStop(1,'rgba(0,0,0,.6)');ctx.fillStyle=g;ctx.fillRect(0,1050,W,H-1050);
+  ctx.strokeStyle='rgba(229,181,71,.5)';ctx.lineWidth=3;ctx.strokeRect(34,34,W-68,H-68)}
+function particules(t){const r=rng(42);for(let i=0;i<40;i++){const x0=r()*W,y0=r()*H,v=15+r()*40,ph=r()*6.28,sz=1+r()*2.4;
+  const x=(x0+Math.sin(t*.5+ph)*30)%W,y=((y0-t*v)%H+H)%H;ctx.globalAlpha=.12+.3*Math.abs(Math.sin(t*1.3+ph));ctx.fillStyle=OR;ctx.beginPath();ctx.arc(x,y,sz,0,7);ctx.fill()}ctx.globalAlpha=1}
+
+// ---------- plans
+const P=[];const plan=(t0,f,o={})=>P.push({t0,f,...o});
+const CO=[.5,.5,.95];
+plan(0.0,(lt,u)=>{plein('c_corne',u,CO,[.5,.55,.7]);grosChiffre('130 M',lt,560,300,OR,'HABITANTS')});
+plan(1.1,(lt,u)=>{cadre('ov_addis-ababa-city_1',u,760);mot('HABITANTS',lt,300,130,OR);mention('ADDIS-ABEBA, ÉTHIOPIE',1180,OR)});
+plan(2.2,(lt,u)=>{plein('c_ethiopie',u,CO,[.5,.5,.7]);tampon('PAS UN\nSEUL PORT',lt-.1,W/2,960,RG,-.1)});
+plan(3.3,(lt,u)=>{plein('nasa_red-sea_3',u,[.5,.5,.95],[.55,.5,.7]);mention('LA MER ROUGE, SI PROCHE',300,OR)});
+plan(4.3,(lt,u)=>{fondRouge('ov_tigray-mountains_1');grosChiffre('NOV.',lt,760,300,OR,'2026')});
+plan(5.35,(lt,u,t)=>{fondDrapeau('nasa_ethiopia_2');drapeau('et',60,560,460,t);drapeau('er',560,560,460,t);mot('FACE À FACE',lt,300,120,OR)});
+plan(6.4,(lt,u)=>{cadre('ov_tigray-mountains_1',u,760);mot('TROUPES',lt,300,140,RG);mention('TIGRÉ, NORD DE L\'ÉTHIOPIE',1180,OR)});
+plan(7.3,(lt,u)=>{plein('c_badme',u,CO,[.4,.5,.7]);mot('BADME',lt,300,140,OR)});
+plan(8.6,(lt,u)=>{fondRouge('ov_tigray-mountains_2');grosChiffre('OCT.',lt,760,300,OR,'2026')});
+plan(9.8,(lt,u)=>{cadre('ov_asmara-eritrea_1',u,760);mot('PLUS\nAUCUNE',lt,300,120,RG);mention('ASMARA, ÉRYTHRÉE',1180,OR)});
+plan(10.8,(lt,u)=>{plein('c_erythree',u,CO,[.5,.5,.7]);tampon('RUPTURE\nDIPLOMATIQUE',lt-.1,W/2,960,RG,-.1)});
+plan(11.9,(lt,u)=>{cadre('ov_addis-ababa-city_3',u,760);mention('ADDIS-ABEBA',300,OR)});
+plan(12.6,(lt,u)=>{cadre('ov_container-ship-red-sea_2',u,760);mot('ÇA TE\nCONCERNE',lt,300,110,OR)});
+plan(13.6,(lt,u)=>{plein('nasa_red-sea_2',u,[.5,.5,.95],[.5,.5,.7]);mot('EN FACE',lt,300,130,OR)});
+plan(14.5,(lt,u)=>{plein('c_mer-rouge',u,CO,[.55,.6,.7]);mot('LA MER\nROUGE',lt,300,120,OR)});
+plan(15.5,(lt,u)=>{cadre('ov_port-of-djibouti-contain_1',u,760);mot('COMMERCE\nMONDIAL',lt,300,110,OR)});
+plan(16.6,(lt,u)=>{plein('nasa_red-sea_1',u,[.5,.5,.95],[.5,.5,.7]);mention('LA MER ROUGE VUE DE L\'ESPACE',300,OR)});
+plan(17.6,(lt,u)=>{plein('aic_ethiopia_1',u,[.5,.5,.9],[.5,.45,.7]);sepiaTon(.7);titre('Remontons\nle temps',lt,260,84)},{rewind:true});
+plan(18.7,(lt,u)=>{cadre('loc_abyssinia-soldiers_1',u,760);sepiaTon(.6);mention('ÉTHIOPIE, ANNÉES 1930',300,OR)});
+plan(19.5,(lt,u)=>{fondRouge('ov_massawa-port_2');grosChiffre('1890',lt,760,330,OR,'')});
+plan(20.9,(lt,u,t)=>{fondDrapeau('nasa_red-sea_3');drapeau('it',90,560,900,t);mot("L'ITALIE",lt,300,140,OR)});
+plan(21.9,(lt,u)=>{cadre('ov_massawa-port_2',u,760);sepiaTon(.5);mot('COLONIE\nITALIENNE',lt,300,110,OR);mention('MASSAOUA, ÉRYTHRÉE',1180,OR)});
+plan(22.9,(lt,u)=>{plein('c_erythree',u,[.5,.5,.7],[.5,.55,.55]);sepiaTon(.4);mot("L'ÉRYTHRÉE",lt,300,130,OR)});
+plan(23.9,(lt,u)=>{fondRouge('loc_united-nations-general-a_1');grosChiffre('1952',lt,760,330,OR,'')});
+plan(25.2,(lt,u)=>{cadre('loc_united-nations-general-a_1',u,760);sepiaTon(.5);mot("L'ONU",lt,300,140,OR);mention('SIÈGE DE L\'ONU, NEW YORK',1180,OR)});
+plan(26.0,(lt,u,t)=>{fondDrapeau('nasa_ethiopia_1');drapeau('un',90,560,900,t);mot('FÉDÈRE',lt,300,140,OR)});
+plan(26.9,(lt,u)=>{plein('cma_ethiopia_1',u,[.5,.5,.9],[.5,.4,.65]);sepiaTon(.5);mot("À L'ÉTHIOPIE",lt,300,110,OR)});
+plan(27.6,(lt,u)=>{fondRouge('loc_ethiopia_4');grosChiffre('1962',lt,760,330,OR,'')});
+plan(28.9,(lt,u)=>{cadre('loc_ethiopia_4',u,760);sepiaTon(.5);mot('HAILÉ\nSÉLASSIÉ',lt,300,110,OR);mention('L\'EMPEREUR À ADDIS-ABEBA',1180,OR)});
+plan(29.7,(lt,u)=>{cadre('wiki_haile-selassie_2',u,760);sepiaTon(.5);mot("L'ANNEXE",lt,300,140,RG)});
+plan(30.6,(lt,u)=>{plein('wiki_haile-selassie_1',u,[.5,.45,.9],[.5,.4,.65]);sepiaTon(.5);mention('HAILÉ SÉLASSIÉ, BUSTE DE J. EPSTEIN',300,OR)});
+plan(31.2,(lt,u)=>{fondRouge('ov_tigray-mountains_2');grosChiffre('30 ANS',lt,760,260,OR,'DE GUERRE')});
+plan(32.4,(lt,u)=>{cadre('loc_haile-selassie_3',u,760);sepiaTon(.5);mention('HAILÉ SÉLASSIÉ',300,OR)});
+plan(33.0,(lt,u)=>{fondRouge('ov_asmara-eritrea_1');grosChiffre('1993',lt,760,330,OR,'')});
+plan(34.6,(lt,u,t)=>{fondDrapeau('nasa_red-sea_2');drapeau('er',90,560,900,t);mot("L'ÉRYTHRÉE",lt,300,130,OR)});
+plan(35.4,(lt,u)=>{plein('c_afrique',u,[.5,.5,.8],[.62,.45,.4]);mot("L'INDÉPEN-\nDANCE",lt,300,110,OR)});
+plan(36.1,(lt,u)=>{fondRouge('nasa_horn-of-africa_2');grosChiffre('99,8 %',lt,760,250,OR,'DES VOIX')});
+plan(37.6,(lt,u)=>{cadre('ov_massawa-port_1',u,760);sepiaTon(.3);mention('MASSAOUA, PORT ÉRYTHRÉEN',300,OR)});
+plan(38.7,(lt,u)=>{plein('c_assab',u,CO,[.5,.5,.7]);mot("L'ÉTHIOPIE",lt,300,130,OR)});
+plan(39.5,(lt,u)=>{plein('c_ethiopie',u,[.5,.35,.7],[.5,.3,.5]);tampon('PERD\nSA CÔTE',lt-.1,W/2,960,RG,-.1)});
+plan(40.9,(lt,u)=>{fondRouge('nasa_ethiopia_3');grosChiffre('1998',lt,760,330,OR,'')});
+plan(42.3,(lt,u)=>{fondRouge('nasa_ethiopia_3');grosChiffre('2000',lt,760,330,OR,'')});
+plan(43.2,(lt,u)=>{cadre('wiki_eritreanethiopian-war_1',u,760);sepiaTon(.3);mot('GUERRE\nDE BADME',lt,300,110,RG)});
+plan(44.2,(lt,u)=>{plein('c_badme',u,[.4,.5,.7],[.4,.5,.5]);mot('DES DIZAINES\nDE MILLIERS',lt,300,100,RG)});
+plan(45.2,(lt,u)=>{fondRouge('nasa_ethiopia_1');tampon('DE MORTS',lt-.1,W/2,960,RG,-.1)});
+plan(46.4,(lt,u)=>{cadre('wiki_abiy-ahmed_2',u,760);mot('LA PAIX',lt,300,140,OR);mention('ABIY AHMED ET ISAIAS AFWERKI',1180,OR)});
+plan(47.2,(lt,u)=>{fondRouge('wiki_abiy-ahmed_2');grosChiffre('2018',lt,760,330,OR,'')});
+plan(48.6,(lt,u,t)=>{fondDrapeau('ov_addis-ababa-city_2');drapeau('et',90,560,900,t);mot('POUR\nADDIS-ABEBA',lt,300,110,OR)});
+plan(49.9,(lt,u)=>{cadre('ov_addis-ababa-djibouti-rai_1',u,760);mot("L'ACCÈS\nÀ LA MER",lt,300,110,OR)});
+plan(50.8,(lt,u)=>{plein('nasa_red-sea_1',u,[.5,.5,.8],[.45,.55,.6]);tampon('VITAL',lt-.1,W/2,960,OR,-.1)});
+plan(52.1,(lt,u,t)=>{fondDrapeau('nasa_horn-of-africa_2');drapeau('er',90,560,900,t);mot('POUR\nASMARA',lt,300,120,OR)});
+plan(53.2,(lt,u)=>{cadre('wiki_assab_1',u,760);mot('UN PRÉTEXTE',lt,300,120,RG);mention('ASSAB, ÉRYTHRÉE',1180,OR)});
+plan(54.3,(lt,u)=>{plein('c_assab',u,[.5,.5,.7],[.6,.55,.5]);mot("LE PORT\nD'ASSAB",lt,300,120,OR)});
+plan(55.3,(lt,u)=>{cadre('ov_assab-eritrea_1',u,760);mention('ASSAB, SUR LA MER ROUGE',300,OR)});
+plan(56.2,(lt,u,t)=>{fondDrapeau('ov_port-of-djibouti-contain_2');drapeau('dj',90,560,900,t);mot("AUJOURD'HUI",lt,300,120,OR)});
+plan(57.2,(lt,u)=>{fondRouge('ov_port-of-djibouti-contain_2');grosChiffre('+90 %',lt,760,260,OR,'DU COMMERCE')});
+plan(58.5,(lt,u)=>{cadre('ov_port-of-djibouti-contain_3',u,760);mot('ÉTHIOPIEN',lt,300,130,OR);mention('PORT DE DJIBOUTI',1180,OR)});
+plan(59.4,(lt,u)=>{plein('c_djibouti',u,CO,[.65,.4,.6]);mot('DJIBOUTI',lt,300,140,OR)});
+plan(60.4,(lt,u)=>{cadre('ov_addis-ababa-djibouti-rai_1',u,760);mention('LE RAIL ADDIS-ABEBA – DJIBOUTI',300,OR)});
+plan(61.2,(lt,u)=>{cadre('ov_ethiopia-trucks-road_1',u,760);mot('TOUJOURS',lt,300,130,OR)});
+plan(62.3,(lt,u)=>{plein('c_corne',u,[.5,.55,.7],CO);grosChiffre('130 M',lt,560,300,OR,'HABITANTS')});
+
+
+// ---------- sous-titres
+const CLES_OR=["ÉTHIOPIE", "LÉTHIOPIE", "ÉRYTHRÉE", "LÉRYTHRÉE", "BADME", "ROUGE", "MER", "1890", "1952", "1962", "1993", "1998", "2000", "2018", "130", "MILLIONS", "PORT", "ASSAB", "DASSAB", "DJIBOUTI", "ONU", "LONU", "OCTOBRE", "COMMERCE", "VITAL", "INDÉPENDANCE", "LINDÉPENDANCE", "PAIX", "90", "99,8"];
+const CLES_RG=["GUERRE", "MORTS", "LANNEXE", "ANNEXE", "TROUPES", "PRÉTEXTE", "PERD", "MASSENT", "AUCUNE"];
+const PUNCH=MOTS.filter(m=>{const u=m[2].toUpperCase();return CLES_RG.some(k=>u.includes(k))||CLES_OR.some(k=>u.includes(k))}).map(m=>m[0]);
+function punch(t){let z=0;for(const k of PUNCH)if(k<=t&&t-k<.3)z=Math.max(z,Math.exp(-(t-k)/.1));return 1+.045*z}
+function sousTitre(t){let m=null;for(const x of MOTS){if(t>=x[0]-.03&&t<x[1]+.12)m=x}if(!m)return;
+  const txt=m[2].toUpperCase().replace(/[.,:;?!](?!\d)/g,'').trim();const lt=t-m[0];const s=lerp(1.3,1,ease(lt/.08));
+  const cle=CLES_RG.some(k=>txt.includes(k))?RG:CLES_OR.some(k=>txt.includes(k))?OR:null;
+  ctx.save();ctx.translate(W/2,1320);ctx.scale(s,s);let taille=104;ctx.font=`${taille}px "Archivo Black"`;let w=ctx.measureText(txt).width;if(w>860){taille*=860/w;ctx.font=`${taille}px "Archivo Black"`;w=860}
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';ctx.lineWidth=16;ctx.strokeStyle='#000';ctx.strokeText(txt,0,0);ctx.fillStyle=cle||'#fff';ctx.fillText(txt,0,0);
+  if(cle){ctx.fillStyle=cle;ctx.fillRect(-w/2,taille*.52,w,10)}ctx.restore()}
+
+// ---------- transitions variées (2 à 4 images)
+function rendu(t){const pi=P.reduce((a,p,i)=>t>=p.t0?i:a,0),p=P[pi],lt=t-p.t0,fin=(P[pi+1]?P[pi+1].t0:DUREE),u=lt/(fin-p.t0);
+  const N=4,dt=t-p.t0,tr=pi>0&&dt<N/FPS?{type:(pi*7)%5,k:1-dt/(N/FPS)}:null;
+  ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.filter='none';ctx.globalAlpha=1;ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);
+  const z=punch(t);ctx.translate(W/2,H/2);ctx.scale(z,z);
+  if(tr&&tr.type==0){const s=1+tr.k*.45;ctx.scale(s,s);ctx.filter=`blur(${tr.k*8}px)`}
+  if(tr&&tr.type==1){ctx.translate(-tr.k*W*.35,0);ctx.filter=`blur(${tr.k*16}px)`}
+  if(tr&&tr.type==4){ctx.translate(tr.k*W*.25,0);ctx.rotate(tr.k*.04)}
+  ctx.translate(-W/2,-H/2);p.f(lt,u,t);ctx.restore();
+  if(tr&&tr.type==2){ctx.fillStyle=`rgba(255,235,190,${tr.k*.75})`;ctx.fillRect(0,0,W,H)}
+  if(tr&&tr.type==3){ctx.fillStyle=`rgba(0,0,0,${tr.k*.85})`;ctx.fillRect(0,0,W,H)}
+  if(p.rewind)rewind(lt);
+  particules(t);finition(t);sousTitre(t)}
+window.PRET=(async()=>{await Promise.all(FICHIERS.map(charger));for(const f of ['300px "Abril Fatface"','100px "Archivo Black"','92px "DM Serif Display"','26px "Space Mono"','bold 60px "Space Mono"'])await document.fonts.load(f,'ÉÀ0123');await document.fonts.ready;rendu(0);return true})();
+window.seek=async t=>{await window.PRET;rendu(Math.min(t,DUREE-1/FPS))};
+</script></body></html>

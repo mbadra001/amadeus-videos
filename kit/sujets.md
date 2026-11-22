@@ -26,3 +26,4 @@ C'est la seule source pour choisir un sujet (voir kit/TACHE.md, étape b). Ce fi
 | 015 | S065 | Myanmar : 100 000 morts, l'armée toujours au pouvoir | 2026-11-19 |
 | 016 | S067 | Essequibo : deux tiers du Guyana réclamés par le Venezuela | 2026-11-20 |
 | 017 | S023 | Crimée : 1954, le cadeau de Khrouchtchev | 2026-11-21 |
+| 018 | S070 | Éthiopie : 130 millions d'habitants, pas un seul port | 2026-11-22 |
