@@ -28,3 +28,4 @@ C'est la seule source pour choisir un sujet (voir kit/TACHE.md, étape b). Ce fi
 | 017 | S023 | Crimée : 1954, le cadeau de Khrouchtchev | 2026-11-21 |
 | 018 | S070 | Éthiopie : 130 millions d'habitants, pas un seul port | 2026-11-22 |
 | 019 | S052 | ONU : cinq pays, un droit de veto | 2026-11-23 |
+| 020 | S060 | Libye : sept drones, un pays coupé en deux | 2026-11-24 |
