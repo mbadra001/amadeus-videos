@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<title>Îles Salomon : la Chine, l'Australie et le Pacifique</title>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Archivo+Black&family=DM+Serif+Display&family=Space+Mono:wght@400;700&display=block" rel="stylesheet">
+<style>html,body{margin:0;background:#0E0D0C;overflow:hidden}canvas{display:block}</style>
+</head><body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+const W=1080,H=1920,FPS=30;
+const OR='#E5B547',ORF='#A07828',CR='#F0E8D6',RG='#D62C30',GR='#78746C';
+window.DUREE=63.41;
+const MOTS=[[0.1, 0.35, "Moins"], [0.362, 0.462, "de"], [0.475, 1.437, "900 000 habitants"], [2.312, 2.462, "Et"], [2.475, 2.625, "deux"], [2.637, 3.112, "puissances"], [3.125, 3.237, "se"], [3.25, 3.312, "les"], [3.325, 4.0, "disputent"], [4.875, 5.075, "Le"], [5.087, 5.937, "25 novembre"], [6.275, 6.375, "les"], [6.387, 6.562, "îles"], [6.575, 6.95, "Salomon"], [6.962, 7.225, "signent"], [7.237, 7.287, "un"], [7.3, 7.65, "traité"], [7.662, 7.862, "avec"], [7.875, 8.45, "l'Australie"], [9.325, 9.7, "Aucune"], [9.712, 9.937, "base"], [9.95, 10.387, "militaire"], [10.4, 11.1, "étrangère"], [11.975, 12.1, "Et"], [12.112, 12.237, "le"], [12.25, 12.537, "pacte"], [12.55, 12.862, "chinois"], [12.875, 12.987, "ne"], [13.0, 13.25, "serait"], [13.262, 13.4, "pas"], [13.412, 14.0, "renouvelé"], [14.862, 15.1, "Ça"], [15.112, 15.225, "te"], [15.237, 15.787, "concerne"], [16.037, 16.187, "ces"], [16.2, 16.387, "îles"], [16.4, 16.65, "bordent"], [16.662, 16.75, "la"], [16.762, 16.987, "route"], [17.0, 17.362, "Amérique"], [17.45, 17.962, "Australie"], [18.825, 19.362, "Remontons"], [19.375, 19.487, "le"], [19.5, 19.762, "temps"], [20.637, 21.725, "1942"], [21.925, 22.625, "Guadalcanal"], [22.962, 23.475, "Américains"], [23.487, 23.787, "contre"], [23.8, 24.35, "Japonais"], [25.212, 26.55, "1978"], [26.762, 27.65, "indépendance"], [28.525, 29.225, "2003"], [29.437, 29.7, "après"], [29.712, 29.987, "cinq"], [30.0, 30.062, "ans"], [30.075, 30.187, "de"], [30.2, 30.775, "violences"], [31.087, 31.512, "Canberra"], [31.525, 31.762, "envoie"], [31.775, 31.875, "des"], [31.887, 32.375, "soldats"], [33.237, 34.175, "2019"], [34.375, 34.475, "les"], [34.487, 34.85, "Salomon"], [34.862, 35.062, "lâchent"], [35.075, 35.475, "Taïwan"], [35.487, 35.675, "pour"], [35.687, 36.137, "Pékin"], [37.012, 37.887, "2021"], [38.125, 38.512, "émeutes"], [38.837, 38.962, "le"], [38.975, 39.362, "quartier"], [39.375, 39.7, "chinois"], [39.712, 39.812, "de"], [39.825, 40.137, "Honiara"], [40.15, 40.575, "brûle"], [41.437, 42.3, "2022"], [42.512, 42.825, "pacte"], [42.837, 43.162, "secret"], [43.175, 43.4, "avec"], [43.412, 43.537, "la"], [43.55, 43.987, "Chine"], [44.85, 45.325, "Canberra"], [45.337, 45.562, "craint"], [45.575, 45.687, "une"], [45.7, 45.9, "base"], [45.912, 46.525, "chinoise"], [47.387, 47.725, "Pékin"], [47.737, 48.012, "promet"], [48.025, 48.15, "une"], [48.162, 48.787, "coopération"], [48.8, 49.125, "d'égal"], [49.137, 49.187, "à"], [49.2, 49.687, "égal"], [50.562, 51.262, "L'opposition"], [51.275, 51.662, "dénonce"], [51.675, 51.787, "la"], [51.8, 52.387, "diplomatie"], [52.4, 52.512, "du"], [52.525, 53.062, "chéquier"], [53.925, 54.35, "Honiara"], [54.362, 54.737, "refuse"], [54.75, 54.875, "de"], [54.887, 55.312, "dépendre"], [55.325, 55.462, "d'un"], [55.475, 55.7, "seul"], [55.712, 56.125, "pays"], [56.987, 57.212, "Le"], [57.225, 57.512, "pacte"], [57.525, 57.85, "chinois"], [57.862, 58.212, "expire"], [58.225, 58.275, "en"], [58.287, 58.837, "avril"], [59.7, 59.912, "Le"], [59.925, 60.437, "Pacifique"], [60.45, 60.737, "reste"], [60.75, 61.325, "disputé"], [61.625, 61.787, "pour"], [61.8, 61.962, "moins"], [61.975, 62.062, "de"], [62.075, 63.012, "900 000 habitants"]];
+const ctx=document.getElementById('c').getContext('2d');
+const IMG={};
+const FICHIERS=["c_canberra_honiara.png", "c_chine_taiwan.png", "c_guadalcanal.png", "c_japon_salomon.png", "c_pacifique.png", "c_pacifique_sud.png", "c_route.png", "c_salomon.png", "drapeau_au.svg", "drapeau_cn.svg", "drapeau_jp.svg", "drapeau_sb.svg", "drapeau_tw.svg", "drapeau_us.svg", "loc_guadalcanal_1.jpg", "loc_guadalcanal_2.jpg", "loc_guadalcanal_3.jpg", "nasa_australia_1.jpg", "nasa_australia_2.jpg", "nasa_pacific-ocean-islands_1.jpg", "nasa_pacific-ocean-islands_2.jpg", "nasa_solomon-islands_1.jpg", "nasa_solomon-islands_2.jpg", "nasa_solomon-islands_3.jpg", "ov_australian-dollar-bankno_1.jpg", "ov_australian-federal-polic_1.jpg", "ov_australian-federal-polic_2.jpg", "ov_beijing-tiananmen_1.jpg", "ov_beijing-tiananmen_2.jpg", "ov_chinese-police-officers_1.jpg", "ov_container-ship-pacific_1.jpg", "ov_honiara-solomon-islands_1.jpg", "ov_honiara-solomon-islands_2.jpg", "ov_honiara-solomon-islands_3.jpg", "ov_parliament-house-canberr_1.jpg", "ov_parliament-house-canberr_2.jpg", "ov_solomon-islands-parliame_1.jpg", "ov_solomon-islands-village_1.jpg", "ov_solomon-islands-village_2.jpg", "ov_taipei-101_1.jpg", "ov_taipei-101_2.jpg", "toile.png", "wiki_guadalcanal-campaign_2.jpg", "wiki_honiara_1.jpg", "wiki_honiara_2.jpg", "wiki_regional-assistance-miss_1.jpg", "wiki_regional-assistance-miss_2.jpg", "wiki_solomon-islands_1.jpg", "wiki_solomon-islands_2.jpg"];
+function charger(f){return new Promise(r=>{const i=new Image();i.onload=()=>{let o=i;if(f.endsWith('.svg')){o=document.createElement('canvas');o.width=1280;o.height=960;o.getContext('2d').drawImage(i,0,0,1280,960)}IMG[f.split('.')[0]]=o;r()};i.onerror=()=>{console.error('image '+f);r()};i.src='medias/'+f})}
+function rng(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296}}
+const ease=x=>x<0?0:x>1?1:1-Math.pow(1-x,3), easeIO=x=>x<0?0:x>1?1:x*x*(3-2*x);
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)), lerp=(a,b,x)=>a+(b-a)*x;
+function zoomFlou(lt,f,cy=860){const a=ease(lt/.35);ctx.save();ctx.globalAlpha=a;const s=lerp(1.3,1,a);ctx.translate(W/2,cy);ctx.scale(s,s);ctx.translate(-W/2,-cy);ctx.filter=`blur(${(1-a)*9}px)`;f();ctx.restore()}
+function tremble(lt){const k=Math.exp(-lt/.18);return [Math.sin(lt*90)*22*k,Math.cos(lt*77)*16*k]}
+function flash(lt){const a=Math.exp(-lt/.07)*.7;if(a>.01){ctx.fillStyle=`rgba(255,240,210,${a})`;ctx.fillRect(0,0,W,H)}}
+function grosChiffre(txt,lt,y=760,taille=300,coul=OR,sous=null){if(lt<0)return;const [dx,dy]=tremble(lt);zoomFlou(lt,()=>{ctx.save();ctx.translate(dx,dy);
+  ctx.font=`${taille}px "Abril Fatface"`;const w=ctx.measureText(txt).width;if(w>W-140){taille*=(W-140)/w;ctx.font=`${taille}px "Abril Fatface"`}
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';ctx.lineWidth=14;ctx.strokeStyle='rgba(20,10,4,.85)';ctx.strokeText(txt,W/2,y);ctx.shadowColor=coul;ctx.shadowBlur=35;ctx.fillStyle=coul;ctx.fillText(txt,W/2,y);ctx.shadowBlur=0;
+  if(sous){ctx.font='52px "Archivo Black"';ctx.lineWidth=10;ctx.strokeText(sous,W/2,y+taille*.62);ctx.fillStyle=CR;ctx.fillText(sous,W/2,y+taille*.62)}ctx.restore()},y);flash(lt)}
+function titre(txt,lt,y=330,taille=92){if(lt<0)return;zoomFlou(lt,()=>{ctx.font=`${taille}px "DM Serif Display"`;ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=12;ctx.strokeStyle='rgba(20,10,4,.8)';
+  txt.split('\n').forEach((l,i)=>{ctx.strokeText(l,W/2,y+i*taille*1.1);ctx.fillStyle=OR;ctx.shadowColor='rgba(229,181,71,.5)';ctx.shadowBlur=20;ctx.fillText(l,W/2,y+i*taille*1.1);ctx.shadowBlur=0});ctx.textAlign='left'},y)}
+function mot(txt,lt,y,taille=96,coul=CR){if(lt<0)return;zoomFlou(lt,()=>{ctx.font=`${taille}px "Archivo Black"`;ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=14;ctx.strokeStyle='rgba(15,8,3,.9)';
+  txt.split('\n').forEach((l,i)=>{ctx.strokeText(l,W/2,y+i*taille*1.05);ctx.fillStyle=coul;ctx.fillText(l,W/2,y+i*taille*1.05)});ctx.textAlign='left'},y)}
+function tampon(txt,lt,x,y,coul=RG,rot=-.18){if(lt<0)return;const a=ease(lt/.18);ctx.save();ctx.translate(x,y);ctx.rotate(rot);const s=lerp(2.4,1,a);ctx.scale(s,s);ctx.globalAlpha=a*.92;
+  ctx.font='92px "Archivo Black"';const w=ctx.measureText(txt).width+60;ctx.strokeStyle=coul;ctx.lineWidth=10;ctx.strokeRect(-w/2,-68,w,136);ctx.lineWidth=3;ctx.strokeRect(-w/2+14,-54,w-28,108);
+  ctx.fillStyle=coul;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(txt,0,6);ctx.restore()}
+function mention(txt,y,coul=CR){ctx.font='bold 32px "Space Mono"';ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=8;ctx.strokeStyle='rgba(10,6,2,.9)';ctx.strokeText(txt,W/2,y);ctx.fillStyle=coul;ctx.fillText(txt,W/2,y);ctx.textAlign='left'}
+function avion(x,y,s,rot=0){ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.scale(s,s);ctx.fillStyle='#1a120a';ctx.shadowColor=OR;ctx.shadowBlur=25;ctx.beginPath();ctx.moveTo(-90,-8);ctx.lineTo(80,-8);ctx.quadraticCurveTo(100,0,80,8);ctx.lineTo(-90,8);ctx.closePath();ctx.fill();
+  ctx.beginPath();ctx.moveTo(-10,-6);ctx.lineTo(-40,-75);ctx.lineTo(-20,-75);ctx.lineTo(25,-6);ctx.fill();ctx.beginPath();ctx.moveTo(-10,6);ctx.lineTo(-40,75);ctx.lineTo(-20,75);ctx.lineTo(25,6);ctx.fill();
+  ctx.beginPath();ctx.moveTo(-85,-6);ctx.lineTo(-100,-35);ctx.lineTo(-88,-35);ctx.lineTo(-70,-6);ctx.fill();ctx.restore()}
+function missile(x0,y0,x1,y1,lt,d=.7){if(lt<0)return false;const a=clamp(lt/d,0,1);ctx.save();ctx.strokeStyle=CR;ctx.lineWidth=6;ctx.shadowColor='#fff';ctx.shadowBlur=30;ctx.beginPath();
+  for(let i=0;i<=20;i++){const b=a*i/20;ctx.lineTo(lerp(x0,x1,b),lerp(y0,y1,b)-Math.sin(b*Math.PI)*160)}ctx.stroke();ctx.restore();return a>=1}
+function eclat(x,y,lt){if(lt<0||lt>.8)return;const r=lerp(20,240,ease(lt/.5)),a=1-lt/.8;const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(255,250,220,${a})`);g.addColorStop(.4,`rgba(229,181,71,${a*.8})`);g.addColorStop(1,'rgba(214,44,48,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill()}
+function sepia(a){if(a<=0)return;ctx.save();ctx.globalCompositeOperation='color';ctx.globalAlpha=a;ctx.fillStyle='#8a6a3a';ctx.fillRect(0,0,W,H);ctx.restore()}
+
+
+// ---------- visuels
+// img(nom) : image chargée depuis medias/ (nom de fichier sans extension) ; repli sur la première image si absente
+function img(nom){if(IMG[nom])return IMG[nom];if(nom)console.error('image absente : '+nom);return Object.entries(IMG).find(([k])=>k!='toile'&&!k.startsWith('drapeau_'))[1]}
+// plein écran recadré (images verticales, carrées, cartes) avec poussée nette
+function plein(nom,u,c0=[.5,.5,1],c1=null){const im=img(nom);c1=c1||[c0[0],c0[1],c0[2]*.82];const k=easeIO(u);
+  let hh=lerp(c0[2],c1[2],k)*im.height,ww=hh*W/H;if(ww>im.width){ww=im.width;hh=ww*H/W}
+  const cx=lerp(c0[0],c1[0],k)*im.width,cy=lerp(c0[1],c1[1],k)*im.height;ctx.drawImage(im,clamp(cx-ww/2,0,im.width-ww),clamp(cy-hh/2,0,im.height-hh),ww,hh,0,0,W,H)}
+// tableau encadré : image paysage entière dans un cadre doré, fond = même image floutée
+function cadre(nom,u,y=760,derive=1){const im=img(nom);
+  ctx.save();ctx.filter='blur(26px) brightness(.38) sepia(.35)';const hh=im.height,ww=hh*W/H;ctx.drawImage(im,(im.width-ww)/2,0,ww,hh,-60,-60,W+120,H+120);ctx.restore();
+  const s=lerp(1,1.09,easeIO(u)),k=Math.min(980/im.width,1120/im.height),w=im.width*k*s,h=im.height*k*s,x=W/2-w/2+derive*lerp(-12,12,u),yy=y-h/2;
+  ctx.save();ctx.shadowColor='rgba(0,0,0,.8)';ctx.shadowBlur=50;ctx.fillStyle='#000';ctx.fillRect(x-26,yy-26,w+52,h+52);ctx.restore();
+  const g=ctx.createLinearGradient(x-26,yy-26,x+w+26,yy+h+26);g.addColorStop(0,'#7a5a1c');g.addColorStop(.3,'#e8c66a');g.addColorStop(.55,'#8f6a22');g.addColorStop(.8,'#f0d27a');g.addColorStop(1,'#6b4c15');
+  ctx.fillStyle=g;ctx.fillRect(x-26,yy-26,w+52,h+52);ctx.strokeStyle='#3a2a0a';ctx.lineWidth=3;ctx.strokeRect(x-26,yy-26,w+52,h+52);ctx.strokeRect(x-8,yy-8,w+16,h+16);
+  ctx.drawImage(im,x,yy,w,h)}
+// drapeau qui flotte (SVG officiel flag-icons)
+function drapeau(code,x,y,w,t){const im=img('drapeau_'+code),h=w*.75,n=48;
+  for(let i=0;i<n;i++){const v=i/n,dy=Math.sin(v*6-t*5)*16*v,sh=.13*Math.cos(v*6-t*5)*v;ctx.drawImage(im,v*im.width,0,im.width/n+1,im.height,x+v*w,y+dy,w/n+1,h);
+    ctx.fillStyle=sh>0?`rgba(0,0,0,${sh*1.5})`:`rgba(255,240,200,${-sh})`;ctx.fillRect(x+v*w,y+dy,w/n+1,h)}
+  ctx.save();ctx.globalCompositeOperation='overlay';ctx.globalAlpha=.35;ctx.drawImage(IMG.toile,x,y,w,h);ctx.restore()}
+function fondDrapeau(nom){ctx.save();ctx.filter='blur(30px) brightness(.3) sepia(.5)';const im=img(nom);ctx.drawImage(im,0,0,im.width,im.height,-100,-100,W+200,H+200);ctx.restore()}
+function fondRouge(nom){ctx.save();ctx.filter='blur(22px) brightness(.5) sepia(.6)';const im=img(nom);ctx.drawImage(im,0,0,im.width,im.height,-80,-80,W+160,H+160);ctx.restore();
+  ctx.save();ctx.globalCompositeOperation='multiply';const g=ctx.createLinearGradient(0,0,W*.3,H);g.addColorStop(0,'#9a1a20');g.addColorStop(1,'#3a070b');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.restore()}
+function sepiaTon(a){if(a<=0)return;ctx.save();ctx.globalCompositeOperation='color';ctx.globalAlpha=a;ctx.fillStyle='#8a6a3a';ctx.fillRect(0,0,W,H);ctx.restore()}
+function rewind(lt){const a=clamp(1-lt/.6,0,1);if(a<=0)return;const r=rng(Math.floor(lt*FPS)+1);
+  for(let b=0;b<12;b++){const y=Math.floor(r()*H),h=10+Math.floor(r()*50),dx=Math.floor((r()-.5)*150*a);ctx.drawImage(ctx.canvas,0,y,W,h,dx,y,W,h)}
+  for(let y=0;y<H;y+=6){ctx.fillStyle=`rgba(0,0,0,${.16*a})`;ctx.fillRect(0,y,W,2)}ctx.font='bold 60px "Space Mono"';ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.fillText('◀◀ REWIND',90,400)}
+function finition(t){ctx.save();ctx.globalCompositeOperation='overlay';ctx.globalAlpha=.28;ctx.drawImage(IMG.toile,0,0);ctx.restore();
+  const v=ctx.createRadialGradient(W/2,H*.45,320,W/2,H*.45,1250);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(10,6,2,.68)');ctx.fillStyle=v;ctx.fillRect(0,0,W,H);
+  const g=ctx.createLinearGradient(0,1050,0,H);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(.5,'rgba(0,0,0,.5)');g.addColorStop(1,'rgba(0,0,0,.6)');ctx.fillStyle=g;ctx.fillRect(0,1050,W,H-1050);
+  ctx.strokeStyle='rgba(229,181,71,.5)';ctx.lineWidth=3;ctx.strokeRect(34,34,W-68,H-68)}
+function particules(t){const r=rng(42);for(let i=0;i<40;i++){const x0=r()*W,y0=r()*H,v=15+r()*40,ph=r()*6.28,sz=1+r()*2.4;
+  const x=(x0+Math.sin(t*.5+ph)*30)%W,y=((y0-t*v)%H+H)%H;ctx.globalAlpha=.12+.3*Math.abs(Math.sin(t*1.3+ph));ctx.fillStyle=OR;ctx.beginPath();ctx.arc(x,y,sz,0,7);ctx.fill()}ctx.globalAlpha=1}
+
+// ---------- plans
+const P=[];const plan=(t0,f,o={})=>P.push({t0,f,...o});
+const CO=[.5,.5,.95];
+plan(0.0,(lt,u)=>{plein('c_salomon',u,CO,[.55,.52,.7]);grosChiffre('< 900 000',lt,620,200,OR,'HABITANTS')});
+plan(1.1,(lt,u)=>{plein('nasa_solomon-islands_2',u,CO,[.5,.5,.75]);mention('ÎLES SALOMON VUES DE L\'ESPACE',1180,OR)});
+plan(2.3,(lt,u)=>{plein('c_pacifique',u,CO,[.6,.55,.7]);mot('DEUX\nPUISSANCES',lt,300,120,RG)});
+plan(3.4,(lt,u,t)=>{fondDrapeau('ov_beijing-tiananmen_2');drapeau('cn',90,330,900,t);drapeau('au',90,1010,900,t+1.3);mot('VS',lt,920,90,OR)});
+plan(4.85,(lt,u)=>{fondRouge('ov_parliament-house-canberr_1');grosChiffre('25 NOV.',lt,760,240,OR,'2026')});
+plan(6.0,(lt,u)=>{cadre('ov_parliament-house-canberr_1',u,760);mot('CANBERRA',lt,300,140,OR);mention('PARLEMENT AUSTRALIEN, CANBERRA',1180,OR)});
+plan(7.0,(lt,u,t)=>{fondDrapeau('ov_solomon-islands-village_1');drapeau('sb',90,560,900,t);mot('ÎLES SALOMON',lt,300,120,OR)});
+plan(8.0,(lt,u)=>{plein('c_canberra_honiara',u,CO,[.5,.45,.7]);tampon('TRAITÉ',lt-.1,W/2,1000,RG,-.1)});
+plan(9.3,(lt,u)=>{cadre('ov_solomon-islands-parliame_1',u,760);mot('AUCUNE\nBASE',lt,300,130,RG);mention('PARLEMENT, HONIARA',1180,OR)});
+plan(10.4,(lt,u)=>{plein('nasa_solomon-islands_2',u,[.4,.5,.8],[.45,.55,.6]);tampon('ÉTRANGÈRE',lt-.1,W/2,1000,RG,-.1)});
+plan(11.95,(lt,u,t)=>{fondDrapeau('ov_beijing-tiananmen_1');drapeau('cn',90,560,900,t);mot('PACTE\nCHINOIS',lt,300,130,OR)});
+plan(13.0,(lt,u)=>{cadre('ov_beijing-tiananmen_1',u,760);tampon('NON RENOUVELÉ',lt-.2,W/2,1000,RG,-.12);mention('PLACE TIAN\'ANMEN, PÉKIN',1180,OR)});
+plan(14.85,(lt,u)=>{cadre('ov_container-ship-pacific_1',u,760);mot('ÇA TE\nCONCERNE',lt,300,110,OR)});
+plan(16.0,(lt,u)=>{plein('c_route',u,CO,[.6,.45,.7]);mot('LA ROUTE',lt,300,130,OR)});
+plan(17.0,(lt,u,t)=>{fondDrapeau('nasa_pacific-ocean-islands_1');drapeau('us',90,330,900,t);drapeau('au',90,1010,900,t+1.3);mention('AMÉRIQUE — AUSTRALIE',1180,OR)});
+plan(18.8,(lt,u)=>{cadre('loc_guadalcanal_1',u,760);sepiaTon(.7);titre('Remontons\nle temps',lt,260,84)},{rewind:true});
+plan(19.7,(lt,u)=>{plein('c_japon_salomon',u,CO,[.5,.6,.7]);sepiaTon(.5)});
+plan(20.6,(lt,u)=>{fondRouge('wiki_honiara_1');grosChiffre('1942',lt,760,330,OR,'')});
+plan(21.85,(lt,u)=>{cadre('wiki_honiara_1',u,760);sepiaTon(.4);mot('GUADALCANAL',lt,300,120,OR);mention('HENDERSON FIELD, GUADALCANAL, AOÛT 1942',1180,OR)});
+plan(22.95,(lt,u)=>{cadre('loc_guadalcanal_3',u,760);sepiaTon(.4);mot('AMÉRICAINS',lt,300,120,OR);mention('MARINES AMÉRICAINS, GUADALCANAL',1180,OR)});
+plan(23.75,(lt,u,t)=>{fondDrapeau('wiki_guadalcanal-campaign_2');drapeau('jp',90,560,900,t);sepiaTon(.3);mot('JAPONAIS',lt,300,130,RG)});
+plan(24.4,(lt,u)=>{cadre('wiki_guadalcanal-campaign_2',u,760);sepiaTon(.4);mention('PORTE-AVIONS USS WASP, SEPT. 1942',1180,OR)});
+plan(25.2,(lt,u)=>{fondRouge('loc_guadalcanal_2');grosChiffre('1978',lt,760,330,OR,'')});
+plan(26.3,(lt,u)=>{cadre('loc_guadalcanal_2',u,760);sepiaTon(.4);mention('GUADALCANAL, DESSIN DE 1943',1180,OR)});
+plan(26.75,(lt,u,t)=>{fondDrapeau('wiki_solomon-islands_2');drapeau('sb',90,560,900,t);sepiaTon(.2);mot('INDÉPENDANCE',lt,300,110,OR)});
+plan(27.7,(lt,u)=>{plein('wiki_solomon-islands_1',u,CO,[.5,.5,.75]);sepiaTon(.3);mention('FLÛTE DE PAN DES ÎLES SALOMON',1180,OR)});
+plan(28.5,(lt,u)=>{fondRouge('wiki_regional-assistance-miss_1');grosChiffre('2003',lt,760,330,OR,'')});
+plan(29.4,(lt,u)=>{plein('c_guadalcanal',u,CO,[.5,.5,.7]);sepiaTon(.3);mot('5 ANS DE\nVIOLENCES',lt,300,110,RG)});
+plan(30.3,(lt,u)=>{cadre('ov_honiara-solomon-islands_2',u,760);sepiaTon(.3);mention('HONIARA',1180,OR)});
+plan(31.05,(lt,u)=>{cadre('wiki_regional-assistance-miss_1',u,760);sepiaTon(.3);mot('CANBERRA',lt,300,130,OR);mention('MISSION RAMSI',1180,OR)});
+plan(31.9,(lt,u)=>{cadre('wiki_regional-assistance-miss_2',u,760);sepiaTon(.3);mention('RAMSI : ARMES DÉTRUITES, 2003',1180,OR)});
+plan(32.6,(lt,u)=>{cadre('ov_australian-federal-polic_1',u,760);sepiaTon(.3);mention('PATROUILLE RAMSI, HONIARA',1180,OR)});
+plan(33.2,(lt,u)=>{fondRouge('ov_taipei-101_2');grosChiffre('2019',lt,760,330,OR,'')});
+plan(34.3,(lt,u)=>{cadre('ov_taipei-101_2',u,760);sepiaTon(.2);mention('TAIPEI 101, TAÏWAN',1180,OR)});
+plan(34.8,(lt,u,t)=>{fondDrapeau('ov_taipei-101_1');drapeau('tw',90,560,900,t);tampon('LÂCHÉ',lt-.1,W/2,1000,RG,-.1)});
+plan(35.65,(lt,u)=>{plein('c_chine_taiwan',u,CO,[.4,.4,.7]);mot('PÉKIN',lt,300,140,OR)});
+plan(37.0,(lt,u)=>{fondRouge('ov_honiara-solomon-islands_2');grosChiffre('2021',lt,760,330,OR,'')});
+plan(38.1,(lt,u)=>{plein('ov_honiara-solomon-islands_2',u,CO,[.5,.5,.75]);tampon('ÉMEUTES',lt-.1,W/2,1000,RG,-.1)});
+plan(38.95,(lt,u)=>{cadre('ov_honiara-solomon-islands_3',u,760);mot('QUARTIER\nCHINOIS',lt,300,120,OR);mention('HONIARA',1180,OR)});
+plan(39.8,(lt,u)=>{plein('c_guadalcanal',u,[.5,.4,.6],[.5,.4,.45]);mot('BRÛLE',lt,300,140,RG)});
+plan(41.4,(lt,u)=>{fondRouge('ov_chinese-police-officers_1');grosChiffre('2022',lt,760,330,OR,'')});
+plan(42.5,(lt,u)=>{plein('ov_chinese-police-officers_1',u,CO,[.5,.45,.75]);tampon('SECRET',lt-.1,W/2,1000,RG,-.1)});
+plan(43.4,(lt,u)=>{plein('c_pacifique',u,[.6,.45,.7],[.7,.6,.5]);mot('AVEC LA\nCHINE',lt,300,120,OR)});
+plan(44.8,(lt,u,t)=>{fondDrapeau('ov_parliament-house-canberr_2');drapeau('au',90,560,900,t);mot('CANBERRA',lt,300,140,OR)});
+plan(45.8,(lt,u)=>{cadre('ov_parliament-house-canberr_2',u,760);mot('BASE\nCHINOISE ?',lt,300,120,RG);mention('CANBERRA, CARTE POSTALE',1180,OR)});
+plan(47.35,(lt,u)=>{cadre('ov_beijing-tiananmen_2',u,760);mot('PÉKIN',lt,300,140,OR);mention('GRAND PALAIS DU PEUPLE, PÉKIN',1180,OR)});
+plan(48.4,(lt,u)=>{plein('nasa_solomon-islands_3',u,CO,[.5,.5,.75]);mot("D'ÉGAL\nÀ ÉGAL",lt,300,120,OR)});
+plan(49.4,(lt,u)=>{plein('nasa_australia_2',u,CO,[.5,.5,.75]);mention('AUSTRALIE VUE DE L\'ESPACE',1180,OR)});
+plan(50.5,(lt,u)=>{cadre('ov_solomon-islands-parliame_1',u,760);mot("L'OPPOSITION",lt,300,110,OR)});
+plan(51.75,(lt,u)=>{plein('ov_australian-dollar-bankno_1',u,CO,[.5,.5,.75]);tampon('CHÉQUIER',lt-.1,W/2,1000,RG,-.1)});
+plan(52.8,(lt,u)=>{fondRouge('ov_australian-dollar-bankno_1');grosChiffre('$',lt,760,330,OR,'DIPLOMATIE DU CHÉQUIER')});
+plan(53.9,(lt,u)=>{cadre('ov_honiara-solomon-islands_1',u,760);mot('HONIARA',lt,300,140,OR);mention('PARLEMENT NATIONAL, HONIARA',1180,OR)});
+plan(54.9,(lt,u)=>{cadre('ov_solomon-islands-village_2',u,760);mention('ÎLES SALOMON',1180,OR)});
+plan(55.7,(lt,u)=>{plein('c_pacifique_sud',u,CO,[.4,.5,.7]);mot("UN SEUL\nPAYS ?",lt,300,120,RG)});
+plan(56.95,(lt,u)=>{cadre('ov_australian-federal-polic_2',u,760);mot('PACTE\nCHINOIS',lt,300,120,OR);mention('MISSION RAMSI (ARCHIVE)',1180,OR)});
+plan(58.0,(lt,u)=>{fondRouge('nasa_solomon-islands_1');grosChiffre('AVRIL',lt,760,260,OR,'2027')});
+plan(59.0,(lt,u)=>{plein('ov_solomon-islands-village_1',u,CO,[.5,.5,.75]);tampon('EXPIRE',lt-.1,W/2,1000,RG,-.1)});
+plan(59.7,(lt,u)=>{plein('nasa_solomon-islands_1',u,CO,[.5,.5,.75]);mot('PACIFIQUE',lt,300,130,OR);mention('MER DES SALOMON, APOLLO 7',1180,OR)});
+plan(60.6,(lt,u)=>{plein('nasa_pacific-ocean-islands_1',u,CO,[.5,.5,.75]);tampon('DISPUTÉ',lt-.1,W/2,1000,RG,-.1)});
+plan(61.55,(lt,u)=>{plein('wiki_solomon-islands_2',u,CO,[.5,.5,.8])});
+plan(62.3,(lt,u)=>{plein('c_salomon',u,[.55,.52,.8],CO);grosChiffre('< 900 000',lt,620,200,OR,'HABITANTS')});
+
+
+// ---------- sous-titres
+const CLES_OR=["900", "000", "SALOMON", "ÎLES", "LAUSTRALIE", "AUSTRALIE", "CANBERRA", "PÉKIN", "CHINOIS", "CHINE", "CHINOISE", "TAÏWAN", "HONIARA", "GUADALCANAL", "1942", "1978", "2003", "2019", "2021", "2022", "25", "NOVEMBRE", "INDÉPENDANCE", "AMÉRIQUE", "PACIFIQUE", "AVRIL", "TRAITÉ", "DÉGAL", "ÉGAL", "HABITANTS"];
+const CLES_RG=["PUISSANCES", "DISPUTENT", "AUCUNE", "BASE", "ÉTRANGÈRE", "VIOLENCES", "SOLDATS", "ÉMEUTES", "BRÛLE", "SECRET", "CRAINT", "DÉNONCE", "CHÉQUIER", "EXPIRE", "DISPUTÉ", "LÂCHENT", "JAPONAIS"];
+const PUNCH=MOTS.filter(m=>{const u=m[2].toUpperCase();return CLES_RG.some(k=>u.includes(k))||CLES_OR.some(k=>u.includes(k))}).map(m=>m[0]);
+function punch(t){let z=0;for(const k of PUNCH)if(k<=t&&t-k<.3)z=Math.max(z,Math.exp(-(t-k)/.1));return 1+.045*z}
+function sousTitre(t){let m=null;for(const x of MOTS){if(t>=x[0]-.03&&t<x[1]+.12)m=x}if(!m)return;
+  const txt=m[2].toUpperCase().replace(/[.,:;?!](?!\d)/g,'').trim();const lt=t-m[0];const s=lerp(1.3,1,ease(lt/.08));
+  const cle=CLES_RG.some(k=>txt.includes(k))?RG:CLES_OR.some(k=>txt.includes(k))?OR:null;
+  ctx.save();ctx.translate(W/2,1320);ctx.scale(s,s);let taille=104;ctx.font=`${taille}px "Archivo Black"`;let w=ctx.measureText(txt).width;if(w>860){taille*=860/w;ctx.font=`${taille}px "Archivo Black"`;w=860}
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';ctx.lineWidth=16;ctx.strokeStyle='#000';ctx.strokeText(txt,0,0);ctx.fillStyle=cle||'#fff';ctx.fillText(txt,0,0);
+  if(cle){ctx.fillStyle=cle;ctx.fillRect(-w/2,taille*.52,w,10)}ctx.restore()}
+
+// ---------- transitions variées (2 à 4 images)
+function rendu(t){const pi=P.reduce((a,p,i)=>t>=p.t0?i:a,0),p=P[pi],lt=t-p.t0,fin=(P[pi+1]?P[pi+1].t0:DUREE),u=lt/(fin-p.t0);
+  const N=4,dt=t-p.t0,tr=pi>0&&dt<N/FPS?{type:(pi*7)%5,k:1-dt/(N/FPS)}:null;
+  ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.filter='none';ctx.globalAlpha=1;ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);
+  const z=punch(t);ctx.translate(W/2,H/2);ctx.scale(z,z);
+  if(tr&&tr.type==0){const s=1+tr.k*.45;ctx.scale(s,s);ctx.filter=`blur(${tr.k*8}px)`}
+  if(tr&&tr.type==1){ctx.translate(-tr.k*W*.35,0);ctx.filter=`blur(${tr.k*16}px)`}
+  if(tr&&tr.type==4){ctx.translate(tr.k*W*.25,0);ctx.rotate(tr.k*.04)}
+  ctx.translate(-W/2,-H/2);p.f(lt,u,t);ctx.restore();
+  if(tr&&tr.type==2){ctx.fillStyle=`rgba(255,235,190,${tr.k*.75})`;ctx.fillRect(0,0,W,H)}
+  if(tr&&tr.type==3){ctx.fillStyle=`rgba(0,0,0,${tr.k*.85})`;ctx.fillRect(0,0,W,H)}
+  if(p.rewind)rewind(lt);
+  particules(t);finition(t);sousTitre(t)}
+window.PRET=(async()=>{await Promise.all(FICHIERS.map(charger));for(const f of ['300px "Abril Fatface"','100px "Archivo Black"','92px "DM Serif Display"','26px "Space Mono"','bold 60px "Space Mono"'])await document.fonts.load(f,'ÉÀ0123');await document.fonts.ready;rendu(0);return true})();
+window.seek=async t=>{await window.PRET;rendu(Math.min(t,DUREE-1/FPS))};
+</script></body></html>
