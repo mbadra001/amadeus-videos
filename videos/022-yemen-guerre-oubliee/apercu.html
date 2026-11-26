@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<title>Yémen : la guerre la plus oubliée du monde</title>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Archivo+Black&family=DM+Serif+Display&family=Space+Mono:wght@400;700&display=block" rel="stylesheet">
+<style>html,body{margin:0;background:#0E0D0C;overflow:hidden}canvas{display:block}</style>
+</head><body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+const W=1080,H=1920,FPS=30;
+const OR='#E5B547',ORF='#A07828',CR='#F0E8D6',RG='#D62C30',GR='#78746C';
+window.DUREE=63.81;
+const MOTS=[[0.1, 1.625, "377 000 morts"], [1.637, 1.875, "selon"], [1.887, 2.275, "l'ONU."], [3.15, 3.275, "Et"], [3.287, 3.4, "la"], [3.412, 3.587, "guerre"], [3.6, 4.187, "repart"], [5.062, 5.275, "Le"], [5.287, 6.137, "25 novembre"], [6.475, 6.575, "les"], [6.587, 6.812, "Houthis"], [6.825, 7.025, "visent"], [7.037, 7.362, "Riyad"], [7.375, 7.4, "et"], [7.412, 7.512, "la"], [7.525, 7.962, "raffinerie"], [7.975, 8.075, "de"], [8.087, 8.2, "Ras"], [8.212, 8.712, "Tanura"], [9.575, 9.787, "La"], [9.8, 10.35, "coalition"], [10.362, 10.825, "saoudienne"], [10.837, 11.225, "bombarde"], [11.237, 11.35, "le"], [11.362, 11.562, "port"], [11.575, 11.675, "de"], [11.687, 12.2, "Hodeïda"], [13.062, 13.3, "Ça"], [13.312, 13.425, "te"], [13.437, 13.962, "concerne"], [14.212, 14.35, "ces"], [14.362, 14.725, "missiles"], [14.737, 14.95, "visent"], [14.962, 15.075, "le"], [15.087, 15.35, "premier"], [15.362, 16.037, "exportateur"], [16.05, 16.162, "de"], [16.175, 16.562, "pétrole"], [16.575, 16.675, "du"], [16.687, 17.062, "monde"], [17.925, 18.462, "Remontons"], [18.475, 18.587, "le"], [18.6, 18.862, "temps"], [19.737, 20.962, "1967"], [21.2, 21.312, "les"], [21.325, 21.837, "Britanniques"], [21.85, 22.062, "quittent"], [22.075, 22.525, "Aden"], [23.387, 23.587, "Le"], [23.6, 23.912, "Yémen"], [23.925, 24.237, "reste"], [24.25, 24.55, "coupé"], [24.562, 24.65, "en"], [24.662, 24.937, "deux"], [25.8, 27.137, "1990"], [27.312, 27.425, "les"], [27.437, 27.587, "deux"], [27.6, 27.937, "Yémens"], [27.95, 28.575, "s'unissent"], [29.437, 30.937, "1994"], [31.137, 31.35, "guerre"], [31.362, 31.8, "civile"], [32.112, 32.187, "le"], [32.2, 32.387, "nord"], [32.4, 33.012, "l'emporte"], [33.875, 34.875, "2014"], [35.075, 35.175, "les"], [35.187, 35.425, "Houthis"], [35.437, 35.687, "prennent"], [35.7, 36.1, "Sanaa"], [36.962, 37.8, "2015"], [37.987, 38.387, "l'Arabie"], [38.4, 38.837, "saoudite"], [38.85, 39.362, "intervient"], [40.225, 40.437, "Les"], [40.45, 40.675, "Houthis"], [40.687, 40.9, "disent"], [40.912, 41.375, "résister"], [41.387, 41.437, "à"], [41.45, 41.575, "une"], [41.587, 42.0, "agression"], [42.012, 42.762, "étrangère"], [43.637, 44.05, "Riyad"], [44.062, 44.2, "dit"], [44.212, 44.675, "défendre"], [44.687, 44.812, "sa"], [44.825, 45.275, "frontière"], [45.287, 45.312, "et"], [45.325, 45.425, "le"], [45.437, 45.937, "gouvernement"], [45.95, 46.462, "reconnu"], [47.337, 47.562, "Ce"], [47.575, 48.087, "gouvernement"], [48.1, 48.225, "veut"], [48.237, 48.7, "reprendre"], [48.712, 49.112, "Sanaa"], [49.975, 50.337, "L'Iran"], [50.35, 50.475, "nie"], [50.487, 50.875, "diriger"], [50.887, 50.987, "les"], [51.0, 51.4, "Houthis"], [52.262, 53.137, "2022"], [53.337, 53.45, "une"], [53.462, 53.712, "trêve"], [53.725, 53.812, "de"], [53.825, 54.175, "l'ONU."], [55.05, 55.362, "Cet"], [55.375, 55.712, "été"], [56.0, 56.175, "elle"], [56.187, 56.812, "s'effondre"], [57.687, 58.275, "Aujourd'hui"], [58.587, 59.137, "22 millions"], [59.15, 59.275, "de"], [59.287, 59.737, "Yéménites"], [59.75, 59.812, "ont"], [59.825, 60.187, "besoin"], [60.2, 60.587, "d'aide"], [61.462, 61.6, "Et"], [61.612, 61.712, "le"], [61.725, 62.012, "dernier"], [62.025, 62.287, "bilan"], [62.3, 62.4, "de"], [62.412, 62.637, "l'ONU"], [62.65, 62.95, "comptait"], [62.962, 63.412, "déjà"]];
+const ctx=document.getElementById('c').getContext('2d');
+const IMG={};
+const FICHIERS=["c_aden.png", "c_deux_yemens.png", "c_hodeida.png", "c_iran.png", "c_monde_petrole.png", "c_peninsule.png", "c_saada.png", "c_yemen.png", "cma_yemen_1.jpg", "cma_yemen_2.jpg", "cma_yemen_3.jpg", "drapeau_ae.svg", "drapeau_gb.svg", "drapeau_ir.svg", "drapeau_sa.svg", "drapeau_ye.svg", "loc_aden-harbor_1.jpg", "loc_riyadh-saudi-arabia_2.jpg", "loc_yemen_1.jpg", "loc_yemen_2.jpg", "nasa_arabian-peninsula_1.jpg", "nasa_red-sea_1.jpg", "nasa_red-sea_2.jpg", "nasa_yemen_1.jpg", "nasa_yemen_2.jpg", "nasa_yemen_3.jpg", "ov_aden-yemen_1.jpg", "ov_azadi-tower-tehran_1.jpg", "ov_azadi-tower-tehran_2.jpg", "ov_gas-station-pump_1.jpg", "ov_gas-station-pump_2.jpg", "ov_hodeidah-port_1.jpg", "ov_oil-refinery-night_2.jpg", "ov_riyadh-skyline_1.jpg", "ov_riyadh-skyline_2.jpg", "ov_sanaa-old-city_1.jpg", "ov_sanaa-old-city_2.jpg", "ov_sanaa-old-city_3.jpg", "ov_united-nations-security-_1.jpg", "ov_united-nations-security-_2.jpg", "toile.png", "wiki_yemeni-civil-war-2014pre_1.jpg"];
+function charger(f){return new Promise(r=>{const i=new Image();i.onload=()=>{let o=i;if(f.endsWith('.svg')){o=document.createElement('canvas');o.width=1280;o.height=960;o.getContext('2d').drawImage(i,0,0,1280,960)}IMG[f.split('.')[0]]=o;r()};i.onerror=()=>{console.error('image '+f);r()};i.src='medias/'+f})}
+function rng(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296}}
+const ease=x=>x<0?0:x>1?1:1-Math.pow(1-x,3), easeIO=x=>x<0?0:x>1?1:x*x*(3-2*x);
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)), lerp=(a,b,x)=>a+(b-a)*x;
+function zoomFlou(lt,f,cy=860){const a=ease(lt/.35);ctx.save();ctx.globalAlpha=a;const s=lerp(1.3,1,a);ctx.translate(W/2,cy);ctx.scale(s,s);ctx.translate(-W/2,-cy);ctx.filter=`blur(${(1-a)*9}px)`;f();ctx.restore()}
+function tremble(lt){const k=Math.exp(-lt/.18);return [Math.sin(lt*90)*22*k,Math.cos(lt*77)*16*k]}
+function flash(lt){const a=Math.exp(-lt/.07)*.7;if(a>.01){ctx.fillStyle=`rgba(255,240,210,${a})`;ctx.fillRect(0,0,W,H)}}
+function grosChiffre(txt,lt,y=760,taille=300,coul=OR,sous=null){if(lt<0)return;const [dx,dy]=tremble(lt);zoomFlou(lt,()=>{ctx.save();ctx.translate(dx,dy);
+  ctx.font=`${taille}px "Abril Fatface"`;const w=ctx.measureText(txt).width;if(w>W-140){taille*=(W-140)/w;ctx.font=`${taille}px "Abril Fatface"`}
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';ctx.lineWidth=14;ctx.strokeStyle='rgba(20,10,4,.85)';ctx.strokeText(txt,W/2,y);ctx.shadowColor=coul;ctx.shadowBlur=35;ctx.fillStyle=coul;ctx.fillText(txt,W/2,y);ctx.shadowBlur=0;
+  if(sous){ctx.font='52px "Archivo Black"';ctx.lineWidth=10;ctx.strokeText(sous,W/2,y+taille*.62);ctx.fillStyle=CR;ctx.fillText(sous,W/2,y+taille*.62)}ctx.restore()},y);flash(lt)}
+function titre(txt,lt,y=330,taille=92){if(lt<0)return;zoomFlou(lt,()=>{ctx.font=`${taille}px "DM Serif Display"`;ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=12;ctx.strokeStyle='rgba(20,10,4,.8)';
+  txt.split('\n').forEach((l,i)=>{ctx.strokeText(l,W/2,y+i*taille*1.1);ctx.fillStyle=OR;ctx.shadowColor='rgba(229,181,71,.5)';ctx.shadowBlur=20;ctx.fillText(l,W/2,y+i*taille*1.1);ctx.shadowBlur=0});ctx.textAlign='left'},y)}
+function mot(txt,lt,y,taille=96,coul=CR){if(lt<0)return;zoomFlou(lt,()=>{ctx.font=`${taille}px "Archivo Black"`;ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=14;ctx.strokeStyle='rgba(15,8,3,.9)';
+  txt.split('\n').forEach((l,i)=>{ctx.strokeText(l,W/2,y+i*taille*1.05);ctx.fillStyle=coul;ctx.fillText(l,W/2,y+i*taille*1.05)});ctx.textAlign='left'},y)}
+function tampon(txt,lt,x,y,coul=RG,rot=-.18){if(lt<0)return;const a=ease(lt/.18);ctx.save();ctx.translate(x,y);ctx.rotate(rot);const s=lerp(2.4,1,a);ctx.scale(s,s);ctx.globalAlpha=a*.92;
+  ctx.font='92px "Archivo Black"';const w=ctx.measureText(txt).width+60;ctx.strokeStyle=coul;ctx.lineWidth=10;ctx.strokeRect(-w/2,-68,w,136);ctx.lineWidth=3;ctx.strokeRect(-w/2+14,-54,w-28,108);
+  ctx.fillStyle=coul;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(txt,0,6);ctx.restore()}
+function mention(txt,y,coul=CR){ctx.font='bold 32px "Space Mono"';ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=8;ctx.strokeStyle='rgba(10,6,2,.9)';ctx.strokeText(txt,W/2,y);ctx.fillStyle=coul;ctx.fillText(txt,W/2,y);ctx.textAlign='left'}
+function avion(x,y,s,rot=0){ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.scale(s,s);ctx.fillStyle='#1a120a';ctx.shadowColor=OR;ctx.shadowBlur=25;ctx.beginPath();ctx.moveTo(-90,-8);ctx.lineTo(80,-8);ctx.quadraticCurveTo(100,0,80,8);ctx.lineTo(-90,8);ctx.closePath();ctx.fill();
+  ctx.beginPath();ctx.moveTo(-10,-6);ctx.lineTo(-40,-75);ctx.lineTo(-20,-75);ctx.lineTo(25,-6);ctx.fill();ctx.beginPath();ctx.moveTo(-10,6);ctx.lineTo(-40,75);ctx.lineTo(-20,75);ctx.lineTo(25,6);ctx.fill();
+  ctx.beginPath();ctx.moveTo(-85,-6);ctx.lineTo(-100,-35);ctx.lineTo(-88,-35);ctx.lineTo(-70,-6);ctx.fill();ctx.restore()}
+function missile(x0,y0,x1,y1,lt,d=.7){if(lt<0)return false;const a=clamp(lt/d,0,1);ctx.save();ctx.strokeStyle=CR;ctx.lineWidth=6;ctx.shadowColor='#fff';ctx.shadowBlur=30;ctx.beginPath();
+  for(let i=0;i<=20;i++){const b=a*i/20;ctx.lineTo(lerp(x0,x1,b),lerp(y0,y1,b)-Math.sin(b*Math.PI)*160)}ctx.stroke();ctx.restore();return a>=1}
+function eclat(x,y,lt){if(lt<0||lt>.8)return;const r=lerp(20,240,ease(lt/.5)),a=1-lt/.8;const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(255,250,220,${a})`);g.addColorStop(.4,`rgba(229,181,71,${a*.8})`);g.addColorStop(1,'rgba(214,44,48,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill()}
+function sepia(a){if(a<=0)return;ctx.save();ctx.globalCompositeOperation='color';ctx.globalAlpha=a;ctx.fillStyle='#8a6a3a';ctx.fillRect(0,0,W,H);ctx.restore()}
+
+
+// ---------- visuels
+// img(nom) : image chargée depuis medias/ (nom de fichier sans extension) ; repli sur la première image si absente
+function img(nom){if(IMG[nom])return IMG[nom];if(nom)console.error('image absente : '+nom);return Object.entries(IMG).find(([k])=>k!='toile'&&!k.startsWith('drapeau_'))[1]}
+// plein écran recadré (images verticales, carrées, cartes) avec poussée nette
+function plein(nom,u,c0=[.5,.5,1],c1=null){const im=img(nom);c1=c1||[c0[0],c0[1],c0[2]*.82];const k=easeIO(u);
+  let hh=lerp(c0[2],c1[2],k)*im.height,ww=hh*W/H;if(ww>im.width){ww=im.width;hh=ww*H/W}
+  const cx=lerp(c0[0],c1[0],k)*im.width,cy=lerp(c0[1],c1[1],k)*im.height;ctx.drawImage(im,clamp(cx-ww/2,0,im.width-ww),clamp(cy-hh/2,0,im.height-hh),ww,hh,0,0,W,H)}
+// tableau encadré : image paysage entière dans un cadre doré, fond = même image floutée
+function cadre(nom,u,y=760,derive=1){const im=img(nom);
+  ctx.save();ctx.filter='blur(26px) brightness(.38) sepia(.35)';const hh=im.height,ww=hh*W/H;ctx.drawImage(im,(im.width-ww)/2,0,ww,hh,-60,-60,W+120,H+120);ctx.restore();
+  const s=lerp(1,1.09,easeIO(u)),k=Math.min(980/im.width,1120/im.height),w=im.width*k*s,h=im.height*k*s,x=W/2-w/2+derive*lerp(-12,12,u),yy=y-h/2;
+  ctx.save();ctx.shadowColor='rgba(0,0,0,.8)';ctx.shadowBlur=50;ctx.fillStyle='#000';ctx.fillRect(x-26,yy-26,w+52,h+52);ctx.restore();
+  const g=ctx.createLinearGradient(x-26,yy-26,x+w+26,yy+h+26);g.addColorStop(0,'#7a5a1c');g.addColorStop(.3,'#e8c66a');g.addColorStop(.55,'#8f6a22');g.addColorStop(.8,'#f0d27a');g.addColorStop(1,'#6b4c15');
+  ctx.fillStyle=g;ctx.fillRect(x-26,yy-26,w+52,h+52);ctx.strokeStyle='#3a2a0a';ctx.lineWidth=3;ctx.strokeRect(x-26,yy-26,w+52,h+52);ctx.strokeRect(x-8,yy-8,w+16,h+16);
+  ctx.drawImage(im,x,yy,w,h)}
+// drapeau qui flotte (SVG officiel flag-icons)
+function drapeau(code,x,y,w,t){const im=img('drapeau_'+code),h=w*.75,n=48;
+  for(let i=0;i<n;i++){const v=i/n,dy=Math.sin(v*6-t*5)*16*v,sh=.13*Math.cos(v*6-t*5)*v;ctx.drawImage(im,v*im.width,0,im.width/n+1,im.height,x+v*w,y+dy,w/n+1,h);
+    ctx.fillStyle=sh>0?`rgba(0,0,0,${sh*1.5})`:`rgba(255,240,200,${-sh})`;ctx.fillRect(x+v*w,y+dy,w/n+1,h)}
+  ctx.save();ctx.globalCompositeOperation='overlay';ctx.globalAlpha=.35;ctx.drawImage(IMG.toile,x,y,w,h);ctx.restore()}
+function fondDrapeau(nom){ctx.save();ctx.filter='blur(30px) brightness(.3) sepia(.5)';const im=img(nom);ctx.drawImage(im,0,0,im.width,im.height,-100,-100,W+200,H+200);ctx.restore()}
+function fondRouge(nom){ctx.save();ctx.filter='blur(22px) brightness(.5) sepia(.6)';const im=img(nom);ctx.drawImage(im,0,0,im.width,im.height,-80,-80,W+160,H+160);ctx.restore();
+  ctx.save();ctx.globalCompositeOperation='multiply';const g=ctx.createLinearGradient(0,0,W*.3,H);g.addColorStop(0,'#9a1a20');g.addColorStop(1,'#3a070b');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.restore()}
+function sepiaTon(a){if(a<=0)return;ctx.save();ctx.globalCompositeOperation='color';ctx.globalAlpha=a;ctx.fillStyle='#8a6a3a';ctx.fillRect(0,0,W,H);ctx.restore()}
+function rewind(lt){const a=clamp(1-lt/.6,0,1);if(a<=0)return;const r=rng(Math.floor(lt*FPS)+1);
+  for(let b=0;b<12;b++){const y=Math.floor(r()*H),h=10+Math.floor(r()*50),dx=Math.floor((r()-.5)*150*a);ctx.drawImage(ctx.canvas,0,y,W,h,dx,y,W,h)}
+  for(let y=0;y<H;y+=6){ctx.fillStyle=`rgba(0,0,0,${.16*a})`;ctx.fillRect(0,y,W,2)}ctx.font='bold 60px "Space Mono"';ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.fillText('◀◀ REWIND',90,400)}
+function finition(t){ctx.save();ctx.globalCompositeOperation='overlay';ctx.globalAlpha=.28;ctx.drawImage(IMG.toile,0,0);ctx.restore();
+  const v=ctx.createRadialGradient(W/2,H*.45,320,W/2,H*.45,1250);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(10,6,2,.68)');ctx.fillStyle=v;ctx.fillRect(0,0,W,H);
+  const g=ctx.createLinearGradient(0,1050,0,H);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(.5,'rgba(0,0,0,.5)');g.addColorStop(1,'rgba(0,0,0,.6)');ctx.fillStyle=g;ctx.fillRect(0,1050,W,H-1050);
+  ctx.strokeStyle='rgba(229,181,71,.5)';ctx.lineWidth=3;ctx.strokeRect(34,34,W-68,H-68)}
+function particules(t){const r=rng(42);for(let i=0;i<40;i++){const x0=r()*W,y0=r()*H,v=15+r()*40,ph=r()*6.28,sz=1+r()*2.4;
+  const x=(x0+Math.sin(t*.5+ph)*30)%W,y=((y0-t*v)%H+H)%H;ctx.globalAlpha=.12+.3*Math.abs(Math.sin(t*1.3+ph));ctx.fillStyle=OR;ctx.beginPath();ctx.arc(x,y,sz,0,7);ctx.fill()}ctx.globalAlpha=1}
+
+// ---------- plans
+const P=[];const plan=(t0,f,o={})=>P.push({t0,f,...o});
+const CO=[.5,.5,.95];
+plan(0.0,(lt,u)=>{plein('c_yemen',u,CO,[.5,.5,.7]);grosChiffre('377 000',lt,620,210,OR,'MORTS')});
+plan(1.1,(lt,u)=>{plein('nasa_yemen_3',u,CO,[.45,.5,.75]);mention('YÉMEN VU DE L\'ESPACE',1180,OR)});
+plan(2.1,(lt,u)=>{cadre('ov_united-nations-security-_1',u,760);mot('SELON\nL\'ONU',lt,300,130,OR)});
+plan(3.2,(lt,u)=>{plein('ov_sanaa-old-city_2',u,CO,[.5,.5,.75]);tampon('LA GUERRE REPART',lt-.1,W/2,1000,RG,-.1)});
+plan(4.4,(lt,u)=>{plein('ov_sanaa-old-city_3',u,CO,[.5,.45,.75]);mention('SANAA, VIEILLE VILLE',1180,OR)});
+plan(5.2,(lt,u)=>{fondRouge('ov_sanaa-old-city_3');grosChiffre('25 NOV.',lt,760,240,OR,'2026')});
+plan(6.4,(lt,u)=>{plein('c_peninsule',u,CO,[.5,.55,.7]);mot('HOUTHIS',lt,300,140,RG)});
+plan(7.0,(lt,u)=>{cadre('ov_riyadh-skyline_1',u,760);mot('RIYAD',lt,300,150,OR);mention('RIYAD, ARABIE SAOUDITE',1180,OR)});
+plan(7.8,(lt,u)=>{cadre('ov_oil-refinery-night_2',u,760);mot('RAFFINERIE',lt,300,120,OR);mention('RAFFINERIE (ILLUSTRATION)',1180,OR)});
+plan(8.7,(lt,u)=>{plein('c_monde_petrole',u,CO,[.6,.45,.7]);mot('RAS TANURA',lt,300,120,OR)});
+plan(9.6,(lt,u,t)=>{fondDrapeau('ov_riyadh-skyline_2');drapeau('sa',90,560,900,t);mot('COALITION',lt,300,120,OR)});
+plan(10.8,(lt,u)=>{plein('c_hodeida',u,CO,[.5,.5,.7]);tampon('BOMBARDE',lt-.1,W/2,1000,RG,-.1)});
+plan(11.7,(lt,u)=>{cadre('ov_hodeidah-port_1',u,760);mot('HODEÏDA',lt,300,140,OR);mention('PORT DE HODEÏDA',1180,OR)});
+plan(12.9,(lt,u)=>{cadre('ov_gas-station-pump_2',u,760);mot('ÇA TE\nCONCERNE',lt,300,110,OR)});
+plan(14.1,(lt,u)=>{cadre('ov_riyadh-skyline_2',u,760);tampon('MISSILES',lt-.1,W/2,1000,RG,-.1)});
+plan(15.1,(lt,u,t)=>{fondDrapeau('ov_oil-refinery-night_2');drapeau('sa',90,560,900,t);mot('ARABIE\nSAOUDITE',lt,300,120,OR)});
+plan(16.0,(lt,u)=>{fondRouge('ov_riyadh-skyline_1');grosChiffre('N°1',lt,760,300,OR,'EXPORTATEUR DE PÉTROLE')});
+plan(17.0,(lt,u)=>{plein('ov_gas-station-pump_1',u,[.5,.5,.9],[.5,.45,.7]);mot('PÉTROLE',lt,300,140,OR)});
+plan(17.9,(lt,u)=>{cadre('loc_aden-harbor_1',u,760);sepiaTon(.7);titre('Remontons\nle temps',lt,260,84)},{rewind:true});
+plan(19.0,(lt,u)=>{plein('c_aden',u,CO,[.5,.5,.7]);sepiaTon(.5)});
+plan(19.7,(lt,u)=>{fondRouge('loc_aden-harbor_1');grosChiffre('1967',lt,760,330,OR,'')});
+plan(20.9,(lt,u,t)=>{fondDrapeau('c_aden');drapeau('gb',90,560,900,t);sepiaTon(.3);mot('BRITANNIQUES',lt,300,110,OR)});
+plan(22.0,(lt,u)=>{cadre('ov_aden-yemen_1',u,760);sepiaTon(.4);mot('ADEN',lt,300,150,OR);mention('PORT D\'ADEN',1180,OR)});
+plan(23.3,(lt,u)=>{plein('c_deux_yemens',u,CO,[.5,.5,.75]);sepiaTon(.4);mot('COUPÉ\nEN DEUX',lt,300,130,RG)});
+plan(24.5,(lt,u)=>{cadre('loc_yemen_1',u,760);sepiaTon(.4);mention('HOMME DU YÉMEN, PHOTO ANCIENNE',1180,OR)});
+plan(25.6,(lt,u)=>{fondRouge('cma_yemen_1');grosChiffre('1990',lt,760,330,OR,'')});
+plan(26.8,(lt,u,t)=>{fondDrapeau('nasa_yemen_2');drapeau('ye',90,560,900,t);sepiaTon(.3);mot('UNIFICATION',lt,300,110,OR)});
+plan(28.0,(lt,u)=>{cadre('cma_yemen_1',u,760);sepiaTon(.4);mention('TISSU DU YÉMEN, MUSÉE DE CLEVELAND',1180,OR)});
+plan(29.2,(lt,u)=>{fondRouge('cma_yemen_2');grosChiffre('1994',lt,760,330,OR,'')});
+plan(30.4,(lt,u)=>{plein('loc_yemen_2',u,[.5,.5,.95],[.5,.45,.8]);sepiaTon(.4);mot('GUERRE\nCIVILE',lt,300,130,RG)});
+plan(31.8,(lt,u)=>{plein('c_deux_yemens',u,[.4,.45,.8],[.4,.4,.6]);sepiaTon(.4);mot('LE NORD\nL\'EMPORTE',lt,300,120,OR)});
+plan(32.9,(lt,u)=>{plein('cma_yemen_3',u,CO,[.5,.55,.75]);sepiaTon(.4);mention('BIJOU YÉMÉNITE, MUSÉE DE CLEVELAND',1180,OR)});
+plan(33.8,(lt,u)=>{fondRouge('cma_yemen_2');grosChiffre('2014',lt,760,330,OR,'')});
+plan(34.9,(lt,u)=>{plein('c_saada',u,CO,[.5,.55,.7]);mot('HOUTHIS',lt,300,140,RG)});
+plan(35.8,(lt,u)=>{cadre('ov_sanaa-old-city_1',u,760);mot('SANAA',lt,300,150,OR);mention('SANAA, CAPITALE DU YÉMEN',1180,OR)});
+plan(36.8,(lt,u)=>{fondRouge('nasa_arabian-peninsula_1');grosChiffre('2015',lt,760,330,OR,'')});
+plan(37.9,(lt,u,t)=>{fondDrapeau('nasa_arabian-peninsula_1');drapeau('sa',90,560,900,t);mot('INTERVIENT',lt,300,120,RG)});
+plan(39.0,(lt,u)=>{plein('nasa_red-sea_1',u,CO,[.5,.5,.75]);mention('MER ROUGE VUE DE L\'ESPACE',1180,OR)});
+plan(40.1,(lt,u)=>{cadre('ov_sanaa-old-city_2',u,760);mot('LES\nHOUTHIS',lt,300,130,OR)});
+plan(41.3,(lt,u)=>{plein('nasa_yemen_1',u,CO,[.5,.5,.75]);tampon('AGRESSION',lt-.1,W/2,1000,RG,-.1)});
+plan(42.5,(lt,u,t)=>{fondDrapeau('ov_sanaa-old-city_1');drapeau('ye',90,560,900,t);mot('RÉSISTER',lt,300,130,OR)});
+plan(43.5,(lt,u,t)=>{fondDrapeau('loc_riyadh-saudi-arabia_2');drapeau('sa',90,560,900,t);mot('RIYAD',lt,300,150,OR)});
+plan(44.6,(lt,u)=>{plein('c_saada',u,[.5,.35,.8],[.5,.3,.6]);mot('FRONTIÈRE',lt,300,130,RG)});
+plan(45.5,(lt,u)=>{cadre('ov_aden-yemen_1',u,760);mot('GOUVERNEMENT\nRECONNU',lt,300,100,OR);mention('ADEN, SIÈGE DU GOUVERNEMENT',1180,OR)});
+plan(46.7,(lt,u)=>{plein('c_aden',u,[.5,.5,.8],[.5,.45,.6]);mot('ADEN',lt,300,150,OR)});
+plan(47.6,(lt,u)=>{plein('c_peninsule',u,[.4,.72,.55],[.4,.75,.42]);mot('REPRENDRE\nSANAA',lt,300,120,RG)});
+plan(48.8,(lt,u)=>{plein('nasa_red-sea_2',u,CO,[.5,.5,.75]);mention('CÔTE DE LA MER ROUGE VUE DE L\'ESPACE',1180,OR)});
+plan(49.9,(lt,u,t)=>{fondDrapeau('ov_azadi-tower-tehran_2');drapeau('ir',90,560,900,t);mot('L\'IRAN',lt,300,150,OR)});
+plan(50.6,(lt,u)=>{cadre('ov_azadi-tower-tehran_1',u,760);tampon('NIE',lt-.1,W/2,1000,RG,-.1);mention('TOUR AZADI, TÉHÉRAN',1180,OR)});
+plan(51.2,(lt,u)=>{plein('c_iran',u,CO,[.5,.5,.7]);mot('DIRIGER ?',lt,300,130,RG)});
+plan(52.1,(lt,u)=>{fondRouge('ov_united-nations-security-_2');grosChiffre('2022',lt,760,330,OR,'')});
+plan(53.2,(lt,u)=>{cadre('ov_united-nations-security-_2',u,760);mot('TRÊVE',lt,300,150,OR);mention('CONSEIL DE SÉCURITÉ, NEW YORK',1180,OR)});
+plan(54.2,(lt,u)=>{plein('c_hodeida',u,[.5,.5,.8],[.5,.55,.6]);mot('ONU',lt,300,150,OR)});
+plan(55.0,(lt,u)=>{fondRouge('nasa_red-sea_2');grosChiffre('ÉTÉ',lt,760,300,OR,'2026')});
+plan(56.0,(lt,u)=>{cadre('ov_hodeidah-port_1',u,760);tampon('S\'EFFONDRE',lt-.1,W/2,1000,RG,-.1)});
+plan(57.2,(lt,u)=>{plein('nasa_yemen_2',u,CO,[.5,.5,.75]);mot('AUJOURD\'HUI',lt,300,120,OR)});
+plan(58.4,(lt,u)=>{fondRouge('nasa_yemen_3');grosChiffre('22 M',lt,760,300,OR,'DE YÉMÉNITES')});
+plan(59.6,(lt,u)=>{plein('loc_yemen_2',u,[.5,.5,.95],[.5,.45,.8]);mot('BESOIN\nD\'AIDE',lt,300,130,RG)});
+plan(60.6,(lt,u)=>{plein('nasa_yemen_1',u,[.5,.5,.8],[.5,.5,.6]);mention('YÉMEN, VUE SATELLITE',1180,OR)});
+plan(61.4,(lt,u)=>{cadre('ov_united-nations-security-_1',u,760);mot('BILAN\nDE L\'ONU',lt,300,130,OR)});
+plan(62.4,(lt,u)=>{plein('c_yemen',u,[.5,.5,.7],CO);grosChiffre('377 000',lt,620,210,OR,'MORTS')});
+
+
+// ---------- sous-titres
+const CLES_OR=["377", "000", "ONU", "L'ONU", "LONU", "25", "NOVEMBRE", "RIYAD", "RAS", "TANURA", "HODEÏDA", "PÉTROLE", "1967", "1990", "1994", "2014", "2015", "2022", "ADEN", "SANAA", "YÉMEN", "YÉMENS", "22", "MILLIONS", "PREMIER", "EXPORTATEUR", "TRÊVE", "IRAN", "L'IRAN", "LIRAN", "HOUTHIS"];
+const CLES_RG=["MORTS", "GUERRE", "REPART", "BOMBARDE", "MISSILES", "CIVILE", "COUPÉ", "AGRESSION", "ÉTRANGÈRE", "EFFONDRE", "S'EFFONDRE", "NIE", "AIDE", "D'AIDE", "INTERVIENT"];
+const PUNCH=MOTS.filter(m=>{const u=m[2].toUpperCase();return CLES_RG.some(k=>u.includes(k))||CLES_OR.some(k=>u.includes(k))}).map(m=>m[0]);
+function punch(t){let z=0;for(const k of PUNCH)if(k<=t&&t-k<.3)z=Math.max(z,Math.exp(-(t-k)/.1));return 1+.045*z}
+function sousTitre(t){let m=null;for(const x of MOTS){if(t>=x[0]-.03&&t<x[1]+.12)m=x}if(!m)return;
+  const txt=m[2].toUpperCase().replace(/[.,:;?!](?!\d)/g,'').trim();const lt=t-m[0];const s=lerp(1.3,1,ease(lt/.08));
+  const cle=CLES_RG.some(k=>txt.includes(k))?RG:CLES_OR.some(k=>txt.includes(k))?OR:null;
+  ctx.save();ctx.translate(W/2,1320);ctx.scale(s,s);let taille=104;ctx.font=`${taille}px "Archivo Black"`;let w=ctx.measureText(txt).width;if(w>860){taille*=860/w;ctx.font=`${taille}px "Archivo Black"`;w=860}
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';ctx.lineWidth=16;ctx.strokeStyle='#000';ctx.strokeText(txt,0,0);ctx.fillStyle=cle||'#fff';ctx.fillText(txt,0,0);
+  if(cle){ctx.fillStyle=cle;ctx.fillRect(-w/2,taille*.52,w,10)}ctx.restore()}
+
+// ---------- transitions variées (2 à 4 images)
+function rendu(t){const pi=P.reduce((a,p,i)=>t>=p.t0?i:a,0),p=P[pi],lt=t-p.t0,fin=(P[pi+1]?P[pi+1].t0:DUREE),u=lt/(fin-p.t0);
+  const N=4,dt=t-p.t0,tr=pi>0&&dt<N/FPS?{type:(pi*7)%5,k:1-dt/(N/FPS)}:null;
+  ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.filter='none';ctx.globalAlpha=1;ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);
+  const z=punch(t);ctx.translate(W/2,H/2);ctx.scale(z,z);
+  if(tr&&tr.type==0){const s=1+tr.k*.45;ctx.scale(s,s);ctx.filter=`blur(${tr.k*8}px)`}
+  if(tr&&tr.type==1){ctx.translate(-tr.k*W*.35,0);ctx.filter=`blur(${tr.k*16}px)`}
+  if(tr&&tr.type==4){ctx.translate(tr.k*W*.25,0);ctx.rotate(tr.k*.04)}
+  ctx.translate(-W/2,-H/2);p.f(lt,u,t);ctx.restore();
+  if(tr&&tr.type==2){ctx.fillStyle=`rgba(255,235,190,${tr.k*.75})`;ctx.fillRect(0,0,W,H)}
+  if(tr&&tr.type==3){ctx.fillStyle=`rgba(0,0,0,${tr.k*.85})`;ctx.fillRect(0,0,W,H)}
+  if(p.rewind)rewind(lt);
+  particules(t);finition(t);sousTitre(t)}
+window.PRET=(async()=>{await Promise.all(FICHIERS.map(charger));for(const f of ['300px "Abril Fatface"','100px "Archivo Black"','92px "DM Serif Display"','26px "Space Mono"','bold 60px "Space Mono"'])await document.fonts.load(f,'ÉÀ0123');await document.fonts.ready;rendu(0);return true})();
+window.seek=async t=>{await window.PRET;rendu(Math.min(t,DUREE-1/FPS))};
+</script></body></html>

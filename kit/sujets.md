@@ -30,3 +30,4 @@ C'est la seule source pour choisir un sujet (voir kit/TACHE.md, étape b). Ce fi
 | 019 | S052 | ONU : cinq pays, un droit de veto | 2026-11-23 |
 | 020 | S060 | Libye : sept drones, un pays coupé en deux | 2026-11-24 |
 | 021 | S016 | Îles Salomon : la Chine, l'Australie et le Pacifique | 2026-11-25 |
+| 022 | S085 | Yémen : la guerre la plus oubliée du monde | 2026-11-26 |
