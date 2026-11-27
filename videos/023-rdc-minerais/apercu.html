@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<title>RDC : les minerais de nos téléphones au cœur d'une guerre</title>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Archivo+Black&family=DM+Serif+Display&family=Space+Mono:wght@400;700&display=block" rel="stylesheet">
+<style>html,body{margin:0;background:#0E0D0C;overflow:hidden}canvas{display:block}</style>
+</head><body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+const W=1080,H=1920,FPS=30;
+const OR='#E5B547',ORF='#A07828',CR='#F0E8D6',RG='#D62C30',GR='#78746C';
+window.DUREE=63.59;
+const MOTS=[[0.1, 1.137, "73 %"], [1.15, 1.262, "du"], [1.275, 1.675, "cobalt"], [1.687, 2.05, "mondial"], [2.062, 2.237, "vient"], [2.25, 2.4, "d'un"], [2.412, 2.625, "seul"], [2.637, 3.05, "pays"], [3.912, 4.075, "Et"], [4.087, 4.187, "il"], [4.2, 4.412, "ferme"], [4.425, 4.512, "le"], [4.525, 5.025, "robinet"], [5.9, 6.112, "Le"], [6.125, 6.95, "23 novembre"], [7.287, 7.4, "la"], [7.412, 7.825, "RDC"], [7.837, 8.2, "suspend"], [8.212, 8.337, "ses"], [8.35, 9.012, "exportations"], [9.025, 9.125, "de"], [9.137, 9.75, "cobalt"], [10.625, 10.862, "Ça"], [10.875, 10.987, "te"], [11.0, 11.525, "concerne"], [11.762, 11.875, "ce"], [11.887, 12.225, "métal"], [12.237, 12.275, "est"], [12.287, 12.412, "dans"], [12.425, 12.575, "ton"], [12.587, 13.262, "téléphone"], [14.125, 14.275, "À"], [14.287, 14.6, "l'est"], [14.912, 15.0, "une"], [15.012, 15.237, "autre"], [15.25, 15.787, "richesse"], [15.937, 16.037, "le"], [16.05, 16.525, "coltan"], [17.4, 17.6, "La"], [17.612, 17.8, "mine"], [17.812, 17.925, "de"], [17.937, 18.325, "Rubaya"], [18.337, 18.687, "fournit"], [18.7, 19.312, "15 %"], [19.325, 19.437, "du"], [19.45, 19.8, "tantale"], [19.812, 20.387, "mondial"], [21.25, 21.425, "Elle"], [21.437, 21.475, "est"], [21.487, 21.775, "tenue"], [21.787, 21.95, "par"], [21.962, 22.025, "les"], [22.037, 22.35, "rebelles"], [22.362, 22.5, "du"], [22.512, 23.225, "M23"], [24.087, 24.625, "Remontons"], [24.637, 24.75, "le"], [24.762, 25.025, "temps"], [25.9, 27.425, "1994"], [27.637, 28.125, "génocide"], [28.137, 28.262, "des"], [28.275, 28.662, "Tutsi"], [28.675, 28.737, "au"], [28.75, 29.212, "Rwanda"], [30.075, 30.275, "Les"], [30.287, 30.862, "génocidaires"], [30.875, 31.062, "fuient"], [31.075, 31.137, "au"], [31.15, 31.625, "Congo"], [32.487, 33.837, "1996"], [34.037, 34.112, "le"], [34.125, 34.45, "Rwanda"], [34.462, 34.5, "et"], [34.512, 34.937, "l'Ouganda"], [34.95, 35.037, "y"], [35.05, 35.412, "entrent"], [36.287, 37.612, "1998"], [37.825, 38.075, "neuf"], [38.087, 38.337, "pays"], [38.35, 38.85, "africains"], [38.862, 39.05, "s'y"], [39.062, 39.637, "affrontent"], [40.512, 41.45, "2025"], [41.625, 41.725, "le"], [41.737, 42.225, "M23"], [42.237, 42.437, "prend"], [42.45, 42.812, "Goma"], [43.062, 43.225, "puis"], [43.237, 43.775, "Bukavu"], [44.637, 45.187, "Kinshasa"], [45.2, 45.525, "accuse"], [45.537, 45.637, "le"], [45.65, 45.937, "Rwanda"], [45.95, 46.075, "de"], [46.087, 46.362, "piller"], [46.375, 46.487, "ses"], [46.5, 46.812, "minerais"], [46.825, 46.987, "via"], [47.0, 47.087, "le"], [47.1, 47.812, "M23"], [48.675, 49.087, "Kigali"], [49.1, 49.237, "nie"], [49.25, 49.3, "et"], [49.312, 49.462, "dit"], [49.475, 49.925, "protéger"], [49.937, 50.075, "sa"], [50.087, 50.75, "frontière"], [51.625, 51.825, "Le"], [51.837, 52.325, "M23"], [52.337, 52.462, "dit"], [52.475, 52.937, "défendre"], [52.95, 53.025, "les"], [53.037, 53.375, "Tutsi"], [53.387, 53.937, "congolais"], [54.812, 56.237, "Décembre 2025"], [56.437, 56.725, "accord"], [56.737, 56.85, "de"], [56.862, 57.025, "paix"], [57.037, 57.1, "à"], [57.112, 57.937, "Washington"], [58.8, 58.987, "Mais"], [59.0, 59.062, "les"], [59.075, 59.375, "combats"], [59.387, 59.925, "continuent"], [60.8, 61.012, "Des"], [61.025, 61.312, "millions"], [61.325, 61.45, "de"], [61.462, 61.95, "déplacés"], [61.962, 62.162, "vivent"], [62.175, 62.325, "sur"], [62.337, 62.412, "les"], [62.425, 62.675, "métaux"], [62.687, 62.787, "du"], [62.8, 63.187, "monde"]];
+const ctx=document.getElementById('c').getContext('2d');
+const IMG={};
+const FICHIERS=["aic_kongo_1.jpg", "c_afrique.png", "c_grands_lacs.png", "c_kivu.png", "c_kolwezi.png", "c_monde_cobalt.png", "c_rdc.png", "c_rwanda.png", "c_washington.png", "cma_congo_1.jpg", "cma_congo_2.jpg", "cma_congo_3.jpg", "drapeau_cd.svg", "drapeau_qa.svg", "drapeau_rw.svg", "drapeau_ug.svg", "drapeau_us.svg", "loc_belgian-congo_2.jpg", "loc_belgian-congo_3.jpg", "loc_congo-river_3.jpg", "nasa_lake-kivu_1.jpg", "nasa_lake-kivu_2.jpg", "nasa_lake-kivu_3.jpg", "nasa_nyiragongo_1.jpg", "ov_bukavu_2.jpg", "ov_cobalt-ore_1.jpg", "ov_cobalt-ore_2.jpg", "ov_kigali_1.jpg", "ov_kisoro-uganda_1.jpg", "ov_kisoro-uganda_2.jpg", "ov_monusco-peacekeepers_1.jpg", "ov_monusco-peacekeepers_2.jpg", "ov_smartphone-battery_1.jpg", "ov_smartphone-battery_2.jpg", "toile.png", "wiki_goma_1.jpg", "wiki_goma_2.jpg", "wiki_m23-campaign-2022present_2.jpg", "wiki_rubaya_1.jpg", "wiki_second-congo-war_1.jpg"];
+function charger(f){return new Promise(r=>{const i=new Image();i.onload=()=>{let o=i;if(f.endsWith('.svg')){o=document.createElement('canvas');o.width=1280;o.height=960;o.getContext('2d').drawImage(i,0,0,1280,960)}IMG[f.split('.')[0]]=o;r()};i.onerror=()=>{console.error('image '+f);r()};i.src='medias/'+f})}
+function rng(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296}}
+const ease=x=>x<0?0:x>1?1:1-Math.pow(1-x,3), easeIO=x=>x<0?0:x>1?1:x*x*(3-2*x);
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)), lerp=(a,b,x)=>a+(b-a)*x;
+function zoomFlou(lt,f,cy=860){const a=ease(lt/.35);ctx.save();ctx.globalAlpha=a;const s=lerp(1.3,1,a);ctx.translate(W/2,cy);ctx.scale(s,s);ctx.translate(-W/2,-cy);ctx.filter=`blur(${(1-a)*9}px)`;f();ctx.restore()}
+function tremble(lt){const k=Math.exp(-lt/.18);return [Math.sin(lt*90)*22*k,Math.cos(lt*77)*16*k]}
+function flash(lt){const a=Math.exp(-lt/.07)*.7;if(a>.01){ctx.fillStyle=`rgba(255,240,210,${a})`;ctx.fillRect(0,0,W,H)}}
+function grosChiffre(txt,lt,y=760,taille=300,coul=OR,sous=null){if(lt<0)return;const [dx,dy]=tremble(lt);zoomFlou(lt,()=>{ctx.save();ctx.translate(dx,dy);
+  ctx.font=`${taille}px "Abril Fatface"`;const w=ctx.measureText(txt).width;if(w>W-140){taille*=(W-140)/w;ctx.font=`${taille}px "Abril Fatface"`}
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';ctx.lineWidth=14;ctx.strokeStyle='rgba(20,10,4,.85)';ctx.strokeText(txt,W/2,y);ctx.shadowColor=coul;ctx.shadowBlur=35;ctx.fillStyle=coul;ctx.fillText(txt,W/2,y);ctx.shadowBlur=0;
+  if(sous){ctx.font='52px "Archivo Black"';ctx.lineWidth=10;ctx.strokeText(sous,W/2,y+taille*.62);ctx.fillStyle=CR;ctx.fillText(sous,W/2,y+taille*.62)}ctx.restore()},y);flash(lt)}
+function titre(txt,lt,y=330,taille=92){if(lt<0)return;zoomFlou(lt,()=>{ctx.font=`${taille}px "DM Serif Display"`;ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=12;ctx.strokeStyle='rgba(20,10,4,.8)';
+  txt.split('\n').forEach((l,i)=>{ctx.strokeText(l,W/2,y+i*taille*1.1);ctx.fillStyle=OR;ctx.shadowColor='rgba(229,181,71,.5)';ctx.shadowBlur=20;ctx.fillText(l,W/2,y+i*taille*1.1);ctx.shadowBlur=0});ctx.textAlign='left'},y)}
+function mot(txt,lt,y,taille=96,coul=CR){if(lt<0)return;zoomFlou(lt,()=>{ctx.font=`${taille}px "Archivo Black"`;ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=14;ctx.strokeStyle='rgba(15,8,3,.9)';
+  txt.split('\n').forEach((l,i)=>{ctx.strokeText(l,W/2,y+i*taille*1.05);ctx.fillStyle=coul;ctx.fillText(l,W/2,y+i*taille*1.05)});ctx.textAlign='left'},y)}
+function tampon(txt,lt,x,y,coul=RG,rot=-.18){if(lt<0)return;const a=ease(lt/.18);ctx.save();ctx.translate(x,y);ctx.rotate(rot);const s=lerp(2.4,1,a);ctx.scale(s,s);ctx.globalAlpha=a*.92;
+  ctx.font='92px "Archivo Black"';const w=ctx.measureText(txt).width+60;ctx.strokeStyle=coul;ctx.lineWidth=10;ctx.strokeRect(-w/2,-68,w,136);ctx.lineWidth=3;ctx.strokeRect(-w/2+14,-54,w-28,108);
+  ctx.fillStyle=coul;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(txt,0,6);ctx.restore()}
+function mention(txt,y,coul=CR){ctx.font='bold 32px "Space Mono"';ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=8;ctx.strokeStyle='rgba(10,6,2,.9)';ctx.strokeText(txt,W/2,y);ctx.fillStyle=coul;ctx.fillText(txt,W/2,y);ctx.textAlign='left'}
+function avion(x,y,s,rot=0){ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.scale(s,s);ctx.fillStyle='#1a120a';ctx.shadowColor=OR;ctx.shadowBlur=25;ctx.beginPath();ctx.moveTo(-90,-8);ctx.lineTo(80,-8);ctx.quadraticCurveTo(100,0,80,8);ctx.lineTo(-90,8);ctx.closePath();ctx.fill();
+  ctx.beginPath();ctx.moveTo(-10,-6);ctx.lineTo(-40,-75);ctx.lineTo(-20,-75);ctx.lineTo(25,-6);ctx.fill();ctx.beginPath();ctx.moveTo(-10,6);ctx.lineTo(-40,75);ctx.lineTo(-20,75);ctx.lineTo(25,6);ctx.fill();
+  ctx.beginPath();ctx.moveTo(-85,-6);ctx.lineTo(-100,-35);ctx.lineTo(-88,-35);ctx.lineTo(-70,-6);ctx.fill();ctx.restore()}
+function missile(x0,y0,x1,y1,lt,d=.7){if(lt<0)return false;const a=clamp(lt/d,0,1);ctx.save();ctx.strokeStyle=CR;ctx.lineWidth=6;ctx.shadowColor='#fff';ctx.shadowBlur=30;ctx.beginPath();
+  for(let i=0;i<=20;i++){const b=a*i/20;ctx.lineTo(lerp(x0,x1,b),lerp(y0,y1,b)-Math.sin(b*Math.PI)*160)}ctx.stroke();ctx.restore();return a>=1}
+function eclat(x,y,lt){if(lt<0||lt>.8)return;const r=lerp(20,240,ease(lt/.5)),a=1-lt/.8;const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(255,250,220,${a})`);g.addColorStop(.4,`rgba(229,181,71,${a*.8})`);g.addColorStop(1,'rgba(214,44,48,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill()}
+function sepia(a){if(a<=0)return;ctx.save();ctx.globalCompositeOperation='color';ctx.globalAlpha=a;ctx.fillStyle='#8a6a3a';ctx.fillRect(0,0,W,H);ctx.restore()}
+
+
+// ---------- visuels
+// img(nom) : image chargée depuis medias/ (nom de fichier sans extension) ; repli sur la première image si absente
+function img(nom){if(IMG[nom])return IMG[nom];if(nom)console.error('image absente : '+nom);return Object.entries(IMG).find(([k])=>k!='toile'&&!k.startsWith('drapeau_'))[1]}
+// plein écran recadré (images verticales, carrées, cartes) avec poussée nette
+function plein(nom,u,c0=[.5,.5,1],c1=null){const im=img(nom);c1=c1||[c0[0],c0[1],c0[2]*.82];const k=easeIO(u);
+  let hh=lerp(c0[2],c1[2],k)*im.height,ww=hh*W/H;if(ww>im.width){ww=im.width;hh=ww*H/W}
+  const cx=lerp(c0[0],c1[0],k)*im.width,cy=lerp(c0[1],c1[1],k)*im.height;ctx.drawImage(im,clamp(cx-ww/2,0,im.width-ww),clamp(cy-hh/2,0,im.height-hh),ww,hh,0,0,W,H)}
+// tableau encadré : image paysage entière dans un cadre doré, fond = même image floutée
+function cadre(nom,u,y=760,derive=1){const im=img(nom);
+  ctx.save();ctx.filter='blur(26px) brightness(.38) sepia(.35)';const hh=im.height,ww=hh*W/H;ctx.drawImage(im,(im.width-ww)/2,0,ww,hh,-60,-60,W+120,H+120);ctx.restore();
+  const s=lerp(1,1.09,easeIO(u)),k=Math.min(980/im.width,1120/im.height),w=im.width*k*s,h=im.height*k*s,x=W/2-w/2+derive*lerp(-12,12,u),yy=y-h/2;
+  ctx.save();ctx.shadowColor='rgba(0,0,0,.8)';ctx.shadowBlur=50;ctx.fillStyle='#000';ctx.fillRect(x-26,yy-26,w+52,h+52);ctx.restore();
+  const g=ctx.createLinearGradient(x-26,yy-26,x+w+26,yy+h+26);g.addColorStop(0,'#7a5a1c');g.addColorStop(.3,'#e8c66a');g.addColorStop(.55,'#8f6a22');g.addColorStop(.8,'#f0d27a');g.addColorStop(1,'#6b4c15');
+  ctx.fillStyle=g;ctx.fillRect(x-26,yy-26,w+52,h+52);ctx.strokeStyle='#3a2a0a';ctx.lineWidth=3;ctx.strokeRect(x-26,yy-26,w+52,h+52);ctx.strokeRect(x-8,yy-8,w+16,h+16);
+  ctx.drawImage(im,x,yy,w,h)}
+// drapeau qui flotte (SVG officiel flag-icons)
+function drapeau(code,x,y,w,t){const im=img('drapeau_'+code),h=w*.75,n=48;
+  for(let i=0;i<n;i++){const v=i/n,dy=Math.sin(v*6-t*5)*16*v,sh=.13*Math.cos(v*6-t*5)*v;ctx.drawImage(im,v*im.width,0,im.width/n+1,im.height,x+v*w,y+dy,w/n+1,h);
+    ctx.fillStyle=sh>0?`rgba(0,0,0,${sh*1.5})`:`rgba(255,240,200,${-sh})`;ctx.fillRect(x+v*w,y+dy,w/n+1,h)}
+  ctx.save();ctx.globalCompositeOperation='overlay';ctx.globalAlpha=.35;ctx.drawImage(IMG.toile,x,y,w,h);ctx.restore()}
+function fondDrapeau(nom){ctx.save();ctx.filter='blur(30px) brightness(.3) sepia(.5)';const im=img(nom);ctx.drawImage(im,0,0,im.width,im.height,-100,-100,W+200,H+200);ctx.restore()}
+function fondRouge(nom){ctx.save();ctx.filter='blur(22px) brightness(.5) sepia(.6)';const im=img(nom);ctx.drawImage(im,0,0,im.width,im.height,-80,-80,W+160,H+160);ctx.restore();
+  ctx.save();ctx.globalCompositeOperation='multiply';const g=ctx.createLinearGradient(0,0,W*.3,H);g.addColorStop(0,'#9a1a20');g.addColorStop(1,'#3a070b');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.restore()}
+function sepiaTon(a){if(a<=0)return;ctx.save();ctx.globalCompositeOperation='color';ctx.globalAlpha=a;ctx.fillStyle='#8a6a3a';ctx.fillRect(0,0,W,H);ctx.restore()}
+function rewind(lt){const a=clamp(1-lt/.6,0,1);if(a<=0)return;const r=rng(Math.floor(lt*FPS)+1);
+  for(let b=0;b<12;b++){const y=Math.floor(r()*H),h=10+Math.floor(r()*50),dx=Math.floor((r()-.5)*150*a);ctx.drawImage(ctx.canvas,0,y,W,h,dx,y,W,h)}
+  for(let y=0;y<H;y+=6){ctx.fillStyle=`rgba(0,0,0,${.16*a})`;ctx.fillRect(0,y,W,2)}ctx.font='bold 60px "Space Mono"';ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.fillText('◀◀ REWIND',90,400)}
+function finition(t){ctx.save();ctx.globalCompositeOperation='overlay';ctx.globalAlpha=.28;ctx.drawImage(IMG.toile,0,0);ctx.restore();
+  const v=ctx.createRadialGradient(W/2,H*.45,320,W/2,H*.45,1250);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(10,6,2,.68)');ctx.fillStyle=v;ctx.fillRect(0,0,W,H);
+  const g=ctx.createLinearGradient(0,1050,0,H);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(.5,'rgba(0,0,0,.5)');g.addColorStop(1,'rgba(0,0,0,.6)');ctx.fillStyle=g;ctx.fillRect(0,1050,W,H-1050);
+  ctx.strokeStyle='rgba(229,181,71,.5)';ctx.lineWidth=3;ctx.strokeRect(34,34,W-68,H-68)}
+function particules(t){const r=rng(42);for(let i=0;i<40;i++){const x0=r()*W,y0=r()*H,v=15+r()*40,ph=r()*6.28,sz=1+r()*2.4;
+  const x=(x0+Math.sin(t*.5+ph)*30)%W,y=((y0-t*v)%H+H)%H;ctx.globalAlpha=.12+.3*Math.abs(Math.sin(t*1.3+ph));ctx.fillStyle=OR;ctx.beginPath();ctx.arc(x,y,sz,0,7);ctx.fill()}ctx.globalAlpha=1}
+
+// ---------- plans
+const P=[];const plan=(t0,f,o={})=>P.push({t0,f,...o});
+const CO=[.5,.5,.95];
+plan(0.0,(lt,u)=>{plein('c_afrique',u,[.5,.55,.9],[.5,.55,.65]);grosChiffre('73 %',lt,620,240,OR,'DU COBALT MONDIAL')});
+plan(1.1,(lt,u)=>{plein('c_monde_cobalt',u,CO,[.35,.6,.6]);mot('UN SEUL\nPAYS',lt,300,130,OR)});
+plan(2.2,(lt,u,t)=>{fondDrapeau('c_rdc');drapeau('cd',90,560,900,t);mot('RDC',lt,300,160,OR)});
+plan(3.3,(lt,u)=>{plein('ov_cobalt-ore_2',u,CO,[.5,.5,.7]);mention('MINERAI DE COBALT',1180,OR)});
+plan(4.3,(lt,u)=>{cadre('ov_monusco-peacekeepers_2',u,760);tampon('FERMÉ',lt-.1,W/2,1000,RG,-.1)});
+plan(5.4,(lt,u)=>{fondRouge('ov_cobalt-ore_2');grosChiffre('23 NOV.',lt,760,240,OR,'2026')});
+plan(6.6,(lt,u)=>{plein('c_rdc',u,CO,[.45,.5,.7]);mot('LA RDC',lt,300,150,OR)});
+plan(7.6,(lt,u)=>{plein('c_kolwezi',u,CO,[.5,.55,.7]);mot('SUSPEND',lt,300,140,RG);mention('KATANGA, CEINTURE DU COBALT',1180,OR)});
+plan(8.6,(lt,u)=>{cadre('loc_belgian-congo_3',u,760);mention('ÉLISABETHVILLE (LUBUMBASHI), ÉPOQUE COLONIALE',1180,OR)});
+plan(9.6,(lt,u)=>{cadre('ov_cobalt-ore_1',u,760);mot('EXPORTATIONS',lt,300,110,OR);mention('COBALT, MUSÉE DE MODUM',1180,OR)});
+plan(10.6,(lt,u)=>{plein('ov_smartphone-battery_1',u,CO,[.5,.5,.75]);mot('ÇA TE\nCONCERNE',lt,300,110,OR)});
+plan(11.8,(lt,u)=>{cadre('ov_smartphone-battery_2',u,760);mot('TON\nTÉLÉPHONE',lt,300,120,OR);mention('BATTERIE DE SMARTPHONE',1180,OR)});
+plan(13.0,(lt,u)=>{plein('c_monde_cobalt',u,[.35,.6,.6],[.6,.45,.7]);mention('DU CONGO VERS LES USINES D\'ASIE',1180,OR)});
+plan(14.1,(lt,u)=>{plein('c_kivu',u,CO,[.4,.4,.7]);mot('À L\'EST',lt,300,140,OR)});
+plan(15.2,(lt,u)=>{plein('nasa_lake-kivu_1',u,CO,[.5,.5,.7]);mention('NORD-KIVU VU DE L\'ESPACE',1180,OR)});
+plan(16.1,(lt,u)=>{fondRouge('nasa_lake-kivu_1');grosChiffre('COLTAN',lt,760,200,OR,'')});
+plan(17.3,(lt,u)=>{cadre('wiki_rubaya_1',u,760);mot('RUBAYA',lt,300,150,OR);mention('ROUTE DE RUBAYA, MASISI',1180,OR)});
+plan(18.6,(lt,u)=>{fondRouge('wiki_rubaya_1');grosChiffre('15 %',lt,760,300,OR,'DU TANTALE MONDIAL')});
+plan(19.8,(lt,u)=>{plein('c_kivu',u,[.4,.4,.7],[.4,.35,.5]);mention('RUBAYA, NORD-KIVU',1180,OR)});
+plan(21.0,(lt,u)=>{cadre('ov_monusco-peacekeepers_1',u,760);mot('REBELLES',lt,300,140,RG)});
+plan(22.2,(lt,u)=>{plein('nasa_nyiragongo_1',u,CO,[.5,.5,.7]);tampon('M23',lt-.1,W/2,1000,RG,-.1);mention('VOLCAN NYIRAGONGO, AU-DESSUS DE GOMA',1180,OR)});
+plan(23.2,(lt,u)=>{plein('nasa_lake-kivu_3',u,CO,[.5,.5,.75]);mention('RADAR DE LA NASA, RÉGION DES VIRUNGA',1180,OR)});
+plan(24.0,(lt,u)=>{cadre('loc_congo-river_3',u,760);sepiaTon(.7);titre('Remontons\nle temps',lt,260,84)},{rewind:true});
+plan(25.6,(lt,u)=>{fondRouge('loc_congo-river_3');grosChiffre('1994',lt,760,330,OR,'')});
+plan(26.8,(lt,u)=>{plein('c_rwanda',u,CO,[.6,.5,.7]);sepiaTon(.5);mot('RWANDA',lt,300,150,OR)});
+plan(27.6,(lt,u)=>{cadre('ov_kigali_1',u,760);sepiaTon(.5);tampon('GÉNOCIDE',lt-.1,W/2,1000,RG,-.1);mention('KIGALI, CAPITALE DU RWANDA',1180,OR)});
+plan(28.8,(lt,u,t)=>{fondDrapeau('ov_kigali_1');drapeau('rw',90,560,900,t);sepiaTon(.3);mot('TUTSI',lt,300,150,RG)});
+plan(30.0,(lt,u)=>{cadre('wiki_second-congo-war_1',u,760);sepiaTon(.5);mot('ILS FUIENT',lt,300,130,RG);mention('RÉFUGIÉS RWANDAIS, 1994',1180,OR)});
+plan(31.1,(lt,u)=>{plein('c_rwanda',u,[.6,.5,.7],[.45,.45,.55]);sepiaTon(.5);mot('AU CONGO',lt,300,140,OR)});
+plan(32.3,(lt,u)=>{fondRouge('wiki_second-congo-war_1');grosChiffre('1996',lt,760,330,OR,'')});
+plan(33.5,(lt,u,t)=>{fondDrapeau('c_grands_lacs');drapeau('rw',90,420,420,t);drapeau('ug',570,420,420,t);sepiaTon(.3);mot('RWANDA\nOUGANDA',lt,300,110,OR)});
+plan(34.6,(lt,u)=>{cadre('ov_kisoro-uganda_1',u,760);sepiaTon(.4);mention('KISORO, OUGANDA, À LA FRONTIÈRE',1180,OR)});
+plan(35.6,(lt,u)=>{plein('cma_congo_3',u,CO,[.5,.5,.75]);sepiaTon(.4);mention('COIFFE LEGA DU KIVU, MUSÉE DE CLEVELAND',1180,OR)});
+plan(36.3,(lt,u)=>{fondRouge('cma_congo_2');grosChiffre('1998',lt,760,330,OR,'')});
+plan(37.5,(lt,u)=>{plein('c_grands_lacs',u,CO,[.5,.5,.7]);sepiaTon(.3);grosChiffre('9',lt,760,330,OR,'PAYS AFRICAINS')});
+plan(38.8,(lt,u)=>{plein('cma_congo_2',u,CO,[.5,.45,.75]);sepiaTon(.4);tampon('GUERRE',lt-.1,W/2,1000,RG,-.1);mention('MASQUE PENDE, MUSÉE DE CLEVELAND',1180,OR)});
+plan(40.1,(lt,u)=>{fondRouge('nasa_lake-kivu_2');grosChiffre('2025',lt,760,330,OR,'')});
+plan(41.3,(lt,u)=>{plein('nasa_lake-kivu_2',u,CO,[.4,.5,.7]);mot('M23',lt,300,160,RG)});
+plan(42.3,(lt,u)=>{cadre('wiki_goma_1',u,760);mot('GOMA',lt,300,150,OR);mention('GOMA, 2022',1180,OR)});
+plan(43.1,(lt,u)=>{cadre('ov_bukavu_2',u,760);mot('BUKAVU',lt,300,150,OR);mention('BUKAVU, SUD-KIVU',1180,OR)});
+plan(44.3,(lt,u,t)=>{fondDrapeau('c_rdc');drapeau('cd',90,560,900,t);mot('KINSHASA',lt,300,140,OR)});
+plan(45.4,(lt,u)=>{plein('c_kolwezi',u,[.5,.5,.8],[.5,.5,.6]);mot('ACCUSE',lt,300,140,RG)});
+plan(46.3,(lt,u)=>{plein('cma_congo_1',u,CO,[.5,.45,.75]);tampon('PILLAGE',lt-.1,W/2,1000,RG,-.1);mention('STATUETTE DU CONGO, MUSÉE DE CLEVELAND',1180,OR)});
+plan(47.3,(lt,u)=>{plein('ov_cobalt-ore_2',u,[.5,.5,.8],[.5,.5,.6]);mot('MINERAIS',lt,300,140,OR)});
+plan(48.5,(lt,u,t)=>{fondDrapeau('c_rwanda');drapeau('rw',90,560,900,t);mot('KIGALI',lt,300,150,OR)});
+plan(49.3,(lt,u)=>{cadre('ov_kisoro-uganda_2',u,760);tampon('NIE',lt-.1,W/2,1000,RG,-.1);mention('VILLAGE DES GRANDS LACS',1180,OR)});
+plan(50.1,(lt,u)=>{plein('c_grands_lacs',u,[.55,.45,.6],[.6,.45,.45]);mot('FRONTIÈRE',lt,300,130,OR)});
+plan(51.3,(lt,u)=>{plein('nasa_lake-kivu_3',u,[.5,.5,.8],[.5,.45,.6]);mot('LE M23',lt,300,150,RG)});
+plan(52.4,(lt,u)=>{plein('aic_kongo_1',u,CO,[.5,.5,.75]);mot('DÉFENDRE',lt,300,140,OR);mention('VANNERIE KONGO, ART INSTITUTE OF CHICAGO',1180,OR)});
+plan(53.3,(lt,u)=>{cadre('wiki_goma_2',u,760);mot('TUTSI\nCONGOLAIS',lt,300,120,OR);mention('ÉCOLE À GOMA',1180,OR)});
+plan(54.6,(lt,u)=>{fondRouge('c_washington');grosChiffre('DÉC.',lt,760,300,OR,'2025')});
+plan(55.8,(lt,u)=>{plein('c_washington',u,CO,[.5,.5,.7]);mot('WASHINGTON',lt,300,120,OR)});
+plan(56.7,(lt,u)=>{cadre('wiki_m23-campaign-2022present_2',u,760);mot('ACCORD\nDE PAIX',lt,300,130,OR);mention('SIGNATURE RDC-RWANDA, DÉPARTEMENT D\'ÉTAT',1180,OR)});
+plan(57.9,(lt,u,t)=>{fondDrapeau('wiki_m23-campaign-2022present_2');drapeau('cd',90,420,420,t);drapeau('rw',570,420,420,t);mot('RDC\nRWANDA',lt,300,120,OR)});
+plan(58.8,(lt,u)=>{cadre('ov_bukavu_2',u,760);tampon('AUCUN ACCORD',lt-.1,W/2,1000,RG,-.1)});
+plan(59.6,(lt,u)=>{plein('nasa_nyiragongo_1',u,[.5,.5,.8],[.5,.5,.6]);mot('COMBATS',lt,300,140,RG)});
+plan(60.7,(lt,u)=>{fondRouge('loc_belgian-congo_2');grosChiffre('MILLIONS',lt,760,190,OR,'DE DÉPLACÉS')});
+plan(61.6,(lt,u)=>{cadre('loc_belgian-congo_2',u,760);mention('VILLAGE DU CONGO, PHOTO ANCIENNE',1180,OR)});
+plan(62.4,(lt,u)=>{plein('c_afrique',u,[.5,.55,.65],[.5,.55,.9]);grosChiffre('73 %',lt,620,240,OR,'DU COBALT MONDIAL')});
+
+
+// ---------- sous-titres
+const CLES_OR=["73", "COBALT", "MONDIAL", "PAYS", "RDC", "23", "NOVEMBRE", "EXPORTATIONS", "MÉTAL", "TÉLÉPHONE", "COLTAN", "RUBAYA", "15", "TANTALE", "RICHESSE", "1994", "1996", "1998", "2025", "RWANDA", "L'OUGANDA", "LOUGANDA", "CONGO", "NEUF", "GOMA", "BUKAVU", "KINSHASA", "MINERAIS", "KIGALI", "FRONTIÈRE", "TUTSI", "CONGOLAIS", "DÉCEMBRE", "WASHINGTON", "PAIX", "MILLIONS", "MÉTAUX", "MONDE"];
+const CLES_RG=["FERME", "ROBINET", "SUSPEND", "M23", "REBELLES", "GÉNOCIDE", "GÉNOCIDAIRES", "FUIENT", "AFFRONTENT", "PREND", "ACCUSE", "PILLER", "NIE", "COMBATS", "CONTINUENT", "DÉPLACÉS"];
+const PUNCH=MOTS.filter(m=>{const u=m[2].toUpperCase();return CLES_RG.some(k=>u.includes(k))||CLES_OR.some(k=>u.includes(k))}).map(m=>m[0]);
+function punch(t){let z=0;for(const k of PUNCH)if(k<=t&&t-k<.3)z=Math.max(z,Math.exp(-(t-k)/.1));return 1+.045*z}
+function sousTitre(t){let m=null;for(const x of MOTS){if(t>=x[0]-.03&&t<x[1]+.12)m=x}if(!m)return;
+  const txt=m[2].toUpperCase().replace(/[.,:;?!](?!\d)/g,'').trim();const lt=t-m[0];const s=lerp(1.3,1,ease(lt/.08));
+  const cle=CLES_RG.some(k=>txt.includes(k))?RG:CLES_OR.some(k=>txt.includes(k))?OR:null;
+  ctx.save();ctx.translate(W/2,1320);ctx.scale(s,s);let taille=104;ctx.font=`${taille}px "Archivo Black"`;let w=ctx.measureText(txt).width;if(w>860){taille*=860/w;ctx.font=`${taille}px "Archivo Black"`;w=860}
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';ctx.lineWidth=16;ctx.strokeStyle='#000';ctx.strokeText(txt,0,0);ctx.fillStyle=cle||'#fff';ctx.fillText(txt,0,0);
+  if(cle){ctx.fillStyle=cle;ctx.fillRect(-w/2,taille*.52,w,10)}ctx.restore()}
+
+// ---------- transitions variées (2 à 4 images)
+function rendu(t){const pi=P.reduce((a,p,i)=>t>=p.t0?i:a,0),p=P[pi],lt=t-p.t0,fin=(P[pi+1]?P[pi+1].t0:DUREE),u=lt/(fin-p.t0);
+  const N=4,dt=t-p.t0,tr=pi>0&&dt<N/FPS?{type:(pi*7)%5,k:1-dt/(N/FPS)}:null;
+  ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.filter='none';ctx.globalAlpha=1;ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);
+  const z=punch(t);ctx.translate(W/2,H/2);ctx.scale(z,z);
+  if(tr&&tr.type==0){const s=1+tr.k*.45;ctx.scale(s,s);ctx.filter=`blur(${tr.k*8}px)`}
+  if(tr&&tr.type==1){ctx.translate(-tr.k*W*.35,0);ctx.filter=`blur(${tr.k*16}px)`}
+  if(tr&&tr.type==4){ctx.translate(tr.k*W*.25,0);ctx.rotate(tr.k*.04)}
+  ctx.translate(-W/2,-H/2);p.f(lt,u,t);ctx.restore();
+  if(tr&&tr.type==2){ctx.fillStyle=`rgba(255,235,190,${tr.k*.75})`;ctx.fillRect(0,0,W,H)}
+  if(tr&&tr.type==3){ctx.fillStyle=`rgba(0,0,0,${tr.k*.85})`;ctx.fillRect(0,0,W,H)}
+  if(p.rewind)rewind(lt);
+  particules(t);finition(t);sousTitre(t)}
+window.PRET=(async()=>{await Promise.all(FICHIERS.map(charger));for(const f of ['300px "Abril Fatface"','100px "Archivo Black"','92px "DM Serif Display"','26px "Space Mono"','bold 60px "Space Mono"'])await document.fonts.load(f,'ÉÀ0123');await document.fonts.ready;rendu(0);return true})();
+window.seek=async t=>{await window.PRET;rendu(Math.min(t,DUREE-1/FPS))};
+</script></body></html>
