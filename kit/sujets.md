@@ -32,3 +32,4 @@ C'est la seule source pour choisir un sujet (voir kit/TACHE.md, étape b). Ce fi
 | 021 | S016 | Îles Salomon : la Chine, l'Australie et le Pacifique | 2026-11-25 |
 | 022 | S085 | Yémen : la guerre la plus oubliée du monde | 2026-11-26 |
 | 023 | S022 | RDC : les minerais de nos téléphones au cœur d'une guerre | 2026-11-27 |
+| 024 | S074 | Corée : 73 ans sans traité de paix | 2026-11-28 |
